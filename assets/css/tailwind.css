@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Avenir;
+  src: '../fonts/Avenir.ttc';
+}
+body {
+  font-family: 'Avenir';
+}
+
+.btn {
+  @apply w-full text-lg text-white font-bold text-center rounded-full py-3;
+}
+
+.btn-grad {
+  background: linear-gradient(to right, #ed9e21, #00a69f);
+}
+
+.btn-grad-r {
+  background: linear-gradient(to right, #15824b, #00a69f);
+}
+
+.green-grad {
+  background: linear-gradient(to bottom, #15824b, #00a69f);
+}
+
+.bg-hueso {
+  background: #f2f2f2;
+}
+
+.rounded-br-xl {
+  border-bottom-right-radius: 5.5rem;
+}
