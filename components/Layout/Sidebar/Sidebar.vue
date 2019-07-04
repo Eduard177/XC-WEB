@@ -1,6 +1,8 @@
 <template>
-  <nav class="flex flex-col justify-between bg-gradb-green/blue h-screen w-24 shadow-2xl">
-    <Logo/>
+  <nav
+    class="flex justify-center fixed inset-x-0 bottom-0 bg-gradb-green/blue shadow-2xl lg:static lg:justify-between lg:flex-col lg:h-screen lg:w-24"
+  >
+    <Logo v-if="$mq === 'lg'"/>
 
     <Menu :page="$route.name"/>
 

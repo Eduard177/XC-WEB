@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex lg:flex-col">
     <div class="px-4 py-2">
       <nuxt-link to="/usuarios">
         <figure
@@ -36,7 +36,7 @@
       </nuxt-link>
 
       <span
-        v-if="page == 'usuarios'"
+        v-if="page == 'usuarios'  && $mq === 'lg'"
         class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
       >&bull;</span>
     </div>
@@ -64,17 +64,21 @@
             </g>
           </svg>
         </figure>
+
         <span
-          v-if="page == 'reportar-gasto' || page == 'reportar-factura'"
+          v-if="$mq === 'lg' && page == 'reportar-gasto' ||  $mq === 'lg' &&  page == 'reportar-factura'"
           class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
         >&bull;</span>
       </a>
       <div
         v-show="show_options"
-        class="absolute flex flex-col -ml-40 -mt-12 bg-white shadow-xl rounded w-32 h-16 px-3 py-1 text-gray-700"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-40 lg:-mt-12 lg:w-32"
       >
         <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportar/gasto">Gasto</nuxt-link>
-        <nuxt-link class="mt-2 hover:text-orange-500 cursor-pointer" to="/reportar/factura">Factura</nuxt-link>
+        <nuxt-link
+          class="mt-3 lg:mt-2 hover:text-orange-500 cursor-pointer"
+          to="/reportar/factura"
+        >Factura</nuxt-link>
       </div>
     </div>
 
@@ -97,7 +101,7 @@
         </figure>
       </nuxt-link>
       <span
-        v-if="page == 'index'"
+        v-if="page == 'index'  && $mq === 'lg'"
         class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
       >&bull;</span>
     </div>
@@ -151,14 +155,14 @@
           </svg>
         </figure>
         <span
-          v-if="page == 'reportes-pendientes' || page == 'reportes-generados' "
+          v-if="page == 'reportes-pendientes' && $mq === 'lg' || page == 'reportes-generados'  && $mq === 'lg' "
           class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
         >&bull;</span>
       </a>
 
       <div
         v-show="show_reports_options"
-        class="absolute flex flex-col -ml-40 -mt-12 bg-white shadow-xl rounded w-32 h-16 px-3 py-1 text-gray-700"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-40 lg:-mt-12 lg:w-32"
       >
         <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportes/pendientes">Pendientes</nuxt-link>
         <nuxt-link
@@ -234,7 +238,7 @@
         </figure>
       </nuxt-link>
       <span
-        v-if="page == 'reports'"
+        v-if="page == 'reports' && $mq === 'lg'"
         class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
       >&bull;</span>
     </div>
@@ -257,4 +261,3 @@ export default {
   }
 };
 </script>
-
