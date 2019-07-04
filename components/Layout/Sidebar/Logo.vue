@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center bg-white h-16">
+  <div class="flex justify-center items-center bg-white h-16 p-2">
     <svg class="w-full" viewBox="0 0 53.26 44.225">
       <g id="Group_580" data-name="Group 580" transform="translate(-2631.756 -123.276)">
         <g id="Group_515" data-name="Group 515">

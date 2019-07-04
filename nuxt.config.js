@@ -39,7 +39,19 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    [
+      'nuxt-mq',
+      {
+        // Default breakpoint for SSR
+        defaultBreakpoint: 'default',
+        breakpoints: {
+          sm: 640,
+          md: 770,
+          lg: Infinity
+        }
+      }
+    ]
   ],
   /*
    ** Axios module configuration

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* General */
 @font-face {
   font-family: Avenir;
   src: '../fonts/Avenir.ttc';
@@ -11,25 +12,73 @@ body {
 }
 
 .btn {
-  @apply w-full text-lg text-white font-bold text-center rounded-full py-3;
+  @apply text-lg text-white font-bold text-center rounded-full py-3;
 }
 
-.btn-grad {
+.rounded-br-xl {
+  border-bottom-right-radius: 5.5rem;
+}
+
+.no-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Forms */
+
+label {
+  @apply text-xs gray-350;
+}
+
+.form-input {
+  @apply bg-transparent border-solid border-gray-700 border-b-2 outline-none;
+}
+
+/* Background Colors */
+
+.bg-grad-green\/orange {
   background: linear-gradient(to right, #ed9e21, #00a69f);
 }
 
-.btn-grad-r {
+.bg-grad-green\/blue {
   background: linear-gradient(to right, #15824b, #00a69f);
 }
 
-.green-grad {
+.bg-gradb-green\/blue {
   background: linear-gradient(to bottom, #15824b, #00a69f);
+}
+
+.bg-grad-gold\/orange {
+  background: linear-gradient(to right, #c4841b, #ed9e21);
 }
 
 .bg-hueso {
   background: #f2f2f2;
 }
 
-.rounded-br-xl {
-  border-bottom-right-radius: 5.5rem;
+.bg-gradient-green-40\% {
+  background-repeat: no-repeat;
+
+  background-image: linear-gradient(to right, #15824b, #00a69f);
+
+  background-position: 0 0;
+
+  background-size: 100% 40%;
+}
+
+.bg-gradient-orange-40\% {
+  background-repeat: no-repeat;
+
+  background-image: linear-gradient(to right, #c4841b, #ed9e21);
+
+  background-position: 0 0;
+
+  background-size: 100% 40%;
+}
+
+.bg-semi-75 {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.gray-350 {
+  color: #9b9b9b;
 }

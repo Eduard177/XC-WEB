@@ -11,7 +11,7 @@
         </figure>
 
         <figure
-          class="flex flex-col ml-16 justify-center items-center shadow-xl h-56 w-2/5 btn-grad-r rounded-br-xl"
+          class="flex flex-col ml-16 justify-center items-center shadow-xl h-56 w-2/5 bg-grad-green/blue rounded-br-xl"
         >
           <svg width="75.838" height="75.838" viewBox="0 0 75.838 75.838">
             <g id="Group_585" data-name="Group 585" transform="translate(-2333.508 -298.286)">

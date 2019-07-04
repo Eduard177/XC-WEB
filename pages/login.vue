@@ -1,27 +1,27 @@
 <template>
-  <div class="container">
+  <div class="container lg:flex lg:flex-col">
     <img
-      class="max-w-sm"
+      class="max-w-xs max-w-sm"
       src="http://xpertcode.com.do/wp-content/uploads/2018/08/XC-logo-final-05.png"
       alt="logo"
     >
 
-    <div class="flex mt-12">
+    <div class="lg:flex lg:mt-12">
       <div class>
         <img
-          class="pt-20 pr-20 my-0 mx-auto"
+          class="hidden lg:block lg:pt-20 lg:pr-20 lg:my-0 lg:mx-auto"
           src="../assets/images/undraw_authentication_fsn5.svg"
           alt
         >
       </div>
 
       <div>
-        <h1 class="text-5xl text-teal-600 font-bold">Bienvenido</h1>
+        <h1 class="text-4xl text-center mt-12 lg:text-5xl text-teal-600 font-bold">Bienvenido</h1>
         <p
-          class="text-md text-gray-800 mt-5"
+          class="p-6 text-md text-gray-800 lg:mt-5"
         >Puedes utilizar esta aplicacion para reportar tus gastos a ser rembolsables por nomina.</p>
 
-        <div class="flex mt-20 items-center border border-gray-200 border-b-0 rounded-t-lg">
+        <div class="flex items-center border border-gray-200 border-b-0 rounded-t-lg">
           <div class="ml-3 p-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@
         <div class="flex flex-col items-center">
           <a class="mt-4 py-0 text-gray-500 px-auto" href="#">¿Olvidaste tu constraseña?</a>
 
-          <a class="block mt-10 btn btn-grad" href>Iniciar Sesión</a>
+          <a class="block mt-10 btn btn-grad w-full" href>Iniciar Sesión</a>
         </div>
       </div>
     </div>

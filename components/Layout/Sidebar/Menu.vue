@@ -64,8 +64,11 @@
             </g>
           </svg>
         </figure>
+        <span
+          v-if="page == 'reportar-gasto' || page == 'reportar-factura'"
+          class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
+        >&bull;</span>
       </a>
-
       <div
         v-show="show_options"
         class="absolute flex flex-col -ml-40 -mt-12 bg-white shadow-xl rounded w-32 h-16 px-3 py-1 text-gray-700"
@@ -93,10 +96,14 @@
           </svg>
         </figure>
       </nuxt-link>
+      <span
+        v-if="page == 'index'"
+        class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
+      >&bull;</span>
     </div>
 
     <div class="px-4 py-2">
-      <nuxt-link to="/status">
+      <a @click="show_reports_options = !show_reports_options">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
         >
@@ -143,11 +150,26 @@
             </g>
           </svg>
         </figure>
-      </nuxt-link>
+        <span
+          v-if="page == 'reportes-pendientes' || page == 'reportes-generados' "
+          class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
+        >&bull;</span>
+      </a>
+
+      <div
+        v-show="show_reports_options"
+        class="absolute flex flex-col -ml-40 -mt-12 bg-white shadow-xl rounded w-32 h-16 px-3 py-1 text-gray-700"
+      >
+        <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportes/pendientes">Pendientes</nuxt-link>
+        <nuxt-link
+          class="mt-2 hover:text-orange-500 cursor-pointer"
+          to="/reportes/generados"
+        >Generados</nuxt-link>
+      </div>
     </div>
 
     <div class="px-4 py-2">
-      <nuxt-link to="/reportes">
+      <nuxt-link to="/reports">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
         >
@@ -211,16 +233,27 @@
           </svg>
         </figure>
       </nuxt-link>
+      <span
+        v-if="page == 'reports'"
+        class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
+      >&bull;</span>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: ["page"],
   data() {
     return {
       show_options: false,
-      page: "usuarios"
+      show_reports_options: false
     };
+  },
+  watch: {
+    page() {
+      this.show_options = false;
+      this.show_reports_options = false;
+    }
   }
 };
 </script>
