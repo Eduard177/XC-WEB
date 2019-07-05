@@ -60,37 +60,69 @@
             </svg>
           </div>
           <div class="w-full py-4">
-            <span class="block text-xs text-gray-800">Email address</span>
+            <span class="block text-xs text-gray-800">Correo Electrónico</span>
             <input
-              class="w-full focus:outline-none"
+              v-model="email"
+              v-validate="'required|email'"
               name="email"
+              class="w-full focus:outline-none"
               placeholder="dtrump@xpertcode.com.do"
             >
+            <!-- <span>{{ errors.first('email') }}</span> -->
           </div>
 
-          <div class="ml-auto">
-            <svg
-              class="mr-5"
-              xmlns="http://www.w3.org/2000/svg"
-              width="23.167"
-              height="23.167"
-              viewBox="0 0 23.167 23.167"
-            >
-              <g transform="translate(-1155.489 -478.107)">
-                <circle
-                  cx="11.584"
-                  cy="11.584"
-                  r="11.584"
-                  transform="translate(1155.489 478.107)"
-                  fill="#fff"
-                ></circle>
-                <path
-                  d="M1167.073,479.395a10.3,10.3,0,1,0,10.3,10.3A10.3,10.3,0,0,0,1167.073,479.395Zm-1.889,15.585-4.533-4.534,1.511-1.511,3.022,3.022,6.8-6.8,1.511,1.511Z"
-                  fill="#15824b"
-                ></path>
-              </g>
-            </svg>
-          </div>
+          <svg
+            v-if="errors.first('email')"
+            class="mr-5"
+            viewBox="0 0 426.667 426.667"
+            width="23.167"
+            height="23.167"
+          >
+            <path
+              style="fill:#F05228;"
+              d="M213.333,0C95.514,0,0,95.514,0,213.333s95.514,213.333,213.333,213.333
+	s213.333-95.514,213.333-213.333S331.153,0,213.333,0z M330.995,276.689l-54.302,54.306l-63.36-63.356l-63.36,63.36l-54.302-54.31
+	l63.356-63.356l-63.356-63.36l54.302-54.302l63.36,63.356l63.36-63.356l54.302,54.302l-63.356,63.36L330.995,276.689z"
+            ></path>
+            <g transform="translate(-1155.489 -478.107)"></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+          </svg>
+
+          <svg
+            v-else
+            class="mr-5"
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.167"
+            height="23.167"
+            viewBox="0 0 23.167 23.167"
+          >
+            <g transform="translate(-1155.489 -478.107)">
+              <circle
+                cx="11.584"
+                cy="11.584"
+                r="11.584"
+                transform="translate(1155.489 478.107)"
+                fill="#fff"
+              ></circle>
+              <path
+                d="M1167.073,479.395a10.3,10.3,0,1,0,10.3,10.3A10.3,10.3,0,0,0,1167.073,479.395Zm-1.889,15.585-4.533-4.534,1.511-1.511,3.022,3.022,6.8-6.8,1.511,1.511Z"
+                fill="#15824b"
+              ></path>
+            </g>
+          </svg>
         </div>
 
         <div class="flex items-center border border-gray-200 rounded-b-lg">
@@ -114,27 +146,120 @@
             </svg>
           </div>
           <div class="w-full py-4">
-            <span class="block text-xs text-gray-800">Password</span>
+            <span class="block text-xs text-gray-800">Constraseña</span>
             <input
+              v-model="password"
+              v-validate="'required'"
               class="w-full focus:outline-none"
               type="password"
               name="password"
-              placeholder="password"
+              placeholder="*******"
             >
           </div>
+
+          <svg
+            v-if="errors.first('password')"
+            class="mr-5"
+            viewBox="0 0 426.667 426.667"
+            width="23.167"
+            height="23.167"
+          >
+            <path
+              style="fill:#F05228;"
+              d="M213.333,0C95.514,0,0,95.514,0,213.333s95.514,213.333,213.333,213.333
+	s213.333-95.514,213.333-213.333S331.153,0,213.333,0z M330.995,276.689l-54.302,54.306l-63.36-63.356l-63.36,63.36l-54.302-54.31
+	l63.356-63.356l-63.356-63.36l54.302-54.302l63.36,63.356l63.36-63.356l54.302,54.302l-63.356,63.36L330.995,276.689z"
+            ></path>
+            <g transform="translate(-1155.489 -478.107)"></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+            <g></g>
+          </svg>
+
+          <svg
+            v-else
+            class="mr-5"
+            xmlns="http://www.w3.org/2000/svg"
+            width="23.167"
+            height="23.167"
+            viewBox="0 0 23.167 23.167"
+          >
+            <g transform="translate(-1155.489 -478.107)">
+              <circle
+                cx="11.584"
+                cy="11.584"
+                r="11.584"
+                transform="translate(1155.489 478.107)"
+                fill="#fff"
+              ></circle>
+              <path
+                d="M1167.073,479.395a10.3,10.3,0,1,0,10.3,10.3A10.3,10.3,0,0,0,1167.073,479.395Zm-1.889,15.585-4.533-4.534,1.511-1.511,3.022,3.022,6.8-6.8,1.511,1.511Z"
+                fill="#15824b"
+              ></path>
+            </g>
+          </svg>
         </div>
 
         <div class="flex flex-col items-center">
+          <span v-if="show_error" class="text-red-600 text-sm mt-2">Complete los campos requeridos</span>
           <a class="mt-4 py-0 text-gray-500 px-auto" href="#">¿Olvidaste tu constraseña?</a>
 
-          <a class="block mt-10 btn btn-grad w-full" href>Iniciar Sesión</a>
+          <a
+            @click="login()"
+            class="block mt-10 btn bg-grad-green/orange w-full"
+            href="#"
+          >Iniciar Sesión</a>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  middleware: "notAuthenticated",
+  data() {
+    return {
+      email: "",
+      password: "",
+      show_error: false
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const validated = await this.$validator.validateAll();
+
+        if (validated) {
+          await this.$store.dispatch("auth/login", {
+            username: this.email,
+            password: this.password
+          });
+
+          if (this.$store.getters["auth/getIsLoggedIn"]) {
+            this.$router.push("/");
+          }
+        }
+
+        throw { message: "Complete los campos requeridos", status: 615 };
+      } catch (error) {
+        if (error.status == 615) {
+          this.show_error = true;
+        }
+      }
+    }
+  }
+};
 </script>
 
 

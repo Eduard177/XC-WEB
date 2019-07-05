@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-xl">Reporte Gasto</h1>
-    <section class="mt-20">
+    <section class="mt-12 lg:mt-20">
       <div class="flex flex-col w-1/5">
         <label for="date">Fecha del consumo</label>
         <input
@@ -49,6 +49,7 @@
 </template>
 <script>
 export default {
+  middleware: "authenticated",
   layout: "main"
 };
 </script>

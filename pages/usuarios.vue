@@ -3,7 +3,7 @@
     <h1 class="text-xl">Usuarios</h1>
     <section class="flex justify-start flex-wrap mt-8">
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-orange-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-orange-40% rounded-br-xl"
       >
         <figure
           @click="show_modal = true"
@@ -36,7 +36,7 @@
       </div>
 
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
       >
         <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
           <img
@@ -55,7 +55,7 @@
         <p class="mt-2 text-sm text-orange-500 font-light">809-696-6784</p>
       </div>
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
       >
         <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
           <img
@@ -74,7 +74,7 @@
         <p class="mt-2 text-sm text-orange-500 font-light">809-696-6784</p>
       </div>
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
       >
         <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
           <img
@@ -93,7 +93,7 @@
         <p class="mt-2 text-sm text-orange-500 font-light">809-696-6784</p>
       </div>
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
       >
         <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
           <img
@@ -112,7 +112,7 @@
         <p class="mt-2 text-sm text-orange-500 font-light">809-696-6784</p>
       </div>
       <div
-        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
+        class="flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/3 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl"
       >
         <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
           <img
@@ -133,7 +133,7 @@
     </section>
     <card-modal :showing="show_modal" @close="show_modal = false">
       <div class="flex flex-col py-8 px-2">
-        <div class="flex">
+        <div class="flex flex-col items-center lg:flex-row">
           <figure class="pr-8 py-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -182,36 +182,36 @@
           </figure>
 
           <div class="flex flex-wrap">
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input class="no-spin border-solid border-b border-black" type="date">
               <label for>Fecha de ingreso</label>
             </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input class="border-solid border-b border-black" placeholder="White House">
               <label for>Ubicación</label>
             </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input
                 class="border-solid border-b border-black"
                 placeholder="dtrump@xpertcode.com.do"
               >
               <label for>Correo</label>
             </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input class="border-solid border-b border-black" placeholder="Donald Trump">
               <label for>Nombre</label>
             </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input class="border-solid border-b border-black" placeholder="Presidente">
               <label for>Cargo</label>
             </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
+            <div class="w-full lg:w-1/2 md:w-1/2 flex flex-col my-3 pr-6">
               <input class="border-solid border-b border-black" placeholder="8492556677">
               <label for>Teléfono Personal</label>
             </div>
           </div>
         </div>
-        <div class="flex justify-around items-center leading-none mt-12">
+        <div class="flex justify-around items-center leading-none mt-6 lg:mt-12">
           <a
             @click="show_modal = false"
             class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
@@ -227,6 +227,7 @@ import CardModal from "../components/CardModal";
 
 export default {
   layout: "main",
+  middleware: "authenticated",
   components: {
     CardModal
   },

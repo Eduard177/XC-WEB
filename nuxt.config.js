@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export default {
   mode: 'spa',
   /*
@@ -40,6 +42,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
     [
       'nuxt-mq',
       {
@@ -51,13 +54,24 @@ export default {
           lg: Infinity
         }
       }
+    ],
+    [
+      'nuxt-validate',
+      {
+        lang: 'es'
+      }
     ]
   ],
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URl,
+    browserBaseURL: process.env.API_URl
+  },
+
   /*
    ** Build configuration
    */
