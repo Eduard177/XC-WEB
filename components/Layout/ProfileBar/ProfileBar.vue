@@ -1,9 +1,10 @@
 <template>
-  <div class="flex shadow p-2 lg:px-3 lg:flex-col lg:h-screen lg:w-1/3">
+  <div class="flex shadow p-2 lg:px-3 lg:flex-col lg:h-screen lg:w-1/5">
     <div class="flex w-full justify-between lg:flex-col">
       <div class="flex items-center p-2">
         <svg
-          class="hidden lg:mt-4 lg:block"
+          @click="logout()"
+          class="hidden lg:mt-4 lg:block cursor-pointer"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           width="30"
@@ -264,7 +265,7 @@
           ></rect>
         </svg>
       </div>
-      <UserProfileInfo v-if="$mq === 'lg'"/>
+      <UserProfileInfo :email="user.email" :fullName="user.fullname" v-if="$mq === 'lg'"/>
     </div>
     <!-- reportes -->
     <div class="hidden lg:block">
@@ -286,10 +287,10 @@
     </div>
 
     <!-- Informacion -->
-    <div class="hidden lg:block mt-20 flex flex-col items-center text-center self-end">
+    <div class="hidden lg:block mt-20 flex flex-col items-center text-center">
       <h1 class="text-4xl">Información</h1>
       <div class="text-md text-gray-800">
-        <span>Front-End Developer ||</span>
+        <span>{{user.position}} ||</span>
         <span>XpertCode</span>
       </div>
       <p class="text-md text-gray-800">809-345-5678</p>
@@ -299,8 +300,23 @@
 
 <script>
 import UserProfileInfo from "./UserProfileInfo";
+import User from "../../../models/User.js";
 
 export default {
-  components: { UserProfileInfo }
+  components: { UserProfileInfo },
+  data() {
+    return {
+      user: new User()
+    };
+  },
+  created() {
+    this.user = this.$store.getters["auth/getLoggedUser"];
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    }
+  }
 };
 </script>

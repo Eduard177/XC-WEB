@@ -5,7 +5,12 @@
       src="~/assets/images/olopez.png"
       alt="foto de perfil"
     >
-    <h1 class="hidden lg:block mt-4 text-3xl text-teal-500 font-extrabold">Oscar López</h1>
-    <p class="hidden lg:block text-md text-gray-700">olopez@xpertcode.com.do</p>
+    <h1 class="hidden lg:block mt-4 text-3xl text-teal-500 font-extrabold">{{fullName}}</h1>
+    <p class="hidden lg:block text-md text-gray-700">{{email}}</p>
   </div>
 </template>
+<script>
+export default {
+  props: ["email", "fullName"]
+};
+</script>

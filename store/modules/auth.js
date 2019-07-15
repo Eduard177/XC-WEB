@@ -5,7 +5,6 @@ export default {
   state: {
     is_login: false,
     token: '',
-    expires_at: '',
     user: {}
   },
   getters: {
@@ -27,8 +26,7 @@ export default {
     logout(state) {
       state.is_login = false;
       state.token = '';
-      state.expires_at = '';
-      state.logged_user = {};
+      state.user = {};
     },
     setToken(state, token) {
       state.token = token;
@@ -43,24 +41,28 @@ export default {
         });
 
         const token = response.data.token;
+        await commit('setToken', 'Token ' + token);
 
-        await commit('setToken', token);
-
-        this.$axios.setToken(token);
-
-        cookies.set('Authorization', token, { expires: 7 });
+        this.$axios.setToken('Token ' + token);
+        cookies.set('Authorization', 'Token ' + token, { expires: 7 });
 
         await dispatch('fetchUser');
 
         return;
-      } catch (e) {
-        throw e;
+      } catch (error) {
+        throw error;
       }
     },
 
     async fetchUser({ state, commit }) {
       const response = await this.$axios.get('/logged/');
       commit('setUser', response.data.user);
+    },
+    async logout({ commit }) {
+      commit('logout');
+      await localStorage.removeItem('xc-vuex');
+
+      return;
     }
   }
 };

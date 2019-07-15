@@ -41,6 +41,7 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    'vue-sweetalert2/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     [

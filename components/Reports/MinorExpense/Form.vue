@@ -1,0 +1,89 @@
+<template>
+  <div>
+    <slot name="header"></slot>
+
+    <section class="mt-6">
+      <xc-input-date
+        v-model="minor_expense.invoice_date"
+        class="w-1/5 flex-col-reverse"
+        label="Fecha del consumo"
+      ></xc-input-date>
+
+      <div class="mt-12 flex">
+        <xc-input
+          v-model="minor_expense.description"
+          class="flex-col-reverse w-1/2 pr-8"
+          label="Descripción"
+          placeholder="Pago Uber"
+        ></xc-input>
+
+        <xc-input
+          v-model="minor_expense.place"
+          class="flex-col-reverse w-1/2 pr-8"
+          label="Lugar"
+          placeholder="Calle Heriberto Núñez # 4 Urbanización Fernández"
+        ></xc-input>
+      </div>
+
+      <div class="mt-12 flex">
+        <xc-input
+          v-model="minor_expense.witnesses"
+          class="flex-col-reverse w-1/2 pr-8"
+          label="Personas Presentes"
+          placeholder="Juan, Pedro..."
+        ></xc-input>
+
+        <xc-input
+          v-model="minor_expense.total"
+          class="flex-col-reverse w-1/2 pr-8"
+          label="Monto"
+          placeholder="RD$180.20"
+        ></xc-input>
+      </div>
+
+      <xc-input
+        v-model="minor_expense.comment"
+        class="flex-col-reverse w-full pr-8 mt-12"
+        label="Comentario"
+      ></xc-input>
+
+      <div class="flex justify-around mt-12">
+        <button @click="$emit('close')" class="btn bg-grad-gold/orange w-1/3">Cancelar</button>
+        <button
+          @click="$emit('submit', minor_expense)"
+          class="btn bg-grad-green/orange w-1/3"
+        >{{submit}}</button>
+      </div>
+    </section>
+  </div>
+</template>
+<script>
+import XcInput from "../../../components/Forms/Input";
+import XcInputDate from "../../../components/Forms/Date";
+import MinorExpense from "../../../models/Reports/MinorExpense";
+
+export default {
+  name: "minor-expense-form",
+  components: {
+    XcInput,
+    XcInputDate
+  },
+  props: {
+    report: {
+      default: new MinorExpense()
+    },
+    submit: {
+      default: "Reportar"
+    }
+  },
+  created() {
+    this.minor_expense = this.report;
+  },
+  data() {
+    return {
+      minor_expense: new MinorExpense()
+    };
+  }
+};
+</script>
+

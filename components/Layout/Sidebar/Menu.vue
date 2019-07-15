@@ -72,13 +72,18 @@
       </a>
       <div
         v-show="show_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-40 lg:-mt-12 lg:w-32"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-64 lg:-mt-12 lg:w-64"
       >
-        <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportar/gasto">Gasto</nuxt-link>
-        <nuxt-link
-          class="mt-3 lg:mt-2 hover:text-orange-500 cursor-pointer"
-          to="/reportar/factura"
-        >Factura</nuxt-link>
+        <div class="w-full text-center">
+          <nuxt-link class="cursor-pointer" to="/reportar/gasto">Gastos Menores</nuxt-link>
+        </div>
+
+        <div class="w-full text-center mt-2">
+          <nuxt-link
+            class="mt-3 lg:mt-2 hover:text-orange-500 cursor-pointer"
+            to="/reportar/factura"
+          >Facturas Reembolsables</nuxt-link>
+        </div>
       </div>
     </div>
 
@@ -172,7 +177,7 @@
       </div>
     </div>
 
-    <div class="px-4 py-2">
+    <!-- <div class="px-4 py-2">
       <nuxt-link to="/reports">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
@@ -241,7 +246,7 @@
         v-if="page == 'reports' && $mq === 'lg'"
         class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
       >&bull;</span>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>

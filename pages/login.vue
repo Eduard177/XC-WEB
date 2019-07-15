@@ -235,6 +235,13 @@ export default {
       show_error: false
     };
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start();
+
+      setTimeout(() => this.$nuxt.$loading.finish(), 500);
+    });
+  },
   methods: {
     async login() {
       try {
