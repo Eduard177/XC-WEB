@@ -16,7 +16,7 @@
         :type="'minor_expense'"
         @itemDetails="minor_expense =  $event; show_report_detail = true"
         @itemEdit="minor_expense =  $event; show_edit_report = true; "
-        @itemDelete="minor_expense =  $event; show_delete_report = true; "
+        @itemDelete="deleteMinorExpense($event)"
       ></reports-table>
 
       <button
@@ -27,6 +27,7 @@
 
     <card-modal :showing="show_create_report" @close="show_create_report = false">
       <minor-expense-form
+        :report="new_minor_expense"
         subtmit="Crear"
         @close="show_create_report = false"
         @submit="create($event)"
@@ -81,15 +82,19 @@ export default {
     return {
       minor_expenses: [new MinorExpense()],
       minor_expense: new MinorExpense(),
+      new_minor_expense: new MinorExpense(),
       show_create_report: false,
       show_edit_report: false,
-      show_delete_report: false,
       show_report_detail: false,
       user: this.$store.getters["auth/getLoggedUser"]
     };
   },
   created() {
+    let loader = this.$loading.show({});
+
     this.fetchMinorExpenses();
+
+    this.hideLoading(loader);
   },
   methods: {
     async fetchMinorExpenses() {
@@ -106,6 +111,8 @@ export default {
     },
     async create(minor_expense) {
       try {
+        let loader = this.$loading.show({});
+
         minor_expense.user = this.user.id;
         minor_expense.invoice_date = new Date(minor_expense.invoice_date)
           .toISOString()
@@ -113,18 +120,27 @@ export default {
 
         await this.$store.dispatch("reports/createMinorExpense", minor_expense);
 
-        this.fetchMinorExpenses();
+        await this.fetchMinorExpenses();
+
+        await this.hideLoading(loader);
+
+        this.show_create_report = false;
+        this.minor_expense = new MinorExpense();
+
         this.fireAlert(
           "success",
           "El reporte ha sido creado correctamente.",
           "top"
         );
       } catch (error) {
+        console.error(error);
         this.fireErrorAlert();
       }
     },
     async edit(minor_expense) {
       try {
+        let loader = this.$loading.show({});
+
         minor_expense.user = this.user.id;
         minor_expense.invoice_date = new Date(minor_expense.invoice_date)
           .toISOString()
@@ -132,7 +148,11 @@ export default {
 
         await this.$store.dispatch("reports/editMinorExpense", minor_expense);
 
-        this.fetchMinorExpenses();
+        await this.fetchMinorExpenses();
+
+        await this.hideLoading(loader);
+
+        this.show_edit_report = false;
         this.fireAlert(
           "success",
           "El reporte ha sido actualizado correctamente.",
@@ -140,6 +160,32 @@ export default {
         );
       } catch (error) {
         this.fireErrorAlert();
+      }
+    },
+    async deleteMinorExpense(minor_expense) {
+      const dialogResponse = await this.fireConfirmAlert();
+
+      if (dialogResponse.value) {
+        try {
+          let loader = this.$loading.show({});
+
+          await this.$store.dispatch(
+            "reports/deleteMinorExpense",
+            minor_expense
+          );
+
+          await this.fetchMinorExpenses();
+
+          await this.hideLoading(loader);
+
+          this.fireAlert(
+            "success",
+            "El reporte ha sido elimidado correctamente.",
+            "top"
+          );
+        } catch (error) {
+          this.fireErrorAlert();
+        }
       }
     },
     async assingReport(report) {

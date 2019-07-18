@@ -19,7 +19,7 @@ export default {
     async fetchUsers({ commit }) {
       try {
         const response = await this.$axios.get('/users/');
-        commit('setUsers', response.data);
+        commit('setUsers', response.data.results);
       } catch (error) {
         throw error;
       }

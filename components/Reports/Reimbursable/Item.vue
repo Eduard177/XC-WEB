@@ -18,7 +18,7 @@
       <label>RNC</label>
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-      <span>RD${{reimbursable.total}}</span>
+      <span>RD${{parseInt(reimbursable.total).toFixed(2)}}</span>
       <label>Total</label>
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">

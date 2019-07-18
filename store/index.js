@@ -5,6 +5,8 @@ import VuexPersist from 'vuex-persist';
 import authModule from './modules/auth.js';
 import userModule from './modules/users.js';
 import reportsModule from './modules/reports.js';
+import businessTypesModule from './modules/businessTypes.js';
+import paymentMethodsModule from './modules/paymentMethods.js';
 
 const vuexLocalStorage = new VuexPersist({
   key: 'xc-vuex',
@@ -19,6 +21,8 @@ const createStore = () => {
     modules: {
       auth: authModule,
       users: userModule,
+      businessTypes: businessTypesModule,
+      paymentMethods: paymentMethodsModule,
       reports: reportsModule
     },
     plugins: [vuexLocalStorage.plugin]

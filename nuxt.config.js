@@ -31,11 +31,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    'vue-loading-overlay/dist/vue-loading.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/vue-loading-overlay.js'],
   /*
    ** Nuxt.js modules
    */

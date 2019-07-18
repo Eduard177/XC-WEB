@@ -1,4 +1,9 @@
 import cookies from 'js-cookie';
+const headers = {
+  headers: {
+    Authorization: cookies.get('Authorization')
+  }
+};
 
 export default {
   namespaced: true,
@@ -23,6 +28,19 @@ export default {
     }
   },
   actions: {
+    async fetchMinorExpenses({ commit }, user_id) {
+      try {
+        const response = await this.$axios.get(
+          '/minorexpenses/',
+          { user_id: user_id },
+          headers
+        );
+
+        commit('setMinorExpenses', response.data);
+      } catch (error) {
+        throw error;
+      }
+    },
     async createMinorExpense({}, minor_expense) {
       try {
         await this.$axios.post('/minorexpenses/', minor_expense, {
@@ -39,48 +57,72 @@ export default {
         await this.$axios.put(
           '/minorexpenses/' + minor_expense.id + '/',
           minor_expense,
-          {
-            headers: {
-              Authorization: cookies.get('Authorization')
-            }
-          }
+          headers
         );
       } catch (error) {
         throw error;
       }
     },
-    async fetchMinorExpenses({ commit }, user_id) {
+    async deleteMinorExpense({}, minor_expense) {
       try {
-        const response = await this.$axios.get(
-          '/minorexpenses/',
-          { user_id: user_id },
-          {
-            headers: {
-              Authorization: cookies.get('Authorization')
-            }
+        await this.$axios.delete('/minorexpenses/' + minor_expense.id + '/', {
+          headers: {
+            Authorization: cookies.get('Authorization')
           }
-        );
-
-        commit('setMinorExpenses', response.data);
+        });
       } catch (error) {
         throw error;
       }
     },
+
     async fetchReimbursables({ commit }, user_id) {
       try {
         const response = await this.$axios.get(
           '/reimbursable/',
           { user_id: user_id },
-          {
-            headers: {
-              Authorization: cookies.get('Authorization')
-            }
-          }
+          headers
         );
 
         commit('setReimbursables', response.data);
       } catch (error) {
         throw error;
+      }
+    },
+    async createReimbursable({}, reimbursable) {
+      try {
+        await this.$axios.post('/reimbursable/', reimbursable, headers);
+      } catch (error) {
+        throw error;
+      }
+    },
+    async editReimbursable({}, reimbursable) {
+      try {
+        await this.$axios.put(
+          '/reimbursable/' + reimbursable.id + '/',
+          reimbursable,
+          headers
+        );
+      } catch (error) {
+        throw error;
+      }
+    },
+    async deleteReimbursable({}, reimbursable) {
+      try {
+        await this.$axios.delete('/reimbursable/' + reimbursable.id + '/', {
+          headers: {
+            Authorization: cookies.get('Authorization')
+          }
+        });
+      } catch (error) {
+        throw error;
+      }
+    },
+    async paginateReimbursables({ commit }, page) {
+      try {
+        const response = await this.$axios.get('/reimbursable/?page=' + page);
+        commit('setReimbursables', response.data);
+      } catch (error) {
+        throw error
       }
     }
   }

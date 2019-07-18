@@ -11,6 +11,9 @@ export default class Reimbursable {
     this.itbis = 0;
     this.sub_total = 0;
     this.total = 0;
-    this.user = 0;
+    this.user = null;
+    this.type = '';
+    this.has_tip = false;
+    this.has_itbis = false;
   }
 }

@@ -82,7 +82,7 @@
           <nuxt-link
             class="mt-3 lg:mt-2 hover:text-orange-500 cursor-pointer"
             to="/reportar/factura"
-          >Facturas Reembolsables</nuxt-link>
+          >Facturas</nuxt-link>
         </div>
       </div>
     </div>

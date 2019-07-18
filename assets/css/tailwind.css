@@ -82,3 +82,15 @@ label {
 .gray-350 {
   color: #9b9b9b;
 }
+
+.pagination {
+  list-style-type: none;
+}
+
+.pagination-item {
+  display: inline-block;
+}
+
+.active {
+  @apply bg-yellow-600;
+}

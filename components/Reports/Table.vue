@@ -18,8 +18,8 @@
         :reimbursable="reimbursable"
         :class="((index % 2) == 0) ? 'bg-white shadow-md' : ''"
         @itemDetails="$emit('itemDetails', $event)"
-        @editDetails="$emit('editDetails', $event)"
-        @deleteDetails="$emit('deleteDetails', $event)"
+        @itemEdit="$emit('itemEdit', $event)"
+        @itemDelete="$emit('itemDelete', $event)"
       ></reimbursable-item>
     </tbody>
   </table>
