@@ -5,6 +5,8 @@
     <section>
       <div class="flex flex-wrap justify-start flex-row w-full">
         <xc-input-select
+          v-validate="'required'"
+          :error="errors.first('Tipo de factura')"
           v-model="reimbursable.type"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Tipo de factura"
@@ -14,6 +16,8 @@
         </xc-input-select>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Proveedor')"
           v-model="reimbursable.provider"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Proveedor"
@@ -21,6 +25,8 @@
         ></xc-input>
 
         <xc-input-select
+          v-validate="'required'"
+          :error="errors.first('Tipo Bienes y Servicios Comprados')"
           v-model="reimbursable.bussiness_type"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Tipo Bienes y Servicios Comprados"
@@ -33,12 +39,16 @@
         </xc-input-select>
 
         <xc-input-date
+          v-validate="'required'"
+          :error="errors.first('Fecha de pago')"
           v-model="reimbursable.invoice_date"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Fecha de pago"
         ></xc-input-date>
 
         <xc-input
+          v-validate="'required|numeric'"
+          :error="errors.first('Subtotal')"
           @change="itbis(); tip();"
           v-model="reimbursable.sub_total"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
@@ -48,6 +58,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('RNC')"
           v-model="reimbursable.rnc"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="RNC"
@@ -55,6 +67,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Detalle')"
           v-model="reimbursable.details"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Detalle"
@@ -62,6 +76,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('NCF')"
           v-model="reimbursable.ncf"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="NCF"
@@ -69,6 +85,8 @@
         ></xc-input>
 
         <xc-input-select
+          v-validate="'required'"
+          :error="errors.first('Forma de pago')"
           v-model="reimbursable.payment_method"
           class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
           label="Forma de pago"
@@ -102,16 +120,15 @@
 
         <div class="flex items-center justify-around w-full">
           <button @click="$emit('close')" class="btn bg-grad-gold/orange w-1/3 mt-12">Cancelar</button>
-          <button
-            @click="$emit('submit', reimbursable)"
-            class="btn bg-grad-green/orange w-1/3 mt-12 h-12"
-          >Reportar</button>
+          <button @click="submitEvent()" class="btn bg-grad-green/orange w-1/3 mt-12 h-12">Reportar</button>
         </div>
       </div>
     </section>
   </div>
 </template>
 <script>
+import Alert from "../../../mixins/mixin-alert.js";
+
 import XcInput from "../../../components/Forms/Input";
 import XcInputDate from "../../../components/Forms/Date";
 import XcInputSelect from "../../../components/Forms/Select";
@@ -119,6 +136,7 @@ import Reimbursable from "../../../models/Reports/Reimbursable";
 
 export default {
   name: "reimbursable-form",
+  mixins: [Alert],
   components: {
     XcInput,
     XcInputDate,
@@ -186,6 +204,16 @@ export default {
       await this.$store.dispatch("paymentMethods/fetch");
       const payment_methods = await this.$store.getters["paymentMethods/get"];
       this.payment_methods = payment_methods;
+    },
+
+    async submitEvent() {
+      const validated = await this.$validator.validateAll();
+
+      if (validated) {
+        this.$emit("submit", this.reimbursable);
+      } else {
+        this.fireAlert("warning", "Complete los campos requeridos", "top");
+      }
     }
   }
 };

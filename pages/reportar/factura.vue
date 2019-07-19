@@ -23,8 +23,9 @@
       class="fixed right-0 bottom-0 mr-24 mb-12 w-16 h-16 bg-grad-gold/orange rounded-full text-white font-bold text-3xl text-center shadow-2xl cursor-pointer"
     >&plus;</button>
 
-    <div class="mt-6 text-green-500">
+    <div class="mt-6">
       <pagination
+        v-if="(parseInt(reimbursables.count) / 15) + 1 > 2 "
         :totalPages="(parseInt(reimbursables.count) / 15) + 1"
         :total="parseInt(reimbursables.count)"
         :per-page="15"
@@ -101,8 +102,12 @@ export default {
       user: this.$store.getters["auth/getLoggedUser"]
     };
   },
-  created() {
-    this.fetchReimbursable();
+  async created() {
+    let loader = this.$loading.show({});
+
+    await this.fetchReimbursable();
+
+    this.hideLoading(loader);
   },
   methods: {
     async paginateReimbursables(page) {

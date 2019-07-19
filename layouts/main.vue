@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="px-5 pt-4 pb-16 h-screen w-screen overflow-scroll bg-hueso lg:pt-16">
+    <div class="px-8 pt-4 pb-16 h-screen w-screen overflow-scroll bg-hueso lg:pt-16">
       <nuxt/>
     </div>
 

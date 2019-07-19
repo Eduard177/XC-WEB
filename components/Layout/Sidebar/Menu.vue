@@ -72,7 +72,7 @@
       </a>
       <div
         v-show="show_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-64 lg:-mt-12 lg:w-64"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-64 lg:-mt-12 lg:w-48"
       >
         <div class="w-full text-center">
           <nuxt-link class="cursor-pointer" to="/reportar/gasto">Gastos Menores</nuxt-link>

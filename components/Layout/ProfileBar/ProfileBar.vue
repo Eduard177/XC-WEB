@@ -265,7 +265,7 @@
           ></rect>
         </svg>
       </div>
-      <UserProfileInfo :email="user.email" :fullName="user.fullname" v-if="$mq === 'lg'"/>
+      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg'"/>
     </div>
     <!-- reportes -->
     <div class="hidden lg:block">
@@ -306,7 +306,8 @@ export default {
   components: { UserProfileInfo },
   data() {
     return {
-      user: new User()
+      user: new User(),
+      api_url: process.env.API_URL
     };
   },
   created() {

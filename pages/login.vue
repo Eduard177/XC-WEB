@@ -226,8 +226,11 @@
   </div>
 </template>
 <script>
+import Alert from "../mixins/mixin-alert.js";
+
 export default {
   middleware: "notAuthenticated",
+  mixins: [Alert],
   data() {
     return {
       email: "",
@@ -256,12 +259,17 @@ export default {
           if (this.$store.getters["auth/getIsLoggedIn"]) {
             this.$router.push("/");
           }
+        } else {
+          this.fireAlert("warning", "Complete los campos requeridos", "top");
         }
 
-        throw { message: "Complete los campos requeridos", status: 615 };
+        // throw { message: "Complete los campos requeridos", status: 400 };
       } catch (error) {
-        if (error.status == 615) {
-          this.show_error = true;
+        if (error.request.status == 400) {
+          let msg = JSON.parse(error.request.response).non_field_errors[0];
+          this.fireAlert("error", msg, "top");
+        } else {
+          this.fireErrorAlert();
         }
       }
     }

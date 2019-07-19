@@ -4,6 +4,8 @@
 
     <section class="mt-6">
       <xc-input-date
+        v-validate="'required'"
+        :error="errors.first('Fecha del consumo')"
         v-model="minor_expense.invoice_date"
         class="w-1/5 flex-col-reverse"
         label="Fecha del consumo"
@@ -11,6 +13,8 @@
 
       <div class="mt-12 flex">
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Descripción')"
           v-model="minor_expense.description"
           class="flex-col-reverse w-1/2 pr-8"
           label="Descripción"
@@ -18,6 +22,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Lugar')"
           v-model="minor_expense.place"
           class="flex-col-reverse w-1/2 pr-8"
           label="Lugar"
@@ -34,9 +40,12 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required|numeric'"
+          :error="errors.first('Monto')"
           v-model="minor_expense.total"
           class="flex-col-reverse w-1/2 pr-8"
           label="Monto"
+          type="number"
           placeholder="RD$180.20"
         ></xc-input>
       </div>
@@ -49,21 +58,20 @@
 
       <div class="flex justify-around mt-12">
         <button @click="$emit('close')" class="btn bg-grad-gold/orange w-1/3">Cancelar</button>
-        <button
-          @click="$emit('submit', minor_expense)"
-          class="btn bg-grad-green/orange w-1/3"
-        >{{submit}}</button>
+        <button @click="submitEvent()" class="btn bg-grad-green/orange w-1/3">{{submit}}</button>
       </div>
     </section>
   </div>
 </template>
 <script>
+import Alert from "../../../mixins/mixin-alert.js";
 import XcInput from "../../../components/Forms/Input";
 import XcInputDate from "../../../components/Forms/Date";
 import MinorExpense from "../../../models/Reports/MinorExpense";
 
 export default {
   name: "minor-expense-form",
+  mixins: [Alert],
   components: {
     XcInput,
     XcInputDate
@@ -83,6 +91,17 @@ export default {
     return {
       minor_expense: new MinorExpense()
     };
+  },
+  methods: {
+    async submitEvent() {
+      const validated = await this.$validator.validateAll();
+
+      if (validated) {
+        this.$emit("submit", this.minor_expense);
+      } else {
+        this.fireAlert("warning", "Complete los campos requeridos", "top");
+      }
+    }
   }
 };
 </script>

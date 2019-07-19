@@ -12,12 +12,23 @@
       </div>
 
       <reports-table
-        :reports="minor_expenses"
+        :reports="minor_expenses.results"
         :type="'minor_expense'"
         @itemDetails="minor_expense =  $event; show_report_detail = true"
         @itemEdit="minor_expense =  $event; show_edit_report = true; "
         @itemDelete="deleteMinorExpense($event)"
       ></reports-table>
+
+      <div class="mt-5">
+        <pagination
+          v-if="(parseInt(minor_expenses.count) / 15) + 1 > 2 "
+          :totalPages="(parseInt(minor_expenses.count) / 15) + 1"
+          :total="parseInt(minor_expenses.count)"
+          :per-page="15"
+          :current-page="currentPage"
+          @pagechanged="paginateMinor_expenses($event); currentPage = $event"
+        ></pagination>
+      </div>
 
       <button
         @click="show_create_report = true"
@@ -67,6 +78,7 @@ import ReportsTable from "../../components/Reports/Table";
 import MinorExpense from "../../models/Reports/MinorExpense.js";
 import ReportsDetails from "../../components/Reports/Details";
 import MinorExpenseForm from "../../components/Reports/MinorExpense/Form";
+import Pagination from "../../components/Pagination";
 
 export default {
   middleware: "authenticated",
@@ -76,7 +88,8 @@ export default {
     CardModal,
     ReportsTable,
     ReportsDetails,
-    MinorExpenseForm
+    MinorExpenseForm,
+    Pagination
   },
   data() {
     return {
@@ -89,10 +102,10 @@ export default {
       user: this.$store.getters["auth/getLoggedUser"]
     };
   },
-  created() {
+  async created() {
     let loader = this.$loading.show({});
 
-    this.fetchMinorExpenses();
+    await this.fetchMinorExpenses();
 
     this.hideLoading(loader);
   },

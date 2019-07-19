@@ -1,16 +1,24 @@
 <template>
-  <div class="flex flex-col py-8 px-2">
-    <div class="flex flex-col items-center lg:flex-row">
-      <img class="pr-8 py-5" src="~/assets/images/add-image.svg">
+  <div class="flex flex-col py-8">
+    <image-upload
+      :imageProp="result_user.image_url ? (api_url + result_user.image_url) : result_user.image_url   "
+      @input=" result_user.image_url = $event"
+    ></image-upload>
 
+    <div class="flex flex-col items-center lg:flex-row mt-8">
       <div class="flex flex-wrap">
         <xc-input-date
+          v-validate="'required'"
+          data-vv-as="Fecha de ingreso"
+          :error="errors.first('Fecha de ingreso')"
           v-model="result_user.admission_date"
           class="w-full lg:w-1/2 md:w-1/2 my-3 pr-6"
           label="Fecha de ingreso"
         ></xc-input-date>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Ubicación')"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.office"
           label="Ubicación"
@@ -18,13 +26,18 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required|email'"
+          :error="errors.first('Correo')"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.email"
           label="Correo"
+          type="email"
           placeholder="dtrump@xpertcode.com.do"
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Contraseña')"
           v-if="type == 'create'"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.password"
@@ -34,6 +47,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Nombre')"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.fullname"
           placeholder="Donald Trump"
@@ -41,6 +56,8 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required'"
+          :error="errors.first('Cargo')"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.position"
           placeholder="Presidente"
@@ -48,13 +65,18 @@
         ></xc-input>
 
         <xc-input
+          v-validate="'required|numeric'"
+          :error="errors.first('Teléfono Personal')"
           class="w-full lg:w-1/2 my-3 pr-6"
           v-model="result_user.cellphone"
           placeholder="8492556677"
           label="Teléfono Personal"
+          type="number"
         ></xc-input>
 
         <xc-input-select
+          v-validate="'required'"
+          :error="errors.first('Rol')"
           class="w-full lg:w-1/2 md:w-1/2 my-3 pr-6"
           v-model="result_user.role"
           label="Rol"
@@ -81,6 +103,8 @@
 </template>
 <script>
 import User from "../../models/User";
+import ImageUpload from "../../components/ImageUpload";
+import Alert from "../../mixins/mixin-alert.js";
 import XcInput from "../../components/Forms/Input";
 import XcInputDate from "../../components/Forms/Date";
 import XcInputSelect from "../../components/Forms/Select";
@@ -101,19 +125,47 @@ export default {
       default: true
     }
   },
+  mixins: [Alert],
   components: {
     XcInput,
     XcInputDate,
-    XcInputSelect
+    XcInputSelect,
+    ImageUpload
   },
   data() {
     return {
+      api_url: process.env.API_URL,
       result_user: this.user
     };
   },
   methods: {
-    submit() {
-      this.$emit("submit", this.result_user);
+    async submit() {
+      const validated = await this.$validator.validateAll();
+
+      if (validated) {
+        this.$emit("submit", this.result_user);
+      } else {
+        this.fireAlert("warning", "Complete los campos requeridos", "top");
+      }
+    },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+        this.updatePhoto(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    },
+    updatePhoto(photo) {
+      this.$emit("input", photo);
     }
   }
 };

@@ -6,7 +6,7 @@
         @click.native="create_user_modal = true"
         :user="{fullname:'Nombre', email:'Correo', position:'Cargo',office:'Ubicacion', cellphone:'809-000-0000'}"
         type="orange"
-        image="/_nuxt/assets/images/plus-sign.svg"
+        :image="true"
       ></user-card>
 
       <user-card
@@ -15,7 +15,6 @@
         @click.native="showEditModal(index)"
         :user="user"
         type="green"
-        image="/_nuxt/assets/images/olopez.png"
       ></user-card>
     </section>
 
@@ -58,15 +57,19 @@ export default {
   mixins: [Alert],
   data() {
     return {
-      users: [new User()],
+      users: [],
       new_user: new User(),
       index: 0,
       create_user_modal: false,
       edit_user_modal: false
     };
   },
-  created() {
-    this.fetchUsers();
+  async created() {
+    let loader = this.$loading.show({});
+
+    await this.fetchUsers();
+
+    this.hideLoading(loader);
   },
   methods: {
     async fetchUsers() {
@@ -83,23 +86,31 @@ export default {
     },
     async createUser(user) {
       try {
-        await this.$store.dispatch("users/createUser", user);
-        this.create_user_modal = false;
-        this.fireAlert("success", "El Usuario ha sido creado", "top");
+        let loader = this.$loading.show({});
 
-        this.fetchUsers();
+        await this.$store.dispatch("users/createUser", user);
+        await this.fetchUsers();
+
+        this.create_user_modal = false;
+        this.hideLoading(loader);
+        this.fireAlert("success", "El Usuario ha sido creado", "top");
       } catch (error) {
         this.fireErrorAlert();
       }
     },
     async editUser(user) {
       try {
-        await this.$store.dispatch("users/editUser", user);
-        this.edit_user_modal = false;
-        this.fireAlert("success", "El Usuario ha sido actualizado", "top");
+        let loader = this.$loading.show({});
 
-        this.fetchUsers();
+        await this.$store.dispatch("users/editUser", user);
+        await this.fetchUsers();
+
+        this.edit_user_modal = false;
+        this.hideLoading(loader);
+        this.fireAlert("success", "El Usuario ha sido actualizado", "top");
       } catch (error) {
+        console.error(error);
+
         this.fireErrorAlert();
       }
     }
