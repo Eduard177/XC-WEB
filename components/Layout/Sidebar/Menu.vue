@@ -111,7 +111,7 @@
       >&bull;</span>
     </div>
 
-    <div class="px-4 py-2">
+    <div v-if="user.role == 'Administrator'" class="px-4 py-2">
       <a @click="show_reports_options = !show_reports_options">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
@@ -176,77 +176,6 @@
         >Generados</nuxt-link>
       </div>
     </div>
-
-    <!-- <div class="px-4 py-2">
-      <nuxt-link to="/reports">
-        <figure
-          class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
-        >
-          <svg class="w-4 fill-current group-hover:text-white text-green-700" viewBox="0 0 14 14">
-            <g id="Group_537" data-name="Group 537" transform="translate(-2652 -621.124)">
-              <g id="Group_526" data-name="Group 526">
-                <g id="Group_525" data-name="Group 525">
-                  <path
-                    id="Path_508"
-                    data-name="Path 508"
-                    d="M2665.727,626.832h-1.75a.274.274,0,0,0-.274.273v1.381a.274.274,0,0,0,.547,0v-1.108h1.2v7.2h-1.2v-4.04a.274.274,0,1,0-.547,0v4.04h-.547v-5.66a.274.274,0,0,0-.273-.274h-1.75a.274.274,0,0,0-.274.274v5.66h-.546v-3.746a.274.274,0,0,0-.274-.274h-1.75a.273.273,0,0,0-.273.274v3.746h-.547V632.4a.274.274,0,0,0-.274-.274h-1.75a.273.273,0,0,0-.273.274v2.177h-2.352a.274.274,0,0,1-.273-.274V621.944a.273.273,0,0,1,.273-.273h7.054v1.8a.822.822,0,0,0,.821.821h1.8v3.363a.273.273,0,0,0,.547,0v-3.637a.274.274,0,0,0-.08-.193l-2.625-2.625a.27.27,0,0,0-.193-.08h-7.328a.821.821,0,0,0-.82.82V634.3a.821.821,0,0,0,.82.821h12.907a.274.274,0,0,0,.273-.274V627.1A.273.273,0,0,0,2665.727,626.832Zm-5.306-4.775,1.692,1.692H2660.7a.275.275,0,0,1-.274-.274Zm-3.5,12.52h-1.2v-1.9h1.2Zm2.844,0h-1.2V631.1h1.2Zm2.843,0h-1.2V629.19h1.2Z"
-                  ></path>
-                </g>
-              </g>
-              <g id="Group_528" data-name="Group 528">
-                <g id="Group_527" data-name="Group 527">
-                  <path
-                    id="Path_509"
-                    data-name="Path 509"
-                    d="M2664.17,629.267a.274.274,0,1,0,.08.193A.275.275,0,0,0,2664.17,629.267Z"
-                  ></path>
-                </g>
-              </g>
-              <g id="Group_530" data-name="Group 530">
-                <g id="Group_529" data-name="Group 529">
-                  <path
-                    id="Path_510"
-                    data-name="Path 510"
-                    d="M2655.981,622.62a.274.274,0,0,0-.274.274v.491a2.515,2.515,0,1,0,2.774,2.774h.492a.273.273,0,0,0,.273-.273A3.269,3.269,0,0,0,2655.981,622.62Zm0,5.234a1.969,1.969,0,0,1-.274-3.918v1.95a.274.274,0,0,0,.274.273h1.949A1.972,1.972,0,0,1,2655.981,627.854Zm.273-2.242h0v-2.431a2.724,2.724,0,0,1,2.432,2.431Z"
-                  ></path>
-                </g>
-              </g>
-              <g id="Group_532" data-name="Group 532">
-                <g id="Group_531" data-name="Group 531">
-                  <path
-                    id="Path_511"
-                    data-name="Path 511"
-                    d="M2658.973,629.17h-5.223a.273.273,0,0,0,0,.546h5.223a.273.273,0,1,0,0-.546Z"
-                  ></path>
-                </g>
-              </g>
-              <g id="Group_534" data-name="Group 534">
-                <g id="Group_533" data-name="Group 533">
-                  <path
-                    id="Path_512"
-                    data-name="Path 512"
-                    d="M2655.5,630.489h-1.75a.273.273,0,0,0,0,.547h1.75a.273.273,0,0,0,0-.547Z"
-                  ></path>
-                </g>
-              </g>
-              <g id="Group_536" data-name="Group 536">
-                <g id="Group_535" data-name="Group 535">
-                  <path
-                    id="Path_513"
-                    data-name="Path 513"
-                    d="M2657.063,630.569a.274.274,0,1,0-.194.467.281.281,0,0,0,.194-.08.274.274,0,0,0,0-.387Z"
-                  ></path>
-                </g>
-              </g>
-            </g>
-          </svg>
-        </figure>
-      </nuxt-link>
-      <span
-        v-if="page == 'reports' && $mq === 'lg'"
-        class="absolute flex flex-col -ml-12 -mt-10 px-3 py-1 text-green-700 text-2xl"
-      >&bull;</span>
-    </div>-->
   </div>
 </template>
 <script>
@@ -255,7 +184,8 @@ export default {
   data() {
     return {
       show_options: false,
-      show_reports_options: false
+      show_reports_options: false,
+      user: this.$store.getters["auth/getLoggedUser"]
     };
   },
   watch: {

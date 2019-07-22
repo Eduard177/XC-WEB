@@ -84,7 +84,7 @@ import MinorExpense from "../../models/Reports/MinorExpense.js";
 
 export default {
   layout: "main",
-  middleware: "authenticated",
+  middleware: "administrator",
   components: {
     CardModal,
     ReportsTable,
