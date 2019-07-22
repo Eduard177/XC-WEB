@@ -11,6 +11,8 @@
         </select>
       </div>
 
+      <no-results :items="minor_expenses.results"></no-results>
+
       <reports-table
         :reports="minor_expenses.results"
         :type="'minor_expense'"
@@ -79,6 +81,7 @@ import MinorExpense from "../../models/Reports/MinorExpense.js";
 import ReportsDetails from "../../components/Reports/Details";
 import MinorExpenseForm from "../../components/Reports/MinorExpense/Form";
 import Pagination from "../../components/Pagination";
+import NoResults from "../../components/NoResults";
 
 export default {
   middleware: "authenticated",
@@ -89,11 +92,15 @@ export default {
     ReportsTable,
     ReportsDetails,
     MinorExpenseForm,
-    Pagination
+    Pagination,
+    NoResults
   },
   data() {
     return {
-      minor_expenses: [new MinorExpense()],
+      minor_expenses: {
+        results: [],
+        count: 0
+      },
       minor_expense: new MinorExpense(),
       new_minor_expense: new MinorExpense(),
       show_create_report: false,

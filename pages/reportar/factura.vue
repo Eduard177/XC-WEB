@@ -10,6 +10,8 @@
       </select>
     </div>
 
+    <no-results :items="reimbursables.results"></no-results>
+
     <reports-table
       :reports="reimbursables.results"
       type="reimbursables"
@@ -75,6 +77,7 @@ import Reimbursable from "../../models/Reports/Reimbursable.js";
 import ReportsDetails from "../../components/Reports/Details";
 import ReimbursableForm from "../../components/Reports/Reimbursable/Form";
 import Pagination from "../../components/Pagination";
+import NoResults from "../../components/NoResults";
 
 export default {
   middleware: "authenticated",
@@ -85,13 +88,14 @@ export default {
     ReportsTable,
     CardModal,
     ReportsDetails,
-    ReimbursableForm
+    ReimbursableForm,
+    NoResults
   },
   data() {
     return {
       currentPage: 1,
       reimbursables: {
-        results: [new Reimbursable()],
+        results: [],
         count: 0
       },
       reimbursable: new Reimbursable(),
