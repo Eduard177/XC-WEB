@@ -74,6 +74,15 @@
           type="number"
         ></xc-input>
 
+        <xc-input
+          v-validate="'required'"
+          :error="errors.first('Codigo de empleado')"
+          class="w-full lg:w-1/2 my-3 pr-6"
+          v-model="result_user.company_code"
+          placeholder="XC001"
+          label="Codigo de empleado"
+        ></xc-input>
+
         <xc-input-select
           v-validate="'required'"
           :error="errors.first('Rol')"
