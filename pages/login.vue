@@ -238,16 +238,11 @@ export default {
       show_error: false
     };
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-
-      setTimeout(() => this.$nuxt.$loading.finish(), 500);
-    });
-  },
   methods: {
     async login() {
       try {
+        this.loader = this.$loading.show({});
+
         const validated = await this.$validator.validateAll();
 
         if (validated) {
@@ -256,10 +251,12 @@ export default {
             password: this.password
           });
 
-          if (this.$store.getters["auth/getIsLoggedIn"]) {
+          if (await this.$store.getters["auth/getIsLoggedIn"]) {
+            await this.hideLoading(this.loader);
             this.$router.push("/");
           }
         } else {
+          await this.hideLoading(this.loader);
           this.fireAlert("warning", "Complete los campos requeridos", "top");
         }
 
@@ -268,8 +265,10 @@ export default {
         if (error.request.status == 400) {
           let msg = JSON.parse(error.request.response).non_field_errors[0];
           this.fireAlert("error", msg, "top");
+          await this.hideLoading(this.loader);
         } else {
           this.fireErrorAlert();
+          await this.hideLoading(this.loader);
         }
       }
     }
