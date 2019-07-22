@@ -1,4 +1,6 @@
 import cookies from 'js-cookie';
+import { queryStingParamsParser } from '../../utils/Helpers';
+
 const headers = {
   headers: {
     Authorization: cookies.get('Authorization')
@@ -28,11 +30,10 @@ export default {
     }
   },
   actions: {
-    async fetchMinorExpenses({ commit }, user_id) {
+    async fetchMinorExpensesByUser({ commit }, user_id) {
       try {
         const response = await this.$axios.get(
-          '/minorexpenses/',
-          { user_id: user_id },
+          '/minorexpenses/?user_id=' + user_id,
           headers
         );
 
@@ -74,12 +75,31 @@ export default {
         throw error;
       }
     },
+    async paginateMinorExpenses({ commit }, page) {
+      try {
+        const response = await this.$axios.get('/minorexpenses/?page=' + page);
+        commit('setMinorExpenses', response.data);
+      } catch (error) {
+        throw error;
+      }
+    },
+    async searchMinorExpenses({ commit }, filters) {
+      let queryString = queryStingParamsParser({
+        start: filters.start,
+        end: filters.end
+      });
 
-    async fetchReimbursables({ commit }, user_id) {
+      const response = await this.$axios.get(
+        '/minorexpenses/?search=' + filters.status + queryString
+      );
+
+      await commit('setMinorExpenses', response.data);
+    },
+
+    async fetchReimbursablesByUser({ commit }, user_id) {
       try {
         const response = await this.$axios.get(
-          '/reimbursable/',
-          { user_id: user_id },
+          '/reimbursable/?user_id= ' + user_id,
           headers
         );
 
@@ -122,8 +142,20 @@ export default {
         const response = await this.$axios.get('/reimbursable/?page=' + page);
         commit('setReimbursables', response.data);
       } catch (error) {
-        throw error
+        throw error;
       }
+    },
+    async searchReimbursables({ commit }, filters) {
+      let queryString = queryStingParamsParser({
+        start: filters.start,
+        end: filters.end
+      });
+
+      const response = await this.$axios.get(
+        '/reimbursable/?search=' + filters.status + queryString
+      );
+
+      await commit('setReimbursables', response.data);
     }
   }
 };

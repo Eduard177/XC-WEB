@@ -32,6 +32,7 @@
 
     <td class="flex mt-2 lg:px-3 w-1/2 lg:w-auto">
       <actions
+        :edit="edit"
         @details="$emit('itemDetails', minorExpense)"
         @edit="$emit('itemEdit', minorExpense)"
         @delete="$emit('itemDelete', minorExpense)"
@@ -49,6 +50,11 @@ export default {
     minorExpense: {
       required: true,
       type: Object
+    },
+    edit: {
+      required: true,
+
+      type: Boolean
     }
   }
 };

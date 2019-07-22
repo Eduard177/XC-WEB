@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col lg:flex-row">
+  <div class="flex flex-col bg-hueso lg:flex-row">
     <ProfileBar @toogleMenu="toogleMenu()"/>
 
     <div v-if="toogle" class="lg:hidden">
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="px-8 pt-4 pb-16 h-screen w-screen overflow-scroll bg-hueso lg:pt-16">
+    <div class="container px-8 pt-4 pb-16 h-screen w-screen overflow-scroll lg:pt-16">
       <nuxt/>
     </div>
 

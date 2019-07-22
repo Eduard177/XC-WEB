@@ -15,6 +15,7 @@
     <reports-table
       :reports="reimbursables.results"
       type="reimbursables"
+      :edit="true"
       @itemDetails="show_report_detail = true; new_reimbursable = $event;"
       @itemEdit="show_report_edit = true; reimbursable = $event;"
       @itemDelete="deleteReimbursable($event)"
@@ -71,6 +72,7 @@
 </template>
 <script>
 import Alert from "../../mixins/mixin-alert.js";
+import Paginators from "../../mixins/mixin-paginators.js";
 import CardModal from "../../components/CardModal";
 import ReportsTable from "../../components/Reports/Table";
 import Reimbursable from "../../models/Reports/Reimbursable.js";
@@ -82,7 +84,7 @@ import NoResults from "../../components/NoResults";
 export default {
   middleware: "authenticated",
   layout: "main",
-  mixins: [Alert],
+  mixins: [Alert, Paginators],
   components: {
     Pagination,
     ReportsTable,
@@ -109,31 +111,17 @@ export default {
   async created() {
     let loader = this.$loading.show({});
 
-    await this.fetchReimbursable();
+    await this.fetchReimbursablesByUser();
 
     this.hideLoading(loader);
   },
   methods: {
-    async paginateReimbursables(page) {
+    async fetchReimbursablesByUser() {
       try {
-        this.loader = this.$loading.show({});
-
-        await this.$store.dispatch("reports/paginateReimbursables", page);
-
-        const reimbursables = await this.$store.getters[
-          "reports/getReimbursables"
-        ];
-
-        this.reimbursables = reimbursables;
-
-        await this.hideLoading(this.loader);
-      } catch (error) {
-        this.fireErrorAlert();
-      }
-    },
-    async fetchReimbursable() {
-      try {
-        await this.$store.dispatch("reports/fetchReimbursables");
+        await this.$store.dispatch(
+          "reports/fetchReimbursablesByUser",
+          this.user.id
+        );
 
         const reimbursables = await this.$store.getters[
           "reports/getReimbursables"
@@ -152,7 +140,7 @@ export default {
 
         await this.$store.dispatch("reports/createReimbursable", reimbursable);
 
-        await this.fetchReimbursable();
+        await this.fetchReimbursablesByUser();
 
         this.show_create_report = false;
 
@@ -176,7 +164,7 @@ export default {
 
         await this.$store.dispatch("reports/editReimbursable", reimbursable);
 
-        await this.fetchReimbursable();
+        await this.fetchReimbursablesByUser();
 
         this.show_report_edit = false;
 
@@ -207,7 +195,7 @@ export default {
             reimbursable
           );
 
-          await this.fetchReimbursable();
+          await this.fetchReimbursablesByUser();
 
           await this.hideLoading(loader);
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex shadow p-2 lg:px-3 lg:flex-col lg:h-screen lg:w-1/5">
+  <div class="flex shadow p-2 lg:px-3 lg:flex-col lg:h-screen lg:w-1/5 bg-white">
     <div class="flex w-full justify-between lg:flex-col">
       <div class="flex items-center p-2">
         <svg

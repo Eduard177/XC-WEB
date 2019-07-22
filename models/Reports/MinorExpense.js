@@ -5,7 +5,7 @@ export default class MinorExpense {
     this.total = '';
     this.comment = '';
     this.witnesses = '';
-    this.status = false;
+    this.status = 'Pendiente';
     this.user = '';
   }
 }

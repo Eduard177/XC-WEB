@@ -33,12 +33,12 @@ export default {
       try {
         const token = cookies.get('Authorization');
 
-        await this.$axios.put(
+        await this.$axios.patch(
           'users/' + user.id + '/',
           {
+            admission_date: user.admission_date,
             fullname: user.fullname,
             email: user.email,
-            password: 'secret',
             office: user.office,
             company_code: user.company_code,
             is_admin: user.is_admin,
@@ -65,15 +65,16 @@ export default {
         await this.$axios.post(
           '/users/',
           {
+            admission_date: user.admission_date,
             fullname: user.fullname,
             email: user.email,
             password: user.password,
             office: user.office,
             company_code: user.company_code,
-            is_admin: user.is_admin,
             position: user.position,
-            role: 'Administrator',
-            cellphone: user.cellphone
+            role: user.role,
+            cellphone: user.cellphone,
+            image_url: null
           },
           headers
         );

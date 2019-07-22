@@ -6,6 +6,7 @@
         :key="index"
         :minorExpense="minorExpense"
         :class="((index % 2) == 0) ? 'bg-white shadow-md' : ''"
+        :edit="edit"
         @itemDetails="$emit('itemDetails', $event)"
         @itemEdit="$emit('itemEdit', $event)"
         @itemDelete="$emit('itemDelete', $event)"
@@ -17,6 +18,7 @@
         :key="index"
         :reimbursable="reimbursable"
         :class="((index % 2) == 0) ? 'bg-white shadow-md' : ''"
+        :edit="edit"
         @itemDetails="$emit('itemDetails', $event)"
         @itemEdit="$emit('itemEdit', $event)"
         @itemDelete="$emit('itemDelete', $event)"
@@ -37,6 +39,10 @@ export default {
     type: {
       required: true,
       type: String
+    },
+    edit: {
+      required: true,
+      type: Boolean
     }
   }
 };

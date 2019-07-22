@@ -16,6 +16,7 @@
       <reports-table
         :reports="minor_expenses.results"
         :type="'minor_expense'"
+        :edit="true"
         @itemDetails="minor_expense =  $event; show_report_detail = true"
         @itemEdit="minor_expense =  $event; show_edit_report = true; "
         @itemDelete="deleteMinorExpense($event)"
@@ -28,7 +29,7 @@
           :total="parseInt(minor_expenses.count)"
           :per-page="15"
           :current-page="currentPage"
-          @pagechanged="paginateMinor_expenses($event); currentPage = $event"
+          @pagechanged="paginateMinorExpenses($event); currentPage = $event"
         ></pagination>
       </div>
 
@@ -75,6 +76,7 @@
 </template>
 <script>
 import Alert from "../../mixins/mixin-alert.js";
+import Paginators from "../../mixins/mixin-paginators.js";
 import CardModal from "../../components/CardModal";
 import ReportsTable from "../../components/Reports/Table";
 import MinorExpense from "../../models/Reports/MinorExpense.js";
@@ -86,7 +88,7 @@ import NoResults from "../../components/NoResults";
 export default {
   middleware: "authenticated",
   layout: "main",
-  mixins: [Alert],
+  mixins: [Alert, Paginators],
   components: {
     CardModal,
     ReportsTable,
@@ -112,19 +114,38 @@ export default {
   async created() {
     let loader = this.$loading.show({});
 
-    await this.fetchMinorExpenses();
+    await this.fetchMinorExpensesByUser();
 
     this.hideLoading(loader);
   },
   methods: {
-    async fetchMinorExpenses() {
+    async fetchMinorExpensesByUser() {
       try {
         let user = await this.$store.dispatch(
-          "reports/fetchMinorExpenses",
+          "reports/fetchMinorExpensesByUser",
           this.user.id
         );
 
         this.minor_expenses = this.$store.getters["reports/getMinorExpenses"];
+      } catch (error) {
+        this.fireErrorAlert();
+      }
+    },
+    async paginateMinorExpenses(page) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("reports/paginateMinorExpenses", page);
+
+        const minor_expense = await this.$store.getters[
+          "reports/getMinorExpenses"
+        ];
+
+        this.minor_expense = minor_expense;
+
+        this.fetchMinorExpensesByUser();
+
+        await this.hideLoading(this.loader);
       } catch (error) {
         this.fireErrorAlert();
       }
@@ -140,7 +161,7 @@ export default {
 
         await this.$store.dispatch("reports/createMinorExpense", minor_expense);
 
-        await this.fetchMinorExpenses();
+        await this.fetchMinorExpensesByUser();
 
         await this.hideLoading(loader);
 
@@ -168,7 +189,7 @@ export default {
 
         await this.$store.dispatch("reports/editMinorExpense", minor_expense);
 
-        await this.fetchMinorExpenses();
+        await this.fetchMinorExpensesByUser();
 
         await this.hideLoading(loader);
 
@@ -194,7 +215,7 @@ export default {
             minor_expense
           );
 
-          await this.fetchMinorExpenses();
+          await this.fetchMinorExpensesByUser();
 
           await this.hideLoading(loader);
 

@@ -86,7 +86,7 @@ export default {
     },
     async createUser(user) {
       try {
-        let loader = this.$loading.show({});
+        this.loader = this.$loading.show({});
 
         await this.$store.dispatch("users/createUser", user);
         await this.fetchUsers();
@@ -95,6 +95,7 @@ export default {
         this.hideLoading(loader);
         this.fireAlert("success", "El Usuario ha sido creado", "top");
       } catch (error) {
+        this.hideLoading(this.loader);
         this.fireErrorAlert();
       }
     },

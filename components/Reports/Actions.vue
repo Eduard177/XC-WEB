@@ -33,6 +33,7 @@
     </svg>
 
     <svg
+      v-if="edit"
       @click="$emit('edit')"
       class="w-4 h-4 ml-3 fill-current text-green-600 cursor-pointer"
       version="1.1"
@@ -53,6 +54,7 @@
     </svg>
 
     <svg
+      v-if="edit"
       @click="$emit('delete')"
       class="w-4 h-4 ml-3 fill-current text-orange-400 cursor-pointer"
       version="1.1"
@@ -99,3 +101,14 @@
     </svg>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    edit: {
+      required: true,
+      type: Boolean
+    }
+  }
+};
+</script>
+
