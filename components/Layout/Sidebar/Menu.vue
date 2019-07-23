@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg:flex-col">
+  <div class="flex tablet:flex-col">
     <div v-if="user.rol == 'Administrator'" class="px-4 py-2">
       <nuxt-link to="/usuarios">
         <figure
@@ -72,7 +72,7 @@
       </a>
       <div
         v-show="show_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-64 lg:-mt-12 lg:w-48"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 tablet:-ml-64 tablet:-mt-12 tablet:w-48"
       >
         <div class="w-full text-center">
           <nuxt-link class="cursor-pointer" to="/reportar/gasto">Gastos Menores</nuxt-link>
@@ -80,7 +80,7 @@
 
         <div class="w-full text-center mt-2">
           <nuxt-link
-            class="mt-3 lg:mt-2 hover:text-orange-500 cursor-pointer"
+            class="mt-3 tablet:mt-2 hover:text-orange-500 cursor-pointer"
             to="/reportar/factura"
           >Facturas</nuxt-link>
         </div>
@@ -167,7 +167,7 @@
 
       <div
         v-show="show_reports_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 lg:-ml-40 lg:-mt-12 lg:w-32"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 tablet:-ml-40 tablet:-mt-12 tablet:w-32"
       >
         <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportes/pendientes">Pendientes</nuxt-link>
         <nuxt-link

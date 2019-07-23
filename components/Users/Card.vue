@@ -45,9 +45,9 @@ export default {
       api_url: process.env.API_URL,
       card: {
         green:
-          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl cursor-pointer",
+          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 ml-6 bg-gradient-green-40% rounded-br-xl cursor-pointer",
         orange:
-          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 mt-6 ml-6 bg-gradient-orange-40% rounded-br-xl cursor-pointer"
+          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 ml-6 bg-gradient-orange-40% rounded-br-xl cursor-pointer"
       }
     };
   }

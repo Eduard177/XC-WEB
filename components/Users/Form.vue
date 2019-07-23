@@ -5,21 +5,21 @@
       @input=" result_user.image_url = $event; $emit('updateImage', result_user)"
     ></image-upload>
 
-    <div class="flex flex-col items-center lg:flex-row mt-8">
+    <div class="flex flex-col items-center tablet:flex-row mt-8">
       <div class="flex flex-wrap">
         <xc-input-date
           v-validate="'required'"
           data-vv-as="Fecha de ingreso"
           :error="errors.first('Fecha de ingreso')"
           v-model="result_user.admission_date"
-          class="w-full lg:w-1/2 md:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"
           label="Fecha de ingreso"
         ></xc-input-date>
 
         <xc-input
           v-validate="'required'"
           :error="errors.first('Ubicación')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.office"
           label="Ubicación"
           placeholder="White House"
@@ -28,7 +28,7 @@
         <xc-input
           v-validate="'required|email'"
           :error="errors.first('Correo')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.email"
           label="Correo"
           type="email"
@@ -39,7 +39,7 @@
           v-validate="'required'"
           :error="errors.first('Contraseña')"
           v-if="type == 'create'"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.password"
           type="password"
           label="Contraseña"
@@ -49,7 +49,7 @@
         <xc-input
           v-validate="'required'"
           :error="errors.first('Nombre')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.fullname"
           placeholder="Donald Trump"
           label="Nombre"
@@ -58,7 +58,7 @@
         <xc-input
           v-validate="'required'"
           :error="errors.first('Cargo')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.position"
           placeholder="Presidente"
           label="Cargo"
@@ -67,7 +67,7 @@
         <xc-input
           v-validate="'required|numeric'"
           :error="errors.first('Teléfono Personal')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.cellphone"
           placeholder="8492556677"
           label="Teléfono Personal"
@@ -77,7 +77,7 @@
         <xc-input
           v-validate="'required'"
           :error="errors.first('Codigo de empleado')"
-          class="w-full lg:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 my-3 pr-6"
           v-model="result_user.company_code"
           placeholder="XC001"
           label="Codigo de empleado"
@@ -86,7 +86,7 @@
         <xc-input-select
           v-validate="'required'"
           :error="errors.first('Rol')"
-          class="w-full lg:w-1/2 md:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"
           v-model="result_user.role"
           label="Rol"
         >
@@ -95,7 +95,7 @@
         </xc-input-select>
       </div>
     </div>
-    <div class="flex justify-around items-center leading-none mt-6 lg:mt-12">
+    <div class="flex justify-around items-center leading-none mt-6 tablet:mt-12">
       <button
         v-if="cancel"
         @click="$emit('close')"

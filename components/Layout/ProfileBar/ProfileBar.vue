@@ -1,10 +1,12 @@
 <template>
-  <div class="flex shadow p-2 lg:px-3 lg:flex-col lg:h-screen lg:w-1/5 bg-white">
-    <div class="flex w-full justify-between lg:flex-col">
+  <div
+    class="flex justify-between items-center text-center bg-white shadow p-2 tablet:px-3 tablet:flex-col tablet:h-screen tablet:w-1/4 desktop:w-1/6"
+  >
+    <div class="flex w-full justify-between tablet:flex-col">
       <div class="flex items-center p-2">
         <svg
           @click="logout()"
-          class="hidden lg:mt-4 lg:block cursor-pointer"
+          class="hidden tablet:mt-4 tablet:block cursor-pointer"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           width="30"
@@ -42,7 +44,11 @@
           </g>
         </svg>
 
-        <svg class="lg:hidden w-1/2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 269.49 51.528">
+        <svg
+          class="tablet:hidden w-1/2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 269.49 51.528"
+        >
           <g id="Group_548" data-name="Group 548" transform="translate(-70.51 -165.577)">
             <g id="Group_543" data-name="Group 543">
               <path
@@ -227,7 +233,7 @@
       </div>
       <div
         @click="$emit('toogleMenu')"
-        class="lg:hidden self-center flex flex-col justify-around h-5 my-5"
+        class="tablet:hidden self-center flex flex-col justify-around h-5 my-5"
       >
         <svg
           class="fill-current text-gray-600"
@@ -265,10 +271,11 @@
           ></rect>
         </svg>
       </div>
-      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg'"/>
+
+      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg' || $mq === 'md'"/>
     </div>
     <!-- reportes -->
-    <div class="hidden lg:block">
+    <div class="hidden tablet:block">
       <div class="flex justify-around mt-20">
         <div class="flex flex-col items-center">
           <span class="text-4xl text-orange-400 font-bold">13</span>
@@ -287,7 +294,7 @@
     </div>
 
     <!-- Informacion -->
-    <div class="hidden lg:block mt-20 flex flex-col items-center text-center">
+    <div class="hidden tablet:block mt-20 flex flex-col items-center text-center">
       <h1 class="text-4xl">Información</h1>
       <div class="text-md text-gray-800">
         <span>{{user.position}} ||</span>

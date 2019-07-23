@@ -2,16 +2,16 @@
   <div class="container">
     <div>
       <h1>Bienvenido al sistema de reporte rembolsable</h1>
-      <section class="flex flex-wrap justify-start mt-6 lg:mt-12">
+      <section class="flex flex-wrap justify-start mt-6 tablet:mt-12">
         <figure
-          class="flex flex-col justify-center items-center shadow-xl h-56 w-full lg:w-2/5 bg-white rounded-br-xl"
+          class="flex flex-col justify-center items-center shadow-xl h-56 w-full tablet:w-2/5 bg-white rounded-br-xl"
         >
           <span class="text-6xl text-orange-400 font-bold">13</span>
           <p class="text-xl text-black font-light">Reportes Realizados</p>
         </figure>
 
         <figure
-          class="flex flex-col justify-center items-center shadow-xl h-56 w-full bg-grad-green/blue rounded-br-xl mt-8 lg:mt-0 lg:w-2/5 lg:ml-16"
+          class="flex flex-col justify-center items-center shadow-xl h-56 w-full bg-grad-green/blue rounded-br-xl mt-8 tablet:mt-0 tablet:w-2/5 tablet:ml-16"
         >
           <svg width="75.838" height="75.838" viewBox="0 0 75.838 75.838">
             <g id="Group_585" data-name="Group 585" transform="translate(-2333.508 -298.286)">

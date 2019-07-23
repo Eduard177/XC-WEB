@@ -1,23 +1,26 @@
 <template>
-  <div class="flex my-5 justify-end items-center">
-    <input
-      name="StartDate"
-      v-validate="'required'"
-      v-model="filters.start"
-      :class="errors.first('StartDate') ? error : input"
-      type="date"
-    >
+  <div class="flex flex-col justify-end my-5 tablet:flex-row">
+    <div class="flex items-center">
+      <input
+        name="StartDate"
+        v-validate="'required'"
+        v-model="filters.start"
+        :class="errors.first('StartDate') ? error : input"
+        type="date"
+      >
 
-    <span class="mx-4 font-bold">hasta</span>
-    <input
-      name="EndDate"
-      v-validate="'required'"
-      v-model="filters.end"
-      :class="errors.first('EndDate') ? error : input"
-      type="date"
-    >
+      <span v-if="$mq == 'lg'" class="mx-3 font-bold text-center">hasta</span>
+      <span v-else class="mx-2 font-bold text-center">-</span>
+      <input
+        name="EndDate"
+        v-validate="'required'"
+        v-model="filters.end"
+        :class="errors.first('EndDate') ? error : input"
+        type="date"
+      >
+    </div>
 
-    <select v-model="filters.status" class="ml-6 h-8 bg-white outline-none">
+    <select v-model="filters.status" class="w-40 tablet:ml-6 h-8 bg-white outline-none">
       <option value="aprobado">Aprobados</option>
       <option value="pendiente">Pendientes</option>
       <option value="declinado">Declinados</option>
@@ -31,8 +34,8 @@ export default {
   data() {
     return {
       error:
-        "p-1 rounded-lg no-spin outline-none border-2 border-red-500 shadow-lg",
-      input: "p-1 rounded-lg no-spin outline-none ",
+        "flex p-1 rounded-lg no-spin outline-none border-2 border-red-500 shadow-lg ",
+      input: "p-1 rounded-lg no-spin outline-none my-2",
       filters: {
         start: dayjs()
           .startOf("month")

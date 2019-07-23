@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col py-8 px-2">
     <slot name="header"></slot>
-    <div class="flex flex-wrap lg:mt-4">
+    <div class="flex flex-wrap tablet:mt-4">
       <div
         v-for="(property, key) in report"
         :key="key"

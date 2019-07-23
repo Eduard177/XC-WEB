@@ -17,7 +17,8 @@
 
     <button
       @click="show_create_report = true"
-      class="fixed right-0 bottom-0 mr-24 mb-12 w-16 h-16 bg-grad-gold/orange rounded-full text-white font-bold text-3xl text-center shadow-2xl cursor-pointer"
+      style="bottom: 12px;"
+      class="fixed right-0 bottom-0 mr-4 tablet:mr-24 mb-12 w-16 h-16 bg-grad-gold/orange rounded-full text-white font-bold text-3xl text-center shadow-2xl cursor-pointer"
     >&plus;</button>
 
     <div class="mt-6">

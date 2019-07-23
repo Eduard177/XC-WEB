@@ -1,8 +1,8 @@
 <template>
   <nav
-    class="flex justify-center fixed inset-x-0 bottom-0 bg-gradb-green/blue shadow-2xl lg:static lg:justify-between lg:flex-col lg:h-screen lg:w-24"
+    class="flex justify-center fixed inset-x-0 bottom-0 bg-gradb-green/blue shadow-2xl tablet:static tablet:justify-between tablet:flex-col tablet:h-screen tablet:w-24 desktop:w-16"
   >
-    <Logo v-if="$mq === 'lg'"/>
+    <Logo :user="user" v-if="$mq === 'lg' || $mq === 'md'"/>
 
     <Menu :page="$route.name"/>
 

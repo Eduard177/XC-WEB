@@ -53,8 +53,8 @@ export default {
         // Default breakpoint for SSR
         defaultBreakpoint: 'default',
         breakpoints: {
-          sm: 640,
-          md: 770,
+          sm: 780,
+          md: 1024,
           lg: Infinity
         }
       }

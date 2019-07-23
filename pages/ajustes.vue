@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Ajustes</h1>
+    <h1 class="text-2xl font-bold">Ajustes</h1>
     <section>
-      <h2>User Profile</h2>
+      <h2 class="text-xl mt-4">User Profile</h2>
       <user-form
         @updateImage="editProfilePicture($event)"
         type="edit"

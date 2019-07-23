@@ -1,24 +1,24 @@
 <template>
-  <div class="container lg:flex lg:flex-col">
+  <div class="container tablet:flex tablet:flex-col">
     <img
       class="max-w-xs max-w-sm"
       src="http://xpertcode.com.do/wp-content/uploads/2018/08/XC-logo-final-05.png"
       alt="logo"
     >
 
-    <div class="lg:flex lg:mt-12">
+    <div class="tablet:flex tablet:mt-12">
       <div class>
         <img
-          class="hidden lg:block lg:pt-20 lg:pr-20 lg:my-0 lg:mx-auto"
+          class="hidden tablet:block tablet:pt-20 tablet:pr-20 tablet:my-0 tablet:mx-auto"
           src="../assets/images/undraw_authentication_fsn5.svg"
           alt
         >
       </div>
 
       <div>
-        <h1 class="text-4xl text-center mt-12 lg:text-5xl text-teal-600 font-bold">Bienvenido</h1>
+        <h1 class="text-4xl text-center mt-12 tablet:text-5xl text-teal-600 font-bold">Bienvenido</h1>
         <p
-          class="p-6 text-md text-gray-800 lg:mt-5"
+          class="p-6 text-md text-gray-800 tablet:mt-5"
         >Puedes utilizar esta aplicacion para reportar tus gastos a ser rembolsables por nomina.</p>
 
         <div class="flex items-center border border-gray-200 border-b-0 rounded-t-lg">

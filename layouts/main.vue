@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col bg-hueso lg:flex-row">
+  <div class="flex flex-col bg-hueso tablet:flex-row">
     <ProfileBar @toogleMenu="toogleMenu()"/>
 
-    <div v-if="toogle" class="lg:hidden">
+    <div v-if="toogle" class="tablet:hidden">
       <!-- reportes -->
 
       <div class="flex justify-around py-5">
@@ -21,7 +21,9 @@
       </div>
     </div>
 
-    <div class="container px-8 pt-4 pb-16 h-screen w-screen overflow-scroll lg:pt-16">
+    <div
+      class="container px-2 tablet:px-8 pt-4 pb-16 h-screen w-screen overflow-scroll tablet:pt-16"
+    >
       <nuxt/>
     </div>
 
