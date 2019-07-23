@@ -49,6 +49,7 @@ import ReportDetails from "../../components/Reports/Details";
 import ReportsFilter from "../../components/Reports/Filters";
 
 export default {
+  name: "generados",
   layout: "main",
   middleware: "administrator",
   components: {

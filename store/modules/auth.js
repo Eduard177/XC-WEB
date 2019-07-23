@@ -1,4 +1,9 @@
 import cookies from 'js-cookie';
+const headers = {
+  headers: {
+    Authorization: cookies.get('Authorization')
+  }
+};
 
 export default {
   namespaced: true,
@@ -55,7 +60,7 @@ export default {
     },
 
     async fetchUser({ state, commit }) {
-      const response = await this.$axios.get('/logged/');
+      const response = await this.$axios.get('/logged/', headers);
       commit('setUser', response.data.user);
     },
     async logout({ commit }) {

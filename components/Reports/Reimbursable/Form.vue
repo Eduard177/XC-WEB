@@ -8,7 +8,7 @@
           v-validate="'required'"
           :error="errors.first('Tipo de factura')"
           v-model="reimbursable.type"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Tipo de factura"
         >
           <option selected value="Rembolsable">Rembolsable</option>
@@ -19,7 +19,7 @@
           v-validate="'required'"
           :error="errors.first('Proveedor')"
           v-model="reimbursable.provider"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Proveedor"
           placeholder="Sunix Jacobo Majluta"
         ></xc-input>
@@ -28,7 +28,7 @@
           v-validate="'required'"
           :error="errors.first('Tipo Bienes y Servicios Comprados')"
           v-model="reimbursable.bussiness_type"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Tipo Bienes y Servicios Comprados"
         >
           <option
@@ -42,7 +42,7 @@
           v-validate="'required'"
           :error="errors.first('Fecha de pago')"
           v-model="reimbursable.invoice_date"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Fecha de pago"
         ></xc-input-date>
 
@@ -51,7 +51,7 @@
           :error="errors.first('Subtotal')"
           @change="itbis(); tip();"
           v-model="reimbursable.sub_total"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Subtotal"
           placeholder="RD$ 280.20"
           type="number"
@@ -61,7 +61,7 @@
           v-validate="'required'"
           :error="errors.first('RNC')"
           v-model="reimbursable.rnc"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="RNC"
           placeholder="123-456785-1"
         ></xc-input>
@@ -70,7 +70,7 @@
           v-validate="'required'"
           :error="errors.first('Detalle')"
           v-model="reimbursable.details"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Detalle"
           placeholder="Almuerzo"
         ></xc-input>
@@ -79,7 +79,7 @@
           v-validate="'required'"
           :error="errors.first('NCF')"
           v-model="reimbursable.ncf"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="NCF"
           placeholder="B010009098"
         ></xc-input>
@@ -88,7 +88,7 @@
           v-validate="'required'"
           :error="errors.first('Forma de pago')"
           v-model="reimbursable.payment_method"
-          class="flex-col-reverse w-full mt-6 pr-6 lg:w-1/2"
+          class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Forma de pago"
         >
           <option

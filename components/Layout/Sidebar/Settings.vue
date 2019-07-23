@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 py-2">
-    <nuxt-link to>
+    <nuxt-link to="/ajustes">
       <figure
         class="flex justify-center items-center group hover:bg-orange-500 bg-white rounded-full w-10 h-10"
       >

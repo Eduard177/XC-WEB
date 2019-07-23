@@ -31,6 +31,7 @@
       <user-form
         type="edit"
         :user="users[index]"
+        @updateImage="editProfilePicture($event)"
         @submit="editUser($event)"
         @close="edit_user_modal = false"
       ></user-form>
@@ -91,6 +92,10 @@ export default {
         await this.$store.dispatch("users/createUser", user);
         await this.fetchUsers();
 
+        let user = await this.$store.getters["users/getUser"];
+
+        await this.$store.commit("users/setUser", user);
+
         this.create_user_modal = false;
         this.hideLoading(loader);
         this.fireAlert("success", "El Usuario ha sido creado", "top");
@@ -101,17 +106,32 @@ export default {
     },
     async editUser(user) {
       try {
-        let loader = this.$loading.show({});
+        this.loader = this.$loading.show({});
 
         await this.$store.dispatch("users/editUser", user);
         await this.fetchUsers();
 
         this.edit_user_modal = false;
-        this.hideLoading(loader);
+        this.hideLoading(this.loader);
         this.fireAlert("success", "El Usuario ha sido actualizado", "top");
+      } catch (error) {
+        this.hideLoading(this.loader);
+        this.fireErrorAlert();
+      }
+    },
+    async editProfilePicture(user) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("users/uploadProfilePicture", user);
+        await this.fetchUsers();
+
+        this.hideLoading(this.loader);
+        this.fireAlert("success", "La imagen ha sido actualizada", "top");
       } catch (error) {
         console.error(error);
 
+        this.hideLoading(this.loader);
         this.fireErrorAlert();
       }
     }

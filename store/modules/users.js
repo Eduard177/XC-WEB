@@ -8,16 +8,23 @@ const headers = {
 export default {
   namespaced: true,
   state: {
-    users: {}
+    users: [],
+    user: {}
   },
   getters: {
     getUsers(state) {
       return state.users;
+    },
+    getUser(state) {
+      return state.user;
     }
   },
   mutations: {
     setUsers(state, users) {
       state.users = users;
+    },
+    setUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
@@ -29,11 +36,9 @@ export default {
         throw error;
       }
     },
-    async editUser({ dispatch }, user) {
+    async editUser({ dispatch, commit }, user) {
       try {
-        const token = cookies.get('Authorization');
-
-        await this.$axios.patch(
+        const response = await this.$axios.patch(
           'users/' + user.id + '/',
           {
             admission_date: user.admission_date,
@@ -46,16 +51,14 @@ export default {
             role: user.role,
             cellphone: user.cellphone
           },
-          {
-            headers: {
-              Authorization: token
-            }
-          }
+          headers
         );
 
         if (user.image_url) {
           await dispatch('uploadProfilePicture', user);
         }
+
+        commit('setUser', response.data);
       } catch (error) {
         throw error;
       }
