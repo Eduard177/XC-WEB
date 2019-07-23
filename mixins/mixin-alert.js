@@ -42,6 +42,16 @@ export default {
       setTimeout(() => {
         loader.hide();
       }, 500);
+    },
+    alert400Error(error) {
+      let message = '';
+      for (const key in error.response.data) {
+        if (error.response.data.hasOwnProperty(key)) {
+          const element = error.response.data[key];
+          message = element[0];
+        }
+      }
+      this.fireAlert('error', message, 'top');
     }
   }
 };

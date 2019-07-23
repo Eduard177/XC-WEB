@@ -53,10 +53,9 @@ export default {
         // Default breakpoint for SSR
         defaultBreakpoint: 'default',
         breakpoints: {
-          mobile: 320,
-          tablet: 768,
-          laptop: 1024,
-          imac: Infinity
+          sm: 640,
+          md: 770,
+          lg: Infinity
         }
       }
     ],

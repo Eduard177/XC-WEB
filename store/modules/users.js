@@ -81,10 +81,6 @@ export default {
           },
           headers
         );
-
-        if (user.image_url) {
-          await dispatch('uploadProfilePicture', user);
-        }
       } catch (error) {
         throw error;
       }

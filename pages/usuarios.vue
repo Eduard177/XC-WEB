@@ -6,7 +6,7 @@
         @click.native="create_user_modal = true"
         :user="{fullname:'Nombre', email:'Correo', position:'Cargo',office:'Ubicacion', cellphone:'809-000-0000'}"
         type="orange"
-        :image="true"
+        :addImage="true"
       ></user-card>
 
       <user-card
@@ -85,11 +85,11 @@ export default {
       this.index = index;
       this.edit_user_modal = true;
     },
-    async createUser(user) {
+    async createUser(new_user) {
       try {
         this.loader = this.$loading.show({});
 
-        await this.$store.dispatch("users/createUser", user);
+        await this.$store.dispatch("users/createUser", new_user);
         await this.fetchUsers();
 
         let user = await this.$store.getters["users/getUser"];
@@ -97,11 +97,16 @@ export default {
         await this.$store.commit("users/setUser", user);
 
         this.create_user_modal = false;
-        this.hideLoading(loader);
+        this.hideLoading(this.loader);
         this.fireAlert("success", "El Usuario ha sido creado", "top");
       } catch (error) {
         this.hideLoading(this.loader);
-        this.fireErrorAlert();
+
+        if (error.response.status == 400) {
+          this.alert400Error(error);
+        } else {
+          this.fireErrorAlert();
+        }
       }
     },
     async editUser(user) {
@@ -116,14 +121,18 @@ export default {
         this.fireAlert("success", "El Usuario ha sido actualizado", "top");
       } catch (error) {
         this.hideLoading(this.loader);
-        this.fireErrorAlert();
+        if (error.response.status == 400) {
+          this.alert400Error(error);
+        } else {
+          this.fireErrorAlert();
+        }
       }
     },
-    async editProfilePicture(user) {
+    async editProfilePicture(file) {
       try {
         this.loader = this.$loading.show({});
 
-        await this.$store.dispatch("users/uploadProfilePicture", user);
+        await this.$store.dispatch("users/uploadProfilePicture", file);
         await this.fetchUsers();
 
         this.hideLoading(this.loader);
@@ -132,7 +141,11 @@ export default {
         console.error(error);
 
         this.hideLoading(this.loader);
-        this.fireErrorAlert();
+        if (error.response.status == 400) {
+          this.alert400Error(error);
+        } else {
+          this.fireErrorAlert();
+        }
       }
     }
   }

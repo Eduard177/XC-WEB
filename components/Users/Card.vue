@@ -2,17 +2,26 @@
   <div :class="card[type]">
     <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
       <img
-        v-if="image"
+        v-if="addImage"
         class="rounded-full object-cover"
         src="~/assets/images/add-image.svg"
         alt="foto de perfil"
       >
       <img
-        v-else
+        v-if="user.image_url"
         class="w-24 h-24 shadow-md rounded-full object-cover object-center"
         :src="api_url + user.image_url"
         alt="foto de perfil"
       >
+      <avatar
+        v-show="!addImage"
+        :lighten="10"
+        :size="98"
+        color="grey"
+        backgroundColor="ccc"
+        v-else
+        :username="user.fullname"
+      ></avatar>
     </figure>
     <h3 class="mt-4 text-xl text-orange-500 font-bold text-center">{{user.fullname}}</h3>
     <p class="text-xs font-light">{{user.email}}</p>
@@ -25,9 +34,12 @@
   </div>
 </template>
 <script>
+import Avatar from "vue-avatar";
+
 export default {
   name: "user-card",
-  props: ["user", "type", "image"],
+  components: { Avatar },
+  props: ["user", "type", "addImage"],
   data() {
     return {
       api_url: process.env.API_URL,

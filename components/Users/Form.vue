@@ -2,7 +2,7 @@
   <div class="flex flex-col py-8">
     <image-upload
       :imageProp="result_user.image_url ? (api_url + result_user.image_url) : result_user.image_url   "
-      @input=" result_user.image_url = $event"
+      @input=" result_user.image_url = $event; $emit('updateImage', result_user)"
     ></image-upload>
 
     <div class="flex flex-col items-center lg:flex-row mt-8">
