@@ -6,6 +6,7 @@
       <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
       <no-results :items="minor_expenses.results"></no-results>
+
       <reports-table
         :reports="minor_expenses.results"
         :type="'minor_expense'"
@@ -28,8 +29,8 @@
     <card-modal :showing="show_modal" @close="show_modal = false">
       <report-details
         :report="minor_expense"
-        @approve="changeReportStatus({status:'aprobado', minor_expense_id:$event.id})"
-        @decline="changeReportStatus({status:'declinado', minor_expense_id:$event.id})"
+        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
+        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Gasto Menor</h1>
@@ -84,12 +85,12 @@ export default {
   async created() {
     let loader = this.$loading.show({});
 
-    await this.fetchMinorExpenses("pendiente");
+    await this.fetchMinorExpenses();
 
     this.hideLoading(loader);
   },
   methods: {
-    async fetchMinorExpenses(filters) {
+    async fetchMinorExpenses() {
       await this.$store.dispatch("reports/searchMinorExpenses", this.filters);
 
       this.minor_expenses = await this.$store.getters[
@@ -116,7 +117,7 @@ export default {
         this.hideLoading(this.loader);
       }
     },
-    async changeReportStatus(params) {
+    async changeMinorExpenseStatus(params) {
       try {
         this.loader = this.$loading.show({});
 

@@ -184,6 +184,19 @@ export default {
       );
 
       await commit('setReimbursables', response.data);
+    },
+    async setReimbursablesStatus({}, params) {
+      try {
+        await this.$axios.patch(
+          '/reimbursable/' + params.minor_expense_id + '/',
+          {
+            status: params.status
+          },
+          headers
+        );
+      } catch (error) {
+        throw error;
+      }
     }
   }
 };

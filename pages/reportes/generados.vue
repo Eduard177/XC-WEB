@@ -3,196 +3,159 @@
     <section>
       <h2 class="text-xl">Reporte de Gasto Generados</h2>
 
-      <div class="flex flex-wrap lg:flex-col mt-4">
-        <div
-          @click="show_modal = true"
-          class="flex flex-col justify-center items-center bg-white shadow-md rounded-lg cursor-pointer p-4 w-full lg:flex-row lg:justify-around lg:py-2"
-        >
-          <figure class="flex justify-center items-center w-20 lg:w-1/12 bg-hueso rounded-full">
-            <img
-              class="rounded-full object-cover"
-              src="~/assets/images/olopez.png"
-              alt="foto de perfil"
-            >
-          </figure>
+      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
-          <div class="flex flex-wrap lg:flex-no-wrap justify-around pl-12 lg:pl-2">
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>8/06/2019</span>
-              <label for>Fecha</label>
-            </div>
+      <no-results :items="reimbursables.results"></no-results>
 
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pago Uber</span>
-              <label for>Descripcion</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pro Consumidor</span>
-              <label for>Lugar</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Juan, Pedro</span>
-              <label for>Presentes</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>RD$ 189.02</span>
-              <label for>Monto</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Ninguno</span>
-              <label for>Comentario</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap lg:flex-col mt-4">
-        <div
-          @click="show_modal = true"
-          class="flex flex-col justify-center items-center cursor-pointer p-4 w-full lg:flex-row lg:justify-around lg:py-2"
-        >
-          <figure class="flex justify-center items-center w-20 lg:w-1/12 bg-white rounded-full">
-            <img
-              class="rounded-full object-cover"
-              src="~/assets/images/olopez.png"
-              alt="foto de perfil"
-            >
-          </figure>
-
-          <div class="flex flex-wrap lg:flex-no-wrap justify-around pl-12 lg:pl-2">
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>8/06/2019</span>
-              <label for>Fecha</label>
-            </div>
-
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pago Uber</span>
-              <label for>Descripcion</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pro Consumidor</span>
-              <label for>Lugar</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Juan, Pedro</span>
-              <label for>Presentes</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>RD$ 189.02</span>
-              <label for>Monto</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Ninguno</span>
-              <label for>Comentario</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap lg:flex-col mt-4">
-        <div
-          @click="show_modal = true"
-          class="flex flex-col justify-center items-center bg-white shadow-md rounded-lg cursor-pointer p-4 w-full lg:flex-row lg:justify-around lg:py-2"
-        >
-          <figure class="flex justify-center items-center w-20 lg:w-1/12 bg-hueso rounded-full">
-            <img
-              class="rounded-full object-cover"
-              src="~/assets/images/olopez.png"
-              alt="foto de perfil"
-            >
-          </figure>
-
-          <div class="flex flex-wrap lg:flex-no-wrap justify-around pl-12 lg:pl-2">
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>8/06/2019</span>
-              <label for>Fecha</label>
-            </div>
-
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pago Uber</span>
-              <label for>Descripcion</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Pro Consumidor</span>
-              <label for>Lugar</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Juan, Pedro</span>
-              <label for>Presentes</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>RD$ 189.02</span>
-              <label for>Monto</label>
-            </div>
-            <div class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-              <span>Ninguno</span>
-              <label for>Comentario</label>
-            </div>
-          </div>
-        </div>
-      </div>
+      <reports-table
+        :reports="reimbursables.results"
+        :type="'reimbursables'"
+        :edit="false"
+        @itemDetails="reimbursable =  $event; show_modal = true"
+      ></reports-table>
     </section>
-    <card-modal :showing="show_modal" @close="show_modal = false">
-      <div class="flex flex-col py-8 px-2">
-        <div class="flex flex-col lg:flex-row items-center">
-          <figure class="flex justify-center items-center w-20 lg:w-1/6 bg-hueso rounded-full">
-            <img
-              class="rounded-full object-cover"
-              src="~/assets/images/olopez.png"
-              alt="foto de perfil"
-            >
-          </figure>
 
-          <div class="flex flex-wrap lg:ml-4">
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">01/07/2019</span>
-              <label for>Fecha</label>
-            </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">Pago Uber</span>
-              <label for>Descripción</label>
-            </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">Pro Consumidor</span>
-              <label for>Lugar</label>
-            </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">Oscar Lopez G.</span>
-              <label for>Presentes</label>
-            </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">RD$180</span>
-              <label for>Monto</label>
-            </div>
-            <div class="w-1/2 flex flex-col my-3 pr-6">
-              <span class="border-solid border-b border-black">Ninguno</span>
-              <label for>Comentario</label>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-around items-center leading-none mt-12">
-          <a
-            @click="show_modal = false"
-            class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
-          >Declinar</a>
-          <a href="#" class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</a>
-        </div>
-      </div>
+    <div class="mt-5">
+      <pagination
+        v-if="(parseInt(reimbursables.count) / 15) + 1 > 2 "
+        :totalPages="(parseInt(reimbursables.count) / 15) + 1"
+        :total="parseInt(reimbursables.count)"
+        :per-page="15"
+        :current-page="currentPage"
+        @pagechanged="paginateReimbursables($event); currentPage = $event"
+      ></pagination>
+    </div>
+    <card-modal :showing="show_modal" @close="show_modal = false">
+      <report-details
+        :report="reimbursable"
+        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
+        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
+      >
+        <template v-slot:header>
+          <h1 class="text-2xl">Detalles Factura</h1>
+        </template>
+      </report-details>
     </card-modal>
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
+import Alert from "../../mixins/mixin-alert.js";
 import CardModal from "../../components/CardModal";
+import NoResults from "../../components/NoResults";
+import ReportsTable from "../../components/Reports/Table";
+import Pagination from "../../components/Pagination";
+import ReportDetails from "../../components/Reports/Details";
+import ReportsFilter from "../../components/Reports/Filters";
+
 export default {
   layout: "main",
   middleware: "administrator",
   components: {
-    CardModal
+    CardModal,
+    NoResults,
+    ReportsTable,
+    Pagination,
+    ReportDetails,
+    ReportsFilter
   },
+  mixins: [Alert],
   data() {
     return {
-      show_modal: false
+      currentPage: 1,
+      reimbursable: {},
+      reimbursables: {
+        count: 0,
+        results: []
+      },
+      show_modal: false,
+      filters: {
+        status: "pendiente",
+        start: dayjs()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
+        end: dayjs()
+          .endOf("month")
+          .format("YYYY-MM-DD")
+      }
     };
+  },
+  async created() {
+    this.loader = this.$loading.show({});
+
+    await this.fetchReimbursables();
+
+    this.hideLoading(this.loader);
+  },
+  methods: {
+    async fetchReimbursables() {
+      try {
+        await this.$store.dispatch("reports/searchReimbursables", this.filters);
+
+        this.reimbursables = await this.$store.getters[
+          "reports/getReimbursables"
+        ];
+      } catch (error) {
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
+    },
+    async paginateReimbursables(page) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("reports/paginateReimbursables", {
+          page: page,
+          user_id: this.user.id
+        });
+
+        const reimbursables = await this.$store.getters[
+          "reports/getReimbursables"
+        ];
+
+        this.reimbursables = reimbursables;
+
+        await this.hideLoading(this.loader);
+      } catch (error) {
+        this.fireErrorAlert();
+      }
+    },
+    async changeMinorExpenseStatus(params) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("reports/setReimbursablesStatus", params);
+        await this.fetchReimbursables();
+
+        this.fireAlert(
+          "success",
+          "El reporte ha sido " + params.status + " correctamente.",
+          "top"
+        );
+
+        this.show_modal = false;
+
+        this.hideLoading(this.loader);
+      } catch (error) {
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
+    },
+    async applyFilters(filters) {
+      try {
+        this.loader = this.$loading.show({});
+
+        this.filters = filters;
+        await this.fetchReimbursables();
+
+        this.hideLoading(this.loader);
+      } catch (error) {
+        console.error(error);
+
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
+    }
   }
 };
 </script>
