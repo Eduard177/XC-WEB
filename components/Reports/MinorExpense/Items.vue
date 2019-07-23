@@ -17,16 +17,16 @@
       <span>{{minorExpense.place}}</span>
       <label>Lugar</label>
     </td>
-    <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
+    <!-- <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
       <span>{{minorExpense.witnesses == "" ? 'N/A' : minorExpense.witnesses}}</span>
       <label>Presentes</label>
-    </td>
+    </td>-->
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
       <span>{{minorExpense.total}}</span>
       <label>Monto</label>
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-      <span>{{minorExpense.status == true ? 'Aprobado' : "Pendiente"}}</span>
+      <span>{{minorExpense.status}}</span>
       <label>Status</label>
     </td>
 

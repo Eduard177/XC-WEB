@@ -185,7 +185,7 @@
 import CardModal from "../../components/CardModal";
 export default {
   layout: "main",
-  middleware: "authenticated",
+  middleware: "administrator",
   components: {
     CardModal
   },

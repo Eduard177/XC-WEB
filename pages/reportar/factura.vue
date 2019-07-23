@@ -72,7 +72,6 @@
 </template>
 <script>
 import Alert from "../../mixins/mixin-alert.js";
-import Paginators from "../../mixins/mixin-paginators.js";
 import CardModal from "../../components/CardModal";
 import ReportsTable from "../../components/Reports/Table";
 import Reimbursable from "../../models/Reports/Reimbursable.js";
@@ -84,7 +83,7 @@ import NoResults from "../../components/NoResults";
 export default {
   middleware: "authenticated",
   layout: "main",
-  mixins: [Alert, Paginators],
+  mixins: [Alert],
   components: {
     Pagination,
     ReportsTable,
@@ -116,6 +115,26 @@ export default {
     this.hideLoading(loader);
   },
   methods: {
+    async paginateReimbursables(page) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("reports/paginateReimbursables", {
+          page: page,
+          user_id: this.user.id
+        });
+
+        const reimbursables = await this.$store.getters[
+          "reports/getReimbursables"
+        ];
+
+        this.reimbursables = reimbursables;
+
+        await this.hideLoading(this.loader);
+      } catch (error) {
+        this.fireErrorAlert();
+      }
+    },
     async fetchReimbursablesByUser() {
       try {
         await this.$store.dispatch(

@@ -48,7 +48,7 @@ import User from "../models/User";
 export default {
   name: "usuarios",
   layout: "main",
-  middleware: "authenticated",
+  middleware: "administrator",
   components: {
     CardModal,
     UserCard,

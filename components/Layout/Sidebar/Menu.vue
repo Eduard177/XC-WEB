@@ -1,6 +1,6 @@
 <template>
   <div class="flex lg:flex-col">
-    <div class="px-4 py-2">
+    <div v-if="user.rol == 'Administrator'" class="px-4 py-2">
       <nuxt-link to="/usuarios">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"
@@ -111,7 +111,7 @@
       >&bull;</span>
     </div>
 
-    <div v-if="user.role == 'Administrator'" class="px-4 py-2">
+    <div v-if="user.rol == 'Administrator'" class="px-4 py-2">
       <a @click="show_reports_options = !show_reports_options">
         <figure
           class="flex justify-center items-center group hover:bg-orange-500 items-center bg-white rounded-full w-10 h-10"

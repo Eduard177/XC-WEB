@@ -17,8 +17,11 @@
       v-if="user.rol == 'Administrator'"
       class="flex justify-between items-center leading-none mt-12"
     >
-      <button class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer">Declinar</button>
-      <button class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</button>
+      <button
+        @click="$emit('decline', report)"
+        class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
+      >Declinar</button>
+      <button @click="$emit('approve', report)" class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</button>
     </div>
   </div>
 </template>

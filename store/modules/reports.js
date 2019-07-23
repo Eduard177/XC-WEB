@@ -30,11 +30,16 @@ export default {
     }
   },
   actions: {
-    async fetchMinorExpensesByUser({ commit }, user_id) {
+    async fetchMinorExpensesByUser({ commit }, filters) {
       try {
+        let queryString = queryStingParamsParser({
+          user_id: filters.user_id,
+          start: filters.start,
+          end: filters.end
+        });
+
         const response = await this.$axios.get(
-          '/minorexpenses/?user_id=' + user_id,
-          headers
+          '/minorexpenses/?search=' + filters.status + queryString
         );
 
         commit('setMinorExpenses', response.data);
@@ -75,9 +80,12 @@ export default {
         throw error;
       }
     },
-    async paginateMinorExpenses({ commit }, page) {
+    async paginateMinorExpenses({ commit }, params) {
       try {
-        const response = await this.$axios.get('/minorexpenses/?page=' + page);
+        const queryString = queryStingParamsParser(params);
+        const response = await this.$axios.get(
+          '/minorexpenses/?' + queryString
+        );
         commit('setMinorExpenses', response.data);
       } catch (error) {
         throw error;
@@ -94,6 +102,19 @@ export default {
       );
 
       await commit('setMinorExpenses', response.data);
+    },
+    async setMinorExpenseStatus({}, params) {
+      try {
+        await this.$axios.patch(
+          '/minorexpenses/' + params.minor_expense_id + '/',
+          {
+            status: params.status
+          },
+          headers
+        );
+      } catch (error) {
+        throw error;
+      }
     },
 
     async fetchReimbursablesByUser({ commit }, user_id) {
@@ -137,9 +158,10 @@ export default {
         throw error;
       }
     },
-    async paginateReimbursables({ commit }, page) {
+    async paginateReimbursables({ commit }, params) {
       try {
-        const response = await this.$axios.get('/reimbursable/?page=' + page);
+        const queryString = queryStingParamsParser(params);
+        const response = await this.$axios.get('/reimbursable/?' + queryString);
         commit('setReimbursables', response.data);
       } catch (error) {
         throw error;

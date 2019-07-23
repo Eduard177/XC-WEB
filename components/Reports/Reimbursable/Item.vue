@@ -22,7 +22,7 @@
       <label>Total</label>
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
-      <span>{{reimbursable.status == true ? 'Aprobado' : "Pendiente"}}</span>
+      <span>{{reimbursable.status }}</span>
       <label>Status</label>
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">

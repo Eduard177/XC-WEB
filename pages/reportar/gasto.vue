@@ -3,13 +3,7 @@
     <section>
       <h1 class="text-xl">Gastos Menores</h1>
 
-      <div class="flex justify-end">
-        <input class="p-1 rounded-lg no-spin" type="date" name id>
-        <select class="ml-6 px-4 outline-none" name id>
-          <option selected :value="true">Aproabdo</option>
-          <option :value="false">Pendiente</option>
-        </select>
-      </div>
+      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
       <no-results :items="minor_expenses.results"></no-results>
 
@@ -75,8 +69,8 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
 import Alert from "../../mixins/mixin-alert.js";
-import Paginators from "../../mixins/mixin-paginators.js";
 import CardModal from "../../components/CardModal";
 import ReportsTable from "../../components/Reports/Table";
 import MinorExpense from "../../models/Reports/MinorExpense.js";
@@ -84,18 +78,20 @@ import ReportsDetails from "../../components/Reports/Details";
 import MinorExpenseForm from "../../components/Reports/MinorExpense/Form";
 import Pagination from "../../components/Pagination";
 import NoResults from "../../components/NoResults";
+import ReportsFilter from "../../components/Reports/Filters";
 
 export default {
   middleware: "authenticated",
   layout: "main",
-  mixins: [Alert, Paginators],
+  mixins: [Alert],
   components: {
     CardModal,
     ReportsTable,
     ReportsDetails,
     MinorExpenseForm,
     Pagination,
-    NoResults
+    NoResults,
+    ReportsFilter
   },
   data() {
     return {
@@ -103,6 +99,17 @@ export default {
         results: [],
         count: 0
       },
+      filters: {
+        user_id: this.$store.getters["auth/getLoggedUser"].id,
+        status: "pendiente",
+        start: dayjs()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
+        end: dayjs()
+          .endOf("month")
+          .format("YYYY-MM-DD")
+      },
+      currentPage: 1,
       minor_expense: new MinorExpense(),
       new_minor_expense: new MinorExpense(),
       show_create_report: false,
@@ -123,7 +130,7 @@ export default {
       try {
         let user = await this.$store.dispatch(
           "reports/fetchMinorExpensesByUser",
-          this.user.id
+          this.filters
         );
 
         this.minor_expenses = this.$store.getters["reports/getMinorExpenses"];
@@ -135,17 +142,18 @@ export default {
       try {
         this.loader = this.$loading.show({});
 
-        await this.$store.dispatch("reports/paginateMinorExpenses", page);
+        await this.$store.dispatch("reports/paginateMinorExpenses", {
+          user_id: this.user.id,
+          page: page
+        });
 
-        const minor_expense = await this.$store.getters[
+        const minor_expenses = await this.$store.getters[
           "reports/getMinorExpenses"
         ];
 
-        this.minor_expense = minor_expense;
+        this.minor_expenses = minor_expenses;
 
-        this.fetchMinorExpensesByUser();
-
-        await this.hideLoading(this.loader);
+        this.hideLoading(this.loader);
       } catch (error) {
         this.fireErrorAlert();
       }
@@ -232,7 +240,22 @@ export default {
     async assingReport(report) {
       this.minor_expense = report;
     },
-    showMinorExpensDetails(minor_expense) {}
+    async applyFilters(filters) {
+      try {
+        this.loader = this.$loading.show({});
+
+        filters.user_id = this.user.id;
+        this.filters = filters;
+        await this.fetchMinorExpensesByUser();
+
+        this.hideLoading(this.loader);
+      } catch (error) {
+        console.error(error);
+
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
+    }
   }
 };
 </script>
