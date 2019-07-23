@@ -27,6 +27,7 @@
     </td>
     <td class="flex flex-col mt-2 lg:px-3 w-1/2 lg:w-auto">
       <actions
+        :edit="edit"
         @details="$emit('itemDetails', reimbursable)"
         @edit="$emit('itemEdit', reimbursable)"
         @delete="$emit('itemDelete', reimbursable)"
@@ -42,6 +43,9 @@ export default {
     Actions
   },
   props: {
+    edit: {
+      required: true
+    },
     reimbursable: {
       required: true,
       type: Object

@@ -2,13 +2,7 @@
   <div>
     <h1 class="text-xl">Facturas</h1>
 
-    <div class="flex justify-end">
-      <input class="p-1 rounded-lg no-spin" type="date" name id>
-      <select class="ml-6 px-4 outline-none" name id>
-        <option selected :value="true">Aproabdo</option>
-        <option :value="false">Pendiente</option>
-      </select>
-    </div>
+    <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
     <no-results :items="reimbursables.results"></no-results>
 
@@ -71,11 +65,13 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
 import Alert from "../../mixins/mixin-alert.js";
 import CardModal from "../../components/CardModal";
 import ReportsTable from "../../components/Reports/Table";
 import Reimbursable from "../../models/Reports/Reimbursable.js";
 import ReportsDetails from "../../components/Reports/Details";
+import ReportsFilter from "../../components/Reports/Filters";
 import ReimbursableForm from "../../components/Reports/Reimbursable/Form";
 import Pagination from "../../components/Pagination";
 import NoResults from "../../components/NoResults";
@@ -89,11 +85,22 @@ export default {
     ReportsTable,
     CardModal,
     ReportsDetails,
+    ReportsFilter,
     ReimbursableForm,
     NoResults
   },
   data() {
     return {
+      filters: {
+        user_id: this.$store.getters["auth/getLoggedUser"].id,
+        status: "pendiente",
+        start: dayjs()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
+        end: dayjs()
+          .endOf("month")
+          .format("YYYY-MM-DD")
+      },
       currentPage: 1,
       reimbursables: {
         results: [],
@@ -139,7 +146,7 @@ export default {
       try {
         await this.$store.dispatch(
           "reports/fetchReimbursablesByUser",
-          this.user.id
+          this.filters
         );
 
         const reimbursables = await this.$store.getters[
@@ -187,8 +194,6 @@ export default {
 
         this.show_report_edit = false;
 
-        console.log(this.show_report_edit);
-
         await this.hideLoading(this.loader);
 
         this.fireAlert(
@@ -226,6 +231,22 @@ export default {
         } catch (error) {
           this.fireErrorAlert();
         }
+      }
+    },
+    async applyFilters(filters) {
+      try {
+        this.loader = this.$loading.show({});
+
+        filters.user_id = this.user.id;
+        this.filters = filters;
+        await this.fetchReimbursablesByUser();
+
+        this.hideLoading(this.loader);
+      } catch (error) {
+        console.error(error);
+
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
       }
     }
   }
