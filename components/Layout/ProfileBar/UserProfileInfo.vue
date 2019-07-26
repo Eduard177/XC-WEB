@@ -3,7 +3,7 @@
     <figure class="flex justify-center items-center h-24 w-24 bg-gray-300 rounded-full">
       <img
         v-if="user.image_url"
-        class="hidden tablet:block w-1/3 rounded-full object-cover"
+        class="hidden tablet:block rounded-full object-cover"
         :src="imageUrl"
         alt="foto de perfil"
       >

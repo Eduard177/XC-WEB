@@ -59,7 +59,7 @@ export default {
       }
     },
 
-    async fetchUser({ state, commit }) {
+    async fetchUser({ commit }) {
       const response = await this.$axios.get('/logged/', headers);
       commit('setUser', response.data.user);
     },

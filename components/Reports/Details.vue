@@ -1,15 +1,14 @@
 <template>
-  <div class="flex flex-col py-8 px-2">
+  <div class="flex flex-col py-8 px-2 mt-10 table:mt-auto">
     <slot name="header"></slot>
     <div class="flex flex-wrap tablet:mt-4">
       <div
         v-for="(property, key) in report"
         :key="key"
-        v-if="key !='user'"
-        class="w-1/2 flex flex-col my-3 pr-6"
+        v-if="key !='user' || key !='image_url'"
+        class="flex flex-col my-3 pr-6 w-full tablet:w-1/2"
       >
-        <span v-if="key != 'status'" class="border-solid">{{property}}</span>
-        <span v-else class="border-solid">{{property == false ? 'Pendiente' : 'Aprobado'}}</span>
+        <span class="border-solid">{{property}}</span>
         <label>{{options[key] }}</label>
       </div>
     </div>

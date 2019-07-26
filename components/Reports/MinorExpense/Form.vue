@@ -7,16 +7,16 @@
         v-validate="'required'"
         :error="errors.first('Fecha del consumo')"
         v-model="minor_expense.invoice_date"
-        class="w-1/5 flex-col-reverse"
+        class="tablet:w-1/5 flex-col-reverse"
         label="Fecha del consumo"
       ></xc-input-date>
 
-      <div class="mt-12 flex">
+      <div class="flex flex-col tablet:flex-row">
         <xc-input
           v-validate="'required'"
           :error="errors.first('Descripción')"
           v-model="minor_expense.description"
-          class="flex-col-reverse w-1/2 pr-8"
+          class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Descripción"
           placeholder="Pago Uber"
         ></xc-input>
@@ -25,16 +25,16 @@
           v-validate="'required'"
           :error="errors.first('Lugar')"
           v-model="minor_expense.place"
-          class="flex-col-reverse w-1/2 pr-8"
+          class="flex-col-reverse mt-8 table:mt-4 w-full tablet:w-1/2 tablet:pr-8"
           label="Lugar"
           placeholder="Calle Heriberto Núñez # 4 Urbanización Fernández"
         ></xc-input>
       </div>
 
-      <div class="mt-12 flex">
+      <div class="flex flex-col tablet:flex-row">
         <xc-input
           v-model="minor_expense.witnesses"
-          class="flex-col-reverse w-1/2 pr-8"
+          class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Personas Presentes"
           placeholder="Juan, Pedro..."
         ></xc-input>
@@ -43,7 +43,7 @@
           v-validate="'required|numeric'"
           :error="errors.first('Monto')"
           v-model="minor_expense.total"
-          class="flex-col-reverse w-1/2 pr-8"
+          class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Monto"
           type="number"
           placeholder="RD$180.20"
@@ -52,7 +52,7 @@
 
       <xc-input
         v-model="minor_expense.comment"
-        class="flex-col-reverse w-full pr-8 mt-12"
+        class="flex-col-reverse w-full mt-8 tablet:pr-8 tablet:mt-12"
         label="Comentario"
       ></xc-input>
 

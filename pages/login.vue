@@ -1,7 +1,7 @@
 <template>
-  <div class="container tablet:flex tablet:flex-col">
+  <div class="container flex flex-col tablet:flex tablet:flex-col">
     <img
-      class="max-w-xs max-w-sm"
+      class="tablet:max-w-xs tablet:max-w-sm w-56 tablet:w-auto self-center tablet:self-start"
       src="http://xpertcode.com.do/wp-content/uploads/2018/08/XC-logo-final-05.png"
       alt="logo"
     >
@@ -16,48 +16,16 @@
       </div>
 
       <div>
-        <h1 class="text-4xl text-center mt-12 tablet:text-5xl text-teal-600 font-bold">Bienvenido</h1>
+        <h1
+          class="text-3xl text-center mt-6 tablet:mt-12 tablet:text-5xl text-teal-600 font-bold"
+        >Bienvenido</h1>
         <p
           class="p-6 text-md text-gray-800 tablet:mt-5"
         >Puedes utilizar esta aplicacion para reportar tus gastos a ser rembolsables por nomina.</p>
 
         <div class="flex items-center border border-gray-200 border-b-0 rounded-t-lg">
           <div class="ml-3 p-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="21.327"
-              viewBox="0 0 30 21.327"
-            >
-              <g id="Group_574" data-name="Group 574" transform="translate(-852.156 -479.401)">
-                <g id="Group_551" data-name="Group 551">
-                  <path
-                    id="Path_553"
-                    data-name="Path 553"
-                    d="M876.446,495.873a.48.48,0,0,1-.331-.132l-5.566-5.221a.484.484,0,0,1,.663-.7l5.566,5.222a.484.484,0,0,1-.332.836Z"
-                    fill="#999"
-                  ></path>
-                  <path
-                    id="Path_554"
-                    data-name="Path 554"
-                    d="M857.866,495.873a.484.484,0,0,1-.332-.836l5.568-5.222a.484.484,0,0,1,.663.7l-5.568,5.221A.48.48,0,0,1,857.866,495.873Z"
-                    fill="#999"
-                  ></path>
-                </g>
-                <path
-                  id="Path_555"
-                  data-name="Path 555"
-                  d="M879.738,500.728H854.575a2.421,2.421,0,0,1-2.419-2.418V481.819a2.421,2.421,0,0,1,2.419-2.418h25.163a2.42,2.42,0,0,1,2.418,2.418V498.31A2.42,2.42,0,0,1,879.738,500.728Zm-25.163-20.36a1.453,1.453,0,0,0-1.451,1.451V498.31a1.453,1.453,0,0,0,1.451,1.451h25.163a1.453,1.453,0,0,0,1.451-1.451V481.819a1.453,1.453,0,0,0-1.451-1.451Z"
-                  fill="#999"
-                ></path>
-                <path
-                  id="Path_556"
-                  data-name="Path 556"
-                  d="M867.156,492.495a2.709,2.709,0,0,1-1.776-.64l-12.421-10.836a.484.484,0,1,1,.636-.729l12.421,10.834a1.81,1.81,0,0,0,2.28,0l12.4-10.817a.484.484,0,0,1,.637.729l-12.406,10.818A2.7,2.7,0,0,1,867.156,492.495Z"
-                  fill="#999"
-                ></path>
-              </g>
-            </svg>
+            <img src alt srcset>
           </div>
           <div class="w-full py-4">
             <span class="block text-xs text-gray-800">Correo Electrónico</span>
@@ -217,7 +185,7 @@
 
           <a
             @click="login()"
-            class="block mt-10 btn bg-grad-green/orange w-full"
+            class="block mt-10 btn bg-grad-green/orange w-2/3 tablet:w-full"
             href="#"
           >Iniciar Sesión</a>
         </div>

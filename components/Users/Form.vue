@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col py-8">
+  <div class="flex flex-col py-8 tablet:mt-64 tablet:mt-0">
     <image-upload
       :imageProp="result_user.image_url ? (api_url + result_user.image_url) : result_user.image_url   "
       @input=" result_user.image_url = $event; $emit('updateImage', result_user)"

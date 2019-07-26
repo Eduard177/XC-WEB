@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-end my-5 tablet:flex-row">
+  <div class="flex flex-col justify-end my-5 items-center tablet:flex-row">
     <div class="flex items-center">
       <input
         name="StartDate"

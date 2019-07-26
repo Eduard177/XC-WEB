@@ -5,18 +5,25 @@
     <div v-if="toogle" class="tablet:hidden">
       <!-- reportes -->
 
-      <div class="flex justify-around py-5">
-        <div class="flex flex-col items-center">
-          <span class="text-2xl text-orange-400 font-bold">13</span>
-          <p>Reportes</p>
+      <div class="flex flex-col py-5 bg-white shadow-lg">
+        <div class="flex items-center justify-around">
+          <div class="flex flex-col items-center">
+            <span class="text-2xl text-orange-400 font-bold">13</span>
+            <p>Reportes</p>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <span class="text-2xl text-teal-500 font-bold">13</span>
+            <p>Pendientes</p>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <span class="text-2xl text-green-700 font-bold">0</span>
+            <p>Pendientes</p>
+          </div>
         </div>
-        <div class="flex flex-col items-center">
-          <span class="text-2xl text-teal-500 font-bold">13</span>
-          <p>Pendientes</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <span class="text-2xl text-green-700 font-bold">0</span>
-          <p>Pendientes</p>
+        <div @click="logout()" class="flex justify-center mt-6">
+          <span class="text-xl font-bold items-center">Cerrar Sesión</span>
         </div>
       </div>
     </div>
@@ -48,6 +55,10 @@ export default {
   methods: {
     toogleMenu() {
       this.toogle = !this.toogle;
+    },
+    async logout() {
+      await this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
     }
   }
 };
