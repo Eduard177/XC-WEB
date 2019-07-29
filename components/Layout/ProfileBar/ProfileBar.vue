@@ -5,10 +5,13 @@
     <div class="flex w-full justify-between tablet:flex-col">
       <div class="flex items-center p-2">
         <img
+          @click="logout()"
           class="hidden tablet:mt-4 tablet:block cursor-pointer"
           src="../../../assets/images/logout-button.svg"
         >
-        <img class="tablet:hidden w-1/2" src="../../../assets/images/logo.svg" alt>
+        <nuxt-link to="/">
+          <img class="tablet:hidden w-1/2" src="../../../assets/images/logo.svg" alt>
+        </nuxt-link>
       </div>
       <div
         @click="$emit('toogleMenu')"
