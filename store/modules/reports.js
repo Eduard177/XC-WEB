@@ -1,5 +1,7 @@
 import cookies from 'js-cookie';
-import { queryStingParamsParser } from '../../utils/Helpers';
+import {
+  queryStingParamsParser
+} from '../../utils/Helpers';
 
 const headers = {
   headers: {
@@ -30,7 +32,9 @@ export default {
     }
   },
   actions: {
-    async fetchMinorExpensesByUser({ commit }, filters) {
+    async fetchMinorExpensesByUser({
+      commit
+    }, filters) {
       try {
         let queryString = queryStingParamsParser({
           user_id: filters.user_id,
@@ -80,7 +84,9 @@ export default {
         throw error;
       }
     },
-    async paginateMinorExpenses({ commit }, params) {
+    async paginateMinorExpenses({
+      commit
+    }, params) {
       try {
         const queryString = queryStingParamsParser(params);
         const response = await this.$axios.get(
@@ -91,7 +97,9 @@ export default {
         throw error;
       }
     },
-    async searchMinorExpenses({ commit }, filters) {
+    async searchMinorExpenses({
+      commit
+    }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
         end: filters.end
@@ -106,8 +114,7 @@ export default {
     async setMinorExpenseStatus({}, params) {
       try {
         await this.$axios.patch(
-          '/minorexpenses/' + params.minor_expense_id + '/',
-          {
+          '/minorexpenses/' + params.minor_expense_id + '/', {
             status: params.status
           },
           headers
@@ -117,7 +124,9 @@ export default {
       }
     },
 
-    async fetchReimbursablesByUser({ commit }, filters) {
+    async fetchReimbursablesByUser({
+      commit
+    }, filters) {
       try {
         let queryString = queryStingParamsParser({
           user_id: filters.user_id,
@@ -164,7 +173,9 @@ export default {
         throw error;
       }
     },
-    async paginateReimbursables({ commit }, params) {
+    async paginateReimbursables({
+      commit
+    }, params) {
       try {
         const queryString = queryStingParamsParser(params);
         const response = await this.$axios.get('/reimbursable/?' + queryString);
@@ -173,7 +184,9 @@ export default {
         throw error;
       }
     },
-    async searchReimbursables({ commit }, filters) {
+    async searchReimbursables({
+      commit
+    }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
         end: filters.end
@@ -188,12 +201,31 @@ export default {
     async setReimbursablesStatus({}, params) {
       try {
         await this.$axios.patch(
-          '/reimbursable/' + params.minor_expense_id + '/',
-          {
+          '/reimbursable/' + params.minor_expense_id + '/', {
             status: params.status
           },
           headers
         );
+      } catch (error) {
+        throw error;
+      }
+    },
+    async ValidateRNC(rnc) {
+      try {
+        const response = await this.$axios.get('validate/rnc/?rnc=' + rnc)
+        return response.data
+      } catch (error) {
+        throw error;
+      }
+    },
+    async ValidateNCF(filters) {
+      try {
+        let queryString = queryStingParamsParser({
+          rnc: filters.rnc,
+          ncf: filters.ncf
+        });
+        const response = await this.$axios.get('validate/ncf/? ' + queryString)
+        return response.data
       } catch (error) {
         throw error;
       }

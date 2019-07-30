@@ -28,7 +28,9 @@ export default {
     }
   },
   actions: {
-    async fetchUsers({ commit }) {
+    async fetchUsers({
+      commit
+    }) {
       try {
         const response = await this.$axios.get('/users/');
         commit('setUsers', response.data.results);
@@ -36,11 +38,13 @@ export default {
         throw error;
       }
     },
-    async editUser({ dispatch, commit }, user) {
+    async editUser({
+      dispatch,
+      commit
+    }, user) {
       try {
         const response = await this.$axios.patch(
-          'users/' + user.id + '/',
-          {
+          'users/' + user.id + '/', {
             admission_date: user.admission_date,
             fullname: user.fullname,
             email: user.email,
@@ -54,20 +58,18 @@ export default {
           headers
         );
 
-        if (user.image_url) {
-          await dispatch('uploadProfilePicture', user);
-        }
 
         commit('setUser', response.data);
       } catch (error) {
         throw error;
       }
     },
-    async createUser({ dispatch }, user) {
+    async createUser({
+      dispatch
+    }, user) {
       try {
         await this.$axios.post(
-          '/users/',
-          {
+          '/users/', {
             admission_date: user.admission_date,
             fullname: user.fullname,
             email: user.email,

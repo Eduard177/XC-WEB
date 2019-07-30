@@ -1,15 +1,10 @@
-import cookies from 'js-cookie';
-const headers = {
-  headers: {
-    Authorization: cookies.get('Authorization')
-  }
-};
+import cookies from "js-cookie";
 
 export default {
   namespaced: true,
   state: {
     is_login: false,
-    token: '',
+    token: "",
     user: {}
   },
   getters: {
@@ -30,7 +25,7 @@ export default {
     },
     logout(state) {
       state.is_login = false;
-      state.token = '';
+      state.token = "";
       state.user = {};
     },
     setToken(state, token) {
@@ -40,18 +35,20 @@ export default {
   actions: {
     async login({ commit, dispatch }, auth) {
       try {
-        const response = await this.$axios.post('/login/', {
+        const response = await this.$axios.post("/login/", {
           username: auth.username,
           password: auth.password
         });
 
         const token = response.data.token;
-        await commit('setToken', 'Token ' + token);
+        await commit("setToken", "Token " + token);
 
-        this.$axios.setToken('Token ' + token);
-        cookies.set('Authorization', 'Token ' + token, { expires: 7 });
+        this.$axios.setToken("Token " + token);
+        cookies.set("Authorization", "Token " + token, {
+          expires: 7
+        });
 
-        await dispatch('fetchUser');
+        await dispatch("fetchUser");
 
         return;
       } catch (error) {
@@ -60,13 +57,17 @@ export default {
     },
 
     async fetchUser({ commit }) {
-      const response = await this.$axios.get('/logged/', headers);
-      commit('setUser', response.data.user);
+      const response = await this.$axios.get("/logged/", {
+        headers: {
+          Authorization: cookies.get("Authorization")
+        }
+      });
+      commit("setUser", response.data.user);
     },
     async logout({ commit }) {
-      commit('logout');
-      await localStorage.removeItem('xc-vuex');
-
+      commit("logout");
+      await localStorage.removeItem("xc-vuex");
+      await cookies.remove("Authorization");
       return;
     }
   }

@@ -101,12 +101,12 @@
         <div class="flex mt-8">
           <div class="flex flex-col">
             <label>ITBIS</label>
-            <input v-model="reimbursable.has_itbis" type="checkbox">
+            <input v-model="reimbursable.has_itbis" type="checkbox" />
           </div>
           <span class="text-sm -ml-1 pt-3 gray-350">RD${{itbis}}</span>
           <div class="flex flex-col ml-8">
             <label for="cbox2">Propina</label>
-            <input v-model="reimbursable.has_tip" type="checkbox">
+            <input v-model="reimbursable.has_tip" type="checkbox" />
           </div>
           <span class="text-sm -ml-2 pt-3 gray-350">RD${{tip}}</span>
         </div>

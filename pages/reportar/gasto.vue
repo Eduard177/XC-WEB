@@ -3,7 +3,7 @@
     <section>
       <h1 class="text-xl">Gastos Menores</h1>
 
-      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
+      <reports-filter @onFiltersChange="applyFilters($event)" @toExcel="ExportExcel($event)"></reports-filter>
 
       <no-results :items="minor_expenses.results"></no-results>
 
@@ -127,6 +127,13 @@ export default {
     this.hideLoading(loader);
   },
   methods: {
+    async ExportExcel(filters) {
+      try {
+        await this.$store.dispatch("reports/GenerateExcel", filters);
+      } catch (error) {
+        this.fireErrorAlert();
+      }
+    },
     async fetchMinorExpensesByUser() {
       try {
         let user = await this.$store.dispatch(
