@@ -8,9 +8,9 @@
           @click="logout()"
           class="hidden tablet:mt-4 tablet:block cursor-pointer"
           src="../../../assets/images/logout-button.svg"
-        >
+        />
         <nuxt-link to="/">
-          <img class="tablet:hidden w-1/2" src="../../../assets/images/logo.svg" alt>
+          <img class="tablet:hidden w-1/2" src="../../../assets/images/logo.svg" alt />
         </nuxt-link>
       </div>
       <div
@@ -30,7 +30,7 @@
             width="25"
             height="4.617"
             fill="#9b9b9b"
-          ></rect>
+          />
         </svg>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="4.617" viewBox="0 0 25 4.617">
@@ -40,7 +40,7 @@
             width="25"
             height="4.617"
             fill="#9b9b9b"
-          ></rect>
+          />
         </svg>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="4.617" viewBox="0 0 25 4.617">
@@ -50,28 +50,28 @@
             width="25"
             height="4.617"
             fill="#9b9b9b"
-          ></rect>
+          />
         </svg>
       </div>
 
-      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg' || $mq === 'md'"/>
+      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg' || $mq === 'md'" />
     </div>
 
     <!-- reportes -->
     <div class="hidden tablet:block">
       <div class="flex justify-around mt-20">
         <div class="flex flex-col items-center">
-          <span class="text-4xl text-orange-400 font-bold">13</span>
+          <span class="text-4xl text-orange-400 font-bold">{{report_count.total}}</span>
           <p>Reportes</p>
         </div>
         <div class="flex flex-col items-center">
-          <span class="text-4xl text-teal-500 font-bold">13</span>
-          <p>Pendientes</p>
+          <span class="text-4xl text-teal-500 font-bold">{{report_count.aprobados}}</span>
+          <p>Aprobados</p>
         </div>
       </div>
 
       <div class="flex flex-col items-center mt-8">
-        <span class="text-4xl text-green-700 font-bold">0</span>
+        <span class="text-4xl text-green-700 font-bold">{{report_count.pendiente}}</span>
         <p>Pendientes</p>
       </div>
     </div>
@@ -97,16 +97,23 @@ export default {
   data() {
     return {
       user: new User(),
-      api_url: process.env.API_URL
+      api_url: process.env.API_URL,
+      report_count: {}
     };
   },
   created() {
     this.user = this.$store.getters["auth/getLoggedUser"];
+    this.getReportCount();
   },
   methods: {
     async logout() {
       await this.$store.dispatch("auth/logout");
       this.$router.push("/login");
+    },
+    async getReportCount() {
+      debugger;
+      await this.$store.dispatch("reports/ReportsCount", this.user.id);
+      this.report_count = this.$store.getters["reports/getReportCount"];
     }
   }
 };

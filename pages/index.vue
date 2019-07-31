@@ -6,7 +6,7 @@
         <figure
           class="flex flex-col justify-center items-center shadow-xl h-56 w-full tablet:w-2/5 bg-white rounded-br-xl"
         >
-          <span class="text-6xl text-orange-400 font-bold">13</span>
+          <span class="text-6xl text-orange-400 font-bold">{{report_count.total}}</span>
           <p class="text-xl text-black font-light">Reportes Realizados</p>
         </figure>
 
@@ -20,7 +20,7 @@
                 data-name="Path 470"
                 d="M2371.427,298.286a37.919,37.919,0,1,0,37.919,37.919A37.92,37.92,0,0,0,2371.427,298.286Zm-6.956,57.4-16.7-16.7,5.565-5.565,11.131,11.131,25.044-25.044,5.565,5.565Z"
                 fill="#fff"
-              ></path>
+              />
             </g>
           </svg>
 
@@ -53,6 +53,7 @@ export default {
   },
   data() {
     return {
+      report_count: {},
       donnut_chart: {
         labels: ["Caja Chica", "Nomina", "Otros"],
         datasets: [
@@ -74,6 +75,9 @@ export default {
         }
       }
     };
+  },
+  created() {
+    this.report_count = this.$store.getters["reports/getReportCount"];
   }
 };
 </script>

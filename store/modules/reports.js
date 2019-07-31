@@ -13,7 +13,8 @@ export default {
   namespaced: true,
   state: {
     minor_expenses: [],
-    reimbursables: []
+    reimbursables: [],
+    report_count: {}
   },
   getters: {
     getMinorExpenses(state) {
@@ -21,6 +22,9 @@ export default {
     },
     getReimbursables(state) {
       return state.reimbursables;
+    },
+    getReportCount(state) {
+      return state.report_count;
     }
   },
   mutations: {
@@ -29,6 +33,9 @@ export default {
     },
     setReimbursables(state, reimbursables) {
       state.reimbursables = reimbursables;
+    },
+    setReportCount(state, count) {
+      state.report_count = count
     }
   },
   actions: {
@@ -229,6 +236,17 @@ export default {
       } catch (error) {
         throw error;
       }
+    },
+    async ReportsCount({
+      commit
+    }, user_id) {
+      try {
+        const response = await this.$axios.get('report/count/?user_id=' + user_id)
+        await commit("setReportCount", response.data);
+      } catch (error) {
+        throw error;
+      }
     }
+
   }
 };
