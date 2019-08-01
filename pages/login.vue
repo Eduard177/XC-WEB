@@ -197,6 +197,7 @@
 import Alert from "../mixins/mixin-alert.js";
 
 export default {
+  name: "login",
   middleware: "notAuthenticated",
   mixins: [Alert],
   data() {

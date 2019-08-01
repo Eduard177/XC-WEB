@@ -19,6 +19,7 @@ export default {
     Logo,
     Menu,
     Settings
-  }
+  },
+  props: ["user"]
 };
 </script>

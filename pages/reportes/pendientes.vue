@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <h2 class="text-xl">Reporte de Gasto Pendientes</h2>
+      <h2 class="text-xl">Gastos Menores Generales</h2>
 
       <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
