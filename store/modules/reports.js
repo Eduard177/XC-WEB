@@ -1,11 +1,9 @@
-import cookies from 'js-cookie';
-import {
-  queryStingParamsParser
-} from '../../utils/Helpers';
+import cookies from "js-cookie";
+import { queryStingParamsParser } from "../../utils/Helpers";
 
 const headers = {
   headers: {
-    Authorization: cookies.get('Authorization')
+    Authorization: cookies.get("Authorization")
   }
 };
 
@@ -35,13 +33,11 @@ export default {
       state.reimbursables = reimbursables;
     },
     setReportCount(state, count) {
-      state.report_count = count
+      state.report_count = count;
     }
   },
   actions: {
-    async fetchMinorExpensesByUser({
-      commit
-    }, filters) {
+    async fetchMinorExpensesByUser({ commit }, filters) {
       try {
         let queryString = queryStingParamsParser({
           user_id: filters.user_id,
@@ -50,19 +46,19 @@ export default {
         });
 
         const response = await this.$axios.get(
-          '/minorexpenses/?search=' + filters.status + queryString
+          "/minorexpenses/?search=" + filters.status + queryString
         );
 
-        commit('setMinorExpenses', response.data);
+        commit("setMinorExpenses", response.data);
       } catch (error) {
         throw error;
       }
     },
     async createMinorExpense({}, minor_expense) {
       try {
-        await this.$axios.post('/minorexpenses/', minor_expense, {
+        await this.$axios.post("/minorexpenses/", minor_expense, {
           headers: {
-            Authorization: cookies.get('Authorization')
+            Authorization: cookies.get("Authorization")
           }
         });
       } catch (error) {
@@ -72,7 +68,7 @@ export default {
     async editMinorExpense({}, minor_expense) {
       try {
         await this.$axios.put(
-          '/minorexpenses/' + minor_expense.id + '/',
+          "/minorexpenses/" + minor_expense.id + "/",
           minor_expense,
           headers
         );
@@ -82,46 +78,43 @@ export default {
     },
     async deleteMinorExpense({}, minor_expense) {
       try {
-        await this.$axios.delete('/minorexpenses/' + minor_expense.id + '/', {
+        await this.$axios.delete("/minorexpenses/" + minor_expense.id + "/", {
           headers: {
-            Authorization: cookies.get('Authorization')
+            Authorization: cookies.get("Authorization")
           }
         });
       } catch (error) {
         throw error;
       }
     },
-    async paginateMinorExpenses({
-      commit
-    }, params) {
+    async paginateMinorExpenses({ commit }, params) {
       try {
         const queryString = queryStingParamsParser(params);
         const response = await this.$axios.get(
-          '/minorexpenses/?' + queryString
+          "/minorexpenses/?" + queryString
         );
-        commit('setMinorExpenses', response.data);
+        commit("setMinorExpenses", response.data);
       } catch (error) {
         throw error;
       }
     },
-    async searchMinorExpenses({
-      commit
-    }, filters) {
+    async searchMinorExpenses({ commit }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
         end: filters.end
       });
 
       const response = await this.$axios.get(
-        '/minorexpenses/?search=' + filters.status + queryString
+        "/minorexpenses/?search=" + filters.status + queryString
       );
 
-      await commit('setMinorExpenses', response.data);
+      await commit("setMinorExpenses", response.data);
     },
     async setMinorExpenseStatus({}, params) {
       try {
         await this.$axios.patch(
-          '/minorexpenses/' + params.minor_expense_id + '/', {
+          "/minorexpenses/" + params.minor_expense_id + "/",
+          {
             status: params.status
           },
           headers
@@ -131,9 +124,7 @@ export default {
       }
     },
 
-    async fetchReimbursablesByUser({
-      commit
-    }, filters) {
+    async fetchReimbursablesByUser({ commit }, filters) {
       try {
         let queryString = queryStingParamsParser({
           user_id: filters.user_id,
@@ -142,18 +133,18 @@ export default {
         });
 
         const response = await this.$axios.get(
-          '/reimbursable/?search= ' + filters.status + queryString,
+          "/reimbursable/?search= " + filters.status + queryString,
           headers
         );
 
-        commit('setReimbursables', response.data);
+        commit("setReimbursables", response.data);
       } catch (error) {
         throw error;
       }
     },
     async createReimbursable({}, reimbursable) {
       try {
-        await this.$axios.post('/reimbursable/', reimbursable, headers);
+        await this.$axios.post("/reimbursable/", reimbursable, headers);
       } catch (error) {
         throw error;
       }
@@ -161,7 +152,7 @@ export default {
     async editReimbursable({}, reimbursable) {
       try {
         await this.$axios.put(
-          '/reimbursable/' + reimbursable.id + '/',
+          "/reimbursable/" + reimbursable.id + "/",
           reimbursable,
           headers
         );
@@ -171,44 +162,41 @@ export default {
     },
     async deleteReimbursable({}, reimbursable) {
       try {
-        await this.$axios.delete('/reimbursable/' + reimbursable.id + '/', {
+        await this.$axios.delete("/reimbursable/" + reimbursable.id + "/", {
           headers: {
-            Authorization: cookies.get('Authorization')
+            Authorization: cookies.get("Authorization")
           }
         });
       } catch (error) {
         throw error;
       }
     },
-    async paginateReimbursables({
-      commit
-    }, params) {
+    async paginateReimbursables({ commit }, params) {
       try {
         const queryString = queryStingParamsParser(params);
-        const response = await this.$axios.get('/reimbursable/?' + queryString);
-        commit('setReimbursables', response.data);
+        const response = await this.$axios.get("/reimbursable/?" + queryString);
+        commit("setReimbursables", response.data);
       } catch (error) {
         throw error;
       }
     },
-    async searchReimbursables({
-      commit
-    }, filters) {
+    async searchReimbursables({ commit }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
         end: filters.end
       });
 
       const response = await this.$axios.get(
-        '/reimbursable/?search=' + filters.status + queryString
+        "/reimbursable/?search=" + filters.status + queryString
       );
 
-      await commit('setReimbursables', response.data);
+      await commit("setReimbursables", response.data);
     },
     async setReimbursablesStatus({}, params) {
       try {
         await this.$axios.patch(
-          '/reimbursable/' + params.minor_expense_id + '/', {
+          "/reimbursable/" + params.minor_expense_id + "/",
+          {
             status: params.status
           },
           headers
@@ -217,36 +205,35 @@ export default {
         throw error;
       }
     },
-    async ValidateRNC(rnc) {
+    async ValidateRNC({}, rnc) {
       try {
-        const response = await this.$axios.get('validate/rnc/?rnc=' + rnc)
-        return response.data
+        await this.$axios.get("validate/rnc/?rnc=" + rnc);
+        return true;
       } catch (error) {
-        throw error;
+        return false;
       }
     },
-    async ValidateNCF(filters) {
+    async ValidateNCF({}, filters) {
       try {
         let queryString = queryStingParamsParser({
           rnc: filters.rnc,
           ncf: filters.ncf
         });
-        const response = await this.$axios.get('validate/ncf/? ' + queryString)
-        return response.data
+        await this.$axios.get("validate/ncf/? " + queryString);
+        return true;
       } catch (error) {
-        throw error;
+        return false;
       }
     },
-    async ReportsCount({
-      commit
-    }, user_id) {
+    async ReportsCount({ commit }, user_id) {
       try {
-        const response = await this.$axios.get('report/count/?user_id=' + user_id)
+        const response = await this.$axios.get(
+          "report/count/?user_id=" + user_id
+        );
         await commit("setReportCount", response.data);
       } catch (error) {
         throw error;
       }
     }
-
   }
 };

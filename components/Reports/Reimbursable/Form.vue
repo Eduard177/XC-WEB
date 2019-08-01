@@ -154,7 +154,9 @@ export default {
     return {
       reimbursable: new Reimbursable(),
       business_types: [],
-      payment_methods: []
+      payment_methods: [],
+      is_rnc_valid: false,
+      is_ncf_valid: false
     };
   },
   created() {
@@ -214,6 +216,37 @@ export default {
       } else {
         this.fireAlert("warning", "Complete los campos requeridos", "top");
       }
+    }
+  },
+  watch: {
+    reimbursable: {
+      handler: async function(new_data) {
+        try {
+          let rnc = new_data.rnc;
+          let ncf = new_data.ncf;
+
+          if (rnc.length === 9 && !this.is_rnc_valid) {
+            this.is_rnc_valid = await this.$store.dispatch(
+              "reports/ValidateRNC",
+              rnc
+            );
+            debugger;
+          }
+          if (ncf.length === 11 && rnc.length === 9) {
+            this.is_ncf_valid = await this.$store.dispatch(
+              "reports/ValidateNCF",
+              {
+                ncf,
+                rnc
+              }
+            );
+            debugger;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      deep: true
     }
   }
 };

@@ -111,7 +111,6 @@ export default {
       this.$router.push("/login");
     },
     async getReportCount() {
-      debugger;
       await this.$store.dispatch("reports/ReportsCount", this.user.id);
       this.report_count = this.$store.getters["reports/getReportCount"];
     }

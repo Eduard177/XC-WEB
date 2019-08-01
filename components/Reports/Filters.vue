@@ -73,7 +73,6 @@ export default {
     GenerateExcel() {
       try {
         if (this.user.rol === "Administrator") {
-          debugger;
           let querystring = queryStingParamsParser({
             start: this.filters.start,
             end: this.filters.end
@@ -94,7 +93,6 @@ export default {
           );
         }
       } catch (error) {
-        debugger;
         this.fireErrorAlert();
       }
     }
