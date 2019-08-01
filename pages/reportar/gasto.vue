@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <h1 class="text-xl">Gastos Menores</h1>
+      <h1 class="text-xl">Mis Gastos Menores</h1>
 
       <reports-filter @onFiltersChange="applyFilters($event)" @toExcel="ExportExcel($event)"></reports-filter>
 
@@ -61,7 +61,11 @@
     </card-modal>
 
     <card-modal :showing="show_report_detail" @close="show_report_detail = false">
-      <reports-details :report="minor_expense">
+      <reports-details
+        :report="minor_expense"
+        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
+        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
+      >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Gastos Menores</h1>
         </template>
@@ -260,6 +264,27 @@ export default {
       } catch (error) {
         console.error(error);
 
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
+    },
+    async changeMinorExpenseStatus(params) {
+      try {
+        this.loader = this.$loading.show({});
+
+        await this.$store.dispatch("reports/setMinorExpenseStatus", params);
+        await this.fetchMinorExpensesByUser();
+
+        this.fireAlert(
+          "success",
+          "El reporte ha sido " + params.status + " correctamente.",
+          "top"
+        );
+
+        this.show_report_detail = false;
+
+        this.hideLoading(this.loader);
+      } catch (error) {
         this.fireErrorAlert();
         this.hideLoading(this.loader);
       }

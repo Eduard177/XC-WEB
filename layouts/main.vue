@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col bg-hueso tablet:flex-row">
-    <ProfileBar @toogleMenu="toogleMenu()"/>
+    <ProfileBar :user="user" @toogleMenu="toogleMenu()"/>
 
     <div v-if="toogle" class="tablet:hidden">
       <!-- reportes -->
@@ -34,7 +34,7 @@
       <nuxt/>
     </div>
 
-    <Sidebar/>
+    <Sidebar :user="user"/>
   </div>
 </template>
 
@@ -49,9 +49,11 @@ export default {
   },
   data() {
     return {
-      toogle: false
+      toogle: false,
+      user: this.$store.getters["auth/getLoggedUser"]
     };
   },
+
   methods: {
     toogleMenu() {
       this.toogle = !this.toogle;

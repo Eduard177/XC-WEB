@@ -72,17 +72,17 @@
       </a>
       <div
         v-show="show_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-52 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 tablet:-ml-64 tablet:-mt-12 tablet:w-48"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded text-gray-700 w-32 -mt-24 -ml-10 tablet:-ml-56 tablet:w-48 tablet:-mt-12"
       >
-        <div class="w-full text-center">
-          <nuxt-link class="cursor-pointer" to="/reportar/gasto">Gastos Menores</nuxt-link>
+        <div class="w-full text-center text-xs">
+          <nuxt-link class="cursor-pointer" to="/reportar/gasto">Mis Gastos Menores</nuxt-link>
         </div>
 
         <div class="w-full text-center mt-2">
           <nuxt-link
-            class="mt-3 tablet:mt-2 hover:text-orange-500 cursor-pointer"
+            class="mt-3 tablet:mt-2 hover:text-orange-500 cursor-pointer text-xs"
             to="/reportar/factura"
-          >Facturas</nuxt-link>
+          >Mis Facturas</nuxt-link>
         </div>
       </div>
     </div>
@@ -167,13 +167,16 @@
 
       <div
         v-show="show_reports_options"
-        class="absolute flex flex-col items-center bg-white shadow-xl rounded h-20 w-32 -mt-32 -ml-10 px-8 py-4 text-gray-700 tablet:-ml-40 tablet:-mt-12 tablet:w-32"
+        class="absolute flex flex-col items-center bg-white shadow-xl rounded text-gray-700 w-48 -mt-24 -ml-16 tablet:-ml-56 tablet:w-48 tablet:-mt-10"
       >
-        <nuxt-link class="hover:text-orange-500 cursor-pointer" to="/reportes/pendientes">Pendientes</nuxt-link>
         <nuxt-link
-          class="mt-2 hover:text-orange-500 cursor-pointer"
+          class="hover:text-orange-500 cursor-pointer text-xs"
+          to="/reportes/pendientes"
+        >Gastos Menores Generales</nuxt-link>
+        <nuxt-link
+          class="mt-2 hover:text-orange-500 cursor-pointer text-xs"
           to="/reportes/generados"
-        >Generados</nuxt-link>
+        >Facturas Generales</nuxt-link>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-xl">Facturas</h1>
+    <h1 class="text-xl">Mis Facturas</h1>
 
     <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 

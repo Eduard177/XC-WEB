@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col py-8 tablet:mt-64 tablet:mt-0">
+  <div class="flex flex-col py-8">
     <image-upload
       :imageProp="result_user.image_url ? (api_url + result_user.image_url) : result_user.image_url   "
       @input=" result_user.image_url = $event; $emit('updateImage', result_user)"
@@ -16,14 +16,16 @@
           label="Fecha de ingreso"
         ></xc-input-date>
 
-        <xc-input
+        <xc-input-select
           v-validate="'required'"
           :error="errors.first('Ubicación')"
-          class="w-full tablet:w-1/2 my-3 pr-6"
+          class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"
           v-model="result_user.office"
           label="Ubicación"
-          placeholder="White House"
-        ></xc-input>
+        >
+          <option selected value="xpertCode">XpertCode</option>
+          <option value="Claro">Claro</option>
+        </xc-input-select>
 
         <xc-input
           v-validate="'required|email'"
