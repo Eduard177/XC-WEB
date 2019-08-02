@@ -181,7 +181,7 @@
 
         <div class="flex flex-col items-center">
           <span v-if="show_error" class="text-red-600 text-sm mt-2">Complete los campos requeridos</span>
-          <a class="mt-4 py-0 text-gray-500 px-auto" href="#">¿Olvidaste tu constraseña?</a>
+          <a class="hidden mt-4 py-0 text-gray-500 px-auto" href="#">¿Olvidaste tu constraseña?</a>
 
           <a
             @click="login()"
