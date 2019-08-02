@@ -58,12 +58,12 @@
         ></xc-input>
 
         <xc-input
-          v-validate="'required'"
+          v-validate="'required|numeric|min:9|max:9'"
           :error="errors.first('RNC')"
           v-model="reimbursable.rnc"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="RNC"
-          placeholder="123-456785-1"
+          placeholder="131813755"
         ></xc-input>
 
         <xc-input
@@ -76,7 +76,7 @@
         ></xc-input>
 
         <xc-input
-          v-validate="'required'"
+          v-validate="'required|min:11|max:11|ncf'"
           :error="errors.first('NCF')"
           v-model="reimbursable.ncf"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
@@ -101,12 +101,12 @@
         <div class="flex mt-8">
           <div class="flex flex-col">
             <label>ITBIS</label>
-            <input v-model="reimbursable.has_itbis" type="checkbox" />
+            <input v-model="reimbursable.has_itbis" type="checkbox">
           </div>
           <span class="text-sm -ml-1 pt-3 gray-350">RD${{itbis}}</span>
           <div class="flex flex-col ml-8">
             <label for="cbox2">Propina</label>
-            <input v-model="reimbursable.has_tip" type="checkbox" />
+            <input v-model="reimbursable.has_tip" type="checkbox">
           </div>
           <span class="text-sm -ml-2 pt-3 gray-350">RD${{tip}}</span>
         </div>
@@ -128,11 +128,12 @@
 </template>
 <script>
 import Alert from "../../../mixins/mixin-alert.js";
-
 import XcInput from "../../../components/Forms/Input";
 import XcInputDate from "../../../components/Forms/Date";
 import XcInputSelect from "../../../components/Forms/Select";
 import Reimbursable from "../../../models/Reports/Reimbursable";
+
+import { Validator } from "vee-validate";
 
 export default {
   name: "reimbursable-form",
@@ -160,6 +161,15 @@ export default {
     };
   },
   created() {
+    Validator.extend(
+      "ncf",
+      {
+        getMessage: field => "El " + field + " debe iniciar con B01",
+        validate: async value => value.slice(0, 3) == "B01"
+      },
+      { immediate: false }
+    );
+
     this.reimbursable = Object.assign(this.report);
     this.fetchBusinessTypes();
     this.fetchPaymentMethods();
@@ -211,7 +221,7 @@ export default {
     async submitEvent() {
       const validated = await this.$validator.validateAll();
 
-      if (validated) {
+      if (validated && this.is_rnc_valid && this.is_ncf_valid) {
         this.$emit("submit", this.reimbursable);
       } else {
         this.fireAlert("warning", "Complete los campos requeridos", "top");
@@ -230,7 +240,6 @@ export default {
               "reports/ValidateRNC",
               rnc
             );
-            debugger;
           }
           if (ncf.length === 11 && rnc.length === 9) {
             this.is_ncf_valid = await this.$store.dispatch(
@@ -240,11 +249,8 @@ export default {
                 rnc
               }
             );
-            debugger;
           }
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       },
       deep: true
     }
