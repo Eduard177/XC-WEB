@@ -117,8 +117,6 @@ export default {
       try {
         await this.$store.dispatch("reports/ReportsCount", this.user.id);
         this.report_count = await this.$store.getters["reports/getReportCount"];
-
-        console.log(this.report_count);
       } catch (error) {
         this.fireErrorAlert(this.loader);
       }

@@ -147,8 +147,6 @@ export default {
 
         this.hideLoading(this.loader);
       } catch (error) {
-        console.error(error);
-
         this.fireErrorAlert();
         this.hideLoading(this.loader);
       }

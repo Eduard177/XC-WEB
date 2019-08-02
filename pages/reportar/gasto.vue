@@ -86,6 +86,7 @@ import NoResults from "../../components/NoResults";
 import ReportsFilter from "../../components/Reports/Filters";
 
 export default {
+  name: "gastos-menores",
   middleware: "authenticated",
   layout: "main",
   mixins: [Alert],
@@ -194,7 +195,6 @@ export default {
           "top"
         );
       } catch (error) {
-        console.error(error);
         this.fireErrorAlert();
       }
     },
@@ -262,8 +262,6 @@ export default {
 
         this.hideLoading(this.loader);
       } catch (error) {
-        console.error(error);
-
         this.fireErrorAlert();
         this.hideLoading(this.loader);
       }

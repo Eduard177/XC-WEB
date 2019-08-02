@@ -18,6 +18,17 @@
       ></user-card>
     </section>
 
+    <div class="mt-5">
+      <pagination
+        v-if="(parseInt(users.count) / 15) + 1 > 2 "
+        :totalPages="(parseInt(users.count) / 15) + 1"
+        :total="parseInt(users.count)"
+        :per-page="15"
+        :current-page="currentPage"
+        @pagechanged="paginateMinorExpenses($event); currentPage = $event"
+      ></pagination>
+    </div>
+
     <card-modal :showing="create_user_modal" @close="create_user_modal = false">
       <user-form
         type="create"
@@ -42,7 +53,7 @@
 import UserCard from "../components/Users/Card";
 import UserForm from "../components/Users/Form";
 import CardModal from "../components/CardModal";
-
+import Pagination from "../components/Pagination";
 import Alert from "../mixins/mixin-alert.js";
 import User from "../models/User";
 
@@ -53,7 +64,8 @@ export default {
   components: {
     CardModal,
     UserCard,
-    UserForm
+    UserForm,
+    Pagination
   },
   mixins: [Alert],
   data() {
@@ -62,7 +74,8 @@ export default {
       new_user: new User(),
       index: 0,
       create_user_modal: false,
-      edit_user_modal: false
+      edit_user_modal: false,
+      currentPage: 1
     };
   },
   async created() {
@@ -138,8 +151,6 @@ export default {
         this.hideLoading(this.loader);
         this.fireAlert("success", "La imagen ha sido actualizada", "top");
       } catch (error) {
-        console.error(error);
-
         this.hideLoading(this.loader);
         if (error.response.status == 400) {
           this.alert400Error(error);

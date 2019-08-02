@@ -179,7 +179,6 @@ export default {
           "top"
         );
       } catch (error) {
-        console.error(error);
         this.loader.hide();
         this.show_create_report = false;
         this.fireErrorAlert();
@@ -244,8 +243,6 @@ export default {
 
         this.hideLoading(this.loader);
       } catch (error) {
-        console.error(error);
-
         this.fireErrorAlert();
         this.hideLoading(this.loader);
       }

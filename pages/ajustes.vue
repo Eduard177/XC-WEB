@@ -40,7 +40,6 @@ export default {
         this.hideLoading(this.loader);
         this.fireAlert("success", "El Usuario ha sido actualizado", "top");
       } catch (error) {
-        console.error(error);
         this.hideLoading(this.loader);
         this.fireErrorAlert();
       }
@@ -55,8 +54,6 @@ export default {
         this.hideLoading(this.loader);
         this.fireAlert("success", "La imagen ha sido actualizada", "top");
       } catch (error) {
-        console.error(error);
-
         this.hideLoading(this.loader);
         this.fireErrorAlert();
       }
