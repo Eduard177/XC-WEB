@@ -72,8 +72,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.API_URl,
-    browserBaseURL: process.env.API_URl
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.API_URL
   },
 
   /*
