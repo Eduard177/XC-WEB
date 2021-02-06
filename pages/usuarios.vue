@@ -4,7 +4,13 @@
     <section class="flex justify-center flex-wrap mt-8">
       <user-card
         @click.native="create_user_modal = true"
-        :user="{fullname:'Nombre', email:'Correo', position:'Cargo',office:'Ubicacion', cellphone:'809-000-0000'}"
+        :user="{
+          fullName: 'Nombre',
+          email: 'Correo',
+          position: 'Cargo',
+          office: 'Ubicacion',
+          cellphone: '809-000-0000',
+        }"
         type="orange"
         :addImage="true"
       ></user-card>
@@ -20,12 +26,15 @@
 
     <div class="mt-5">
       <pagination
-        v-if="(parseInt(users.count) / 15) + 1 > 2 "
-        :totalPages="(parseInt(users.count) / 15) + 1"
+        v-if="parseInt(users.count) / 15 + 1 > 2"
+        :totalPages="parseInt(users.count) / 15 + 1"
         :total="parseInt(users.count)"
         :per-page="15"
         :current-page="currentPage"
-        @pagechanged="paginateMinorExpenses($event); currentPage = $event"
+        @pagechanged="
+          paginateMinorExpenses($event);
+          currentPage = $event;
+        "
       ></pagination>
     </div>
 
@@ -65,7 +74,7 @@ export default {
     CardModal,
     UserCard,
     UserForm,
-    Pagination
+    Pagination,
   },
   mixins: [Alert],
   data() {
@@ -75,7 +84,7 @@ export default {
       index: 0,
       create_user_modal: false,
       edit_user_modal: false,
-      currentPage: 1
+      currentPage: 1,
     };
   },
   async created() {
@@ -158,7 +167,7 @@ export default {
           this.fireErrorAlert();
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

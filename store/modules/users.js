@@ -1,15 +1,15 @@
-import cookies from 'js-cookie';
+import cookies from "js-cookie";
 const headers = {
   headers: {
-    Authorization: cookies.get('Authorization')
-  }
+    Authorization: cookies.get("Authorization"),
+  },
 };
 
 export default {
   namespaced: true,
   state: {
     users: [],
-    user: {}
+    user: {},
   },
   getters: {
     getUsers(state) {
@@ -17,7 +17,7 @@ export default {
     },
     getUser(state) {
       return state.user;
-    }
+    },
   },
   mutations: {
     setUsers(state, users) {
@@ -25,53 +25,47 @@ export default {
     },
     setUser(state, user) {
       state.user = user;
-    }
+    },
   },
   actions: {
-    async fetchUsers({
-      commit
-    }) {
+    async fetchUsers({ commit }) {
       try {
-        const response = await this.$axios.get('/users/');
-        commit('setUsers', response.data.results);
+        const response = await this.$axios.get("/users/");
+        commit("setUsers", response.data.results);
       } catch (error) {
         throw error;
       }
     },
-    async editUser({
-      dispatch,
-      commit
-    }, user) {
+    async editUser({ dispatch, commit }, user) {
       try {
         const response = await this.$axios.patch(
-          'users/' + user.id + '/', {
+          "users/" + user.id + "/",
+          {
             admission_date: user.admission_date,
-            fullname: user.fullname,
+            fullName: user.fullName,
             email: user.email,
             office: user.office,
             company_code: user.company_code,
             is_admin: user.is_admin,
             position: user.position,
             role: user.role,
-            cellphone: user.cellphone
+            cellphone: user.cellphone,
           },
           headers
         );
 
-
-        commit('setUser', response.data);
+        commit("setUser", response.data);
       } catch (error) {
         throw error;
       }
     },
-    async createUser({
-      dispatch
-    }, user) {
+    async createUser({ dispatch }, user) {
       try {
         await this.$axios.post(
-          '/users/', {
+          "/users/",
+          {
             admission_date: user.admission_date,
-            fullname: user.fullname,
+            fullName: user.fullName,
             email: user.email,
             password: user.password,
             office: user.office,
@@ -79,7 +73,7 @@ export default {
             position: user.position,
             role: user.role,
             cellphone: user.cellphone,
-            image_url: null
+            image_url: null,
           },
           headers
         );
@@ -91,14 +85,14 @@ export default {
       try {
         let form = new FormData();
 
-        form.append('file', user.image_url);
-        form.append('remark', 'Profile Picture');
-        form.append('user', user.id);
+        form.append("file", user.image_url);
+        form.append("remark", "Profile Picture");
+        form.append("user", user.id);
 
-        await this.$axios.post('/upload/', form), headers;
+        await this.$axios.post("/upload/", form), headers;
       } catch (error) {
         throw error;
       }
-    }
-  }
+    },
+  },
 };

@@ -1,8 +1,15 @@
 <template>
   <div class="flex flex-col py-8">
     <image-upload
-      :imageProp="result_user.image_url ? (api_url + result_user.image_url) : result_user.image_url   "
-      @input=" result_user.image_url = $event; $emit('updateImage', result_user)"
+      :imageProp="
+        result_user.image_url
+          ? api_url + result_user.image_url
+          : result_user.image_url
+      "
+      @input="
+        result_user.image_url = $event;
+        $emit('updateImage', result_user);
+      "
     ></image-upload>
 
     <div class="flex flex-col items-center tablet:flex-row mt-8">
@@ -52,7 +59,7 @@
           v-validate="'required'"
           :error="errors.first('Nombre')"
           class="w-full tablet:w-1/2 my-3 pr-6"
-          v-model="result_user.fullname"
+          v-model="result_user.fullName"
           placeholder="Donald Trump"
           label="Nombre"
         ></xc-input>
@@ -73,14 +80,13 @@
           v-model="result_user.cellphone"
           placeholder="8492556677"
           label="Teléfono Personal"
-          type="number"
         ></xc-input>
 
         <xc-input
           v-validate="'required'"
           :error="errors.first('Codigo de empleado')"
           class="w-full tablet:w-1/2 my-3 pr-6"
-          v-model="result_user.company_code"
+          v-model="result_user.companyCode"
           placeholder="XC001"
           label="Codigo de empleado"
         ></xc-input>
@@ -97,18 +103,30 @@
         </xc-input-select>
       </div>
     </div>
-    <div class="flex justify-around items-center leading-none mt-6 tablet:mt-12">
+    <div
+      class="flex justify-around items-center leading-none mt-6 tablet:mt-12"
+    >
       <button
         v-if="cancel"
         @click="$emit('close')"
         class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
-      >Cancelar</button>
+      >
+        Cancelar
+      </button>
       <button
         v-if="type == 'create'"
         @click="submit()"
         class="btn bg-grad-green/orange w-1/3 h-9"
-      >Agregar</button>
-      <button v-else @click="submit()" class="btn bg-grad-green/orange w-1/3 h-9">Actualizar</button>
+      >
+        Agregar
+      </button>
+      <button
+        v-else
+        @click="submit()"
+        class="btn bg-grad-green/orange w-1/3 h-9"
+      >
+        Actualizar
+      </button>
     </div>
   </div>
 </template>
@@ -125,28 +143,28 @@ export default {
   props: {
     user: {
       type: Object,
-      required: true
+      required: true,
     },
     type: {
       type: String,
-      required: true
+      required: true,
     },
     cancel: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   mixins: [Alert],
   components: {
     XcInput,
     XcInputDate,
     XcInputSelect,
-    ImageUpload
+    ImageUpload,
   },
   data() {
     return {
       api_url: process.env.API_URL,
-      result_user: this.user
+      result_user: this.user,
     };
   },
   methods: {
@@ -169,7 +187,7 @@ export default {
       var reader = new FileReader();
       var vm = this;
 
-      reader.onload = e => {
+      reader.onload = (e) => {
         vm.image = e.target.result;
         this.updatePhoto(e.target.result);
       };
@@ -177,8 +195,7 @@ export default {
     },
     updatePhoto(photo) {
       this.$emit("input", photo);
-    }
-  }
+    },
+  },
 };
 </script>
-
