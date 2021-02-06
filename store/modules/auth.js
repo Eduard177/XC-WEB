@@ -35,22 +35,20 @@ export default {
   actions: {
     async login({ commit, dispatch }, auth) {
       try {
-        const response = await this.$axios.post("/login/", {
-          username: auth.username,
+        const response = await this.$axios.post("/auth/login/", {
+          email: auth.username,
           password: auth.password
         });
 
-        const token = response.data.token;
+        const token = response.data.jwt.token;
         await commit("setToken", "Token " + token);
+        await commit("setUser", response.data.user);
 
         this.$axios.setToken("Token " + token);
         cookies.set("Authorization", "Token " + token, {
           expires: 7
         });
 
-        await dispatch("fetchUser");
-
-        return;
       } catch (error) {
         throw error;
       }
@@ -68,7 +66,6 @@ export default {
       commit("logout");
       await localStorage.removeItem("xc-vuex");
       await cookies.remove("Authorization");
-      return;
     }
   }
 };

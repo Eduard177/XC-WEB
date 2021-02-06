@@ -12,14 +12,14 @@
         :src="api_url + minorExpense.image_url "
         alt="foto de perfil"
       >
-      <avatar
-        :lighten="10"
-        :size="80"
-        color="grey"
-        backgroundColor="ccc"
-        v-else
-        :username="minorExpense.description"
-      ></avatar>
+<!--      <avatar-->
+<!--        :lighten="10"-->
+<!--        :size="80"-->
+<!--        color="grey"-->
+<!--        backgroundColor="ccc"-->
+<!--        v-else-->
+<!--        :username="minorExpense.description"-->
+<!--      ></avatar>-->
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
       <span>{{minorExpense.invoice_date}}</span>

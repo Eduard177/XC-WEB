@@ -227,10 +227,10 @@ export default {
     },
     async ReportsCount({ commit }, user_id) {
       try {
-        const response = await this.$axios.get(
-          "report/count/?user_id=" + user_id
-        );
-        await commit("setReportCount", response.data);
+        // const response = await this.$axios.get(
+        //   "report/count/?user_id=" + user_id
+        // );
+        await commit("setReportCount", 0);
       } catch (error) {
         throw error;
       }

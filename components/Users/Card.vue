@@ -13,15 +13,15 @@
         :src="api_url + user.image_url"
         alt="foto de perfil"
       >
-      <avatar
-        v-show="!addImage"
-        :lighten="10"
-        :size="98"
-        color="grey"
-        backgroundColor="ccc"
-        v-else
-        :username="user.fullname"
-      ></avatar>
+<!--      <avatar-->
+<!--        v-show="!addImage"-->
+<!--        :lighten="10"-->
+<!--        :size="98"-->
+<!--        color="grey"-->
+<!--        backgroundColor="ccc"-->
+<!--        v-else-->
+<!--        :username="user.fullname"-->
+<!--      ></avatar>-->
     </figure>
     <h3 class="mt-4 text-xl text-orange-500 font-bold text-center">{{user.fullname}}</h3>
     <p class="text-xs font-light">{{user.email}}</p>

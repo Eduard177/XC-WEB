@@ -7,14 +7,14 @@
         :src="imageUrl"
         alt="foto de perfil"
       >
-      <avatar
-        :lighten="10"
-        :size="98"
-        color="grey"
-        backgroundColor="ccc"
-        v-else
-        :username="user.fullname"
-      ></avatar>
+<!--      <avatar-->
+<!--        :lighten="10"-->
+<!--        :size="98"-->
+<!--        color="grey"-->
+<!--        backgroundColor="ccc"-->
+<!--        v-else-->
+<!--        :username="user.fullname"-->
+<!--      ></avatar>-->
     </figure>
     <h1 class="hidden tablet:block mt-4 text-3xl text-teal-500 font-extrabold">{{user.fullname}}</h1>
     <p class="hidden tablet:block text-md text-gray-700">{{user.email}}</p>
