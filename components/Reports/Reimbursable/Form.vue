@@ -211,16 +211,15 @@ export default {
     },
 
     async submitEvent() {
-      const user =  await this.$store.getters["auth/getLoggedUser"];
-      this.reimbursable.userId = user.id;
-      this.$emit("submit", this.reimbursable);
-      // const validated = await this.$validator.validateAll();
+      const validated = await this.$validator.validateAll();
 
-      // if (validated && this.isRncValid && this.isNcfValid) {
-      //   this.$emit("submit", this.reimbursable);
-      // } else {
-      //   this.fireAlert("warning", "Complete los campos requeridos", "top");
-      // }
+      if (validated && this.isRncValid && this.isNcfValid) {
+         const user =  await this.$store.getters["auth/getLoggedUser"];
+         this.reimbursable.userId = user.id;
+         this.$emit("submit", this.reimbursable);
+      } else {
+        this.fireAlert("warning", "Complete los campos requeridos", "top");
+      }
     }
   },
   watch: {

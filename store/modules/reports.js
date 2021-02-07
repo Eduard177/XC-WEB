@@ -10,30 +10,30 @@ const headers = {
 export default {
   namespaced: true,
   state: {
-    minor_expenses: [],
+    minorExpenses: [],
     reimbursables: [],
-    report_count: {}
+    reportCount: {}
   },
   getters: {
     getMinorExpenses(state) {
-      return state.minor_expenses;
+      return state.minorExpenses;
     },
     getReimbursables(state) {
       return state.reimbursables;
     },
     getReportCount(state) {
-      return state.report_count;
+      return state.reportCount;
     }
   },
   mutations: {
-    setMinorExpenses(state, minor_expenses) {
-      state.minor_expenses = minor_expenses;
+    setMinorExpenses(state, minorExpenses) {
+      state.minorExpenses = minorExpenses;
     },
     setReimbursables(state, reimbursables) {
       state.reimbursables = reimbursables;
     },
     setReportCount(state, count) {
-      state.report_count = count;
+      state.reportCount = count;
     }
   },
   actions: {
@@ -46,7 +46,7 @@ export default {
         });
 
         const response = await this.$axios.get(
-          "/minorexpenses/?search=" + filters.status + queryString
+          "/minor/?search=" + filters.status + queryString
         );
 
         commit("setMinorExpenses", response.data);
@@ -54,9 +54,9 @@ export default {
         throw error;
       }
     },
-    async createMinorExpense({}, minor_expense) {
+    async createMinorExpense({}, minorExpense) {
       try {
-        await this.$axios.post("/minorexpenses/", minor_expense, {
+        await this.$axios.post("reports/minor/", minorExpense, {
           headers: {
             Authorization: cookies.get("Authorization")
           }
@@ -65,20 +65,20 @@ export default {
         throw error;
       }
     },
-    async editMinorExpense({}, minor_expense) {
+    async editMinorExpense({}, minorExpense) {
       try {
         await this.$axios.put(
-          "/minorexpenses/" + minor_expense.id + "/",
-          minor_expense,
+          "/minorexpenses/" + minorExpense.id + "/",
+          minorExpense,
           headers
         );
       } catch (error) {
         throw error;
       }
     },
-    async deleteMinorExpense({}, minor_expense) {
+    async deleteMinorExpense({}, minorExpense) {
       try {
-        await this.$axios.delete("/minorexpenses/" + minor_expense.id + "/", {
+        await this.$axios.delete("/minorexpenses/" + minorExpense.id + "/", {
           headers: {
             Authorization: cookies.get("Authorization")
           }
@@ -113,7 +113,7 @@ export default {
     async setMinorExpenseStatus({}, params) {
       try {
         await this.$axios.patch(
-          "/minorexpenses/" + params.minor_expense_id + "/",
+          "/minorexpenses/" + params.minorExpense_id + "/",
           {
             status: params.status
           },
@@ -195,7 +195,7 @@ export default {
     async setReimbursablesStatus({}, params) {
       try {
         await this.$axios.patch(
-          "/reimbursable/" + params.minor_expense_id + "/",
+          "/reimbursable/" + params.minorExpense_id + "/",
           {
             status: params.status
           },

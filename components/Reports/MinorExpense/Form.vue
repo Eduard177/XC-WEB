@@ -6,7 +6,7 @@
       <xc-input-date
         v-validate="'required'"
         :error="errors.first('Fecha del consumo')"
-        v-model="minor_expense.invoiceDate"
+        v-model="minorExpense.invoiceDate"
         class="tablet:w-1/5 flex-col-reverse"
         label="Fecha del consumo"
       ></xc-input-date>
@@ -15,7 +15,7 @@
         <xc-input
           v-validate="'required'"
           :error="errors.first('Descripción')"
-          v-model="minor_expense.description"
+          v-model="minorExpense.description"
           class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Descripción"
           placeholder="Pago Uber"
@@ -24,7 +24,7 @@
         <xc-input
           v-validate="'required'"
           :error="errors.first('Lugar')"
-          v-model="minor_expense.place"
+          v-model="minorExpense.place"
           class="flex-col-reverse mt-8 table:mt-4 w-full tablet:w-1/2 tablet:pr-8"
           label="Lugar"
           placeholder="Calle Heriberto Núñez # 4 Urbanización Fernández"
@@ -33,7 +33,7 @@
 
       <div class="flex flex-col tablet:flex-row">
         <xc-input
-          v-model="minor_expense.witnesses"
+          v-model="minorExpense.witnesses"
           class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Personas Presentes"
           placeholder="Juan, Pedro..."
@@ -42,7 +42,7 @@
         <xc-input
           v-validate="'required|numeric'"
           :error="errors.first('Monto')"
-          v-model="minor_expense.total"
+          v-model="minorExpense.total"
           class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
           label="Monto"
           type="number"
@@ -51,7 +51,7 @@
       </div>
 
       <xc-input
-        v-model="minor_expense.comment"
+        v-model="minorExpense.comment"
         class="flex-col-reverse w-full mt-8 tablet:pr-8 tablet:mt-12"
         label="Comentario"
       ></xc-input>
@@ -85,11 +85,11 @@ export default {
     }
   },
   created() {
-    this.minor_expense = this.report;
+    this.minorExpense = this.report;
   },
   data() {
     return {
-      minor_expense: new MinorExpense()
+      minorExpense: new MinorExpense()
     };
   },
   methods: {
@@ -97,7 +97,10 @@ export default {
       const validated = await this.$validator.validateAll();
 
       if (validated) {
-        this.$emit("submit", this.minor_expense);
+        const user =  await this.$store.getters["auth/getLoggedUser"];
+        this.minorExpense.userId = user.id;
+        this.$emit("submit", this.minorExpense);
+
       } else {
         this.fireAlert("warning", "Complete los campos requeridos", "top");
       }

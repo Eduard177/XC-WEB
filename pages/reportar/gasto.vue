@@ -5,22 +5,22 @@
 
       <reports-filter @onFiltersChange="applyFilters($event)" @toExcel="ExportExcel($event)"></reports-filter>
 
-      <no-results :items="minor_expenses.results"></no-results>
+      <no-results :items="minorExpenses.results"></no-results>
 
       <reports-table
-        :reports="minor_expenses.results"
-        :type="'minor_expense'"
+        :reports="minorExpenses.results"
+        :type="'minorExpense'"
         :edit="true"
-        @itemDetails="minor_expense =  $event; show_report_detail = true"
-        @itemEdit="minor_expense =  $event; show_edit_report = true; "
+        @itemDetails="minorExpense =  $event; show_report_detail = true"
+        @itemEdit="minorExpense =  $event; showEditReport = true; "
         @itemDelete="deleteMinorExpense($event)"
       ></reports-table>
 
       <div class="mt-5">
         <pagination
-          v-if="(parseInt(minor_expenses.count) / 15) + 1 > 2 "
-          :totalPages="(parseInt(minor_expenses.count) / 15) + 1"
-          :total="parseInt(minor_expenses.count)"
+          v-if="(parseInt(minorExpenses.count) / 15) + 1 > 2 "
+          :totalPages="(parseInt(minorExpenses.count) / 15) + 1"
+          :total="parseInt(minorExpenses.count)"
           :per-page="15"
           :current-page="currentPage"
           @pagechanged="paginateMinorExpenses($event); currentPage = $event"
@@ -28,17 +28,17 @@
       </div>
 
       <button
-        @click="show_create_report = true"
+        @click="showCreateReport = true"
         style="bottom: 12px;"
         class="fixed right-0 bottom-0 mr-4 tablet:mr-24 mb-12 w-16 h-16 bg-grad-gold/orange rounded-full text-white font-bold text-3xl text-center shadow-2xl cursor-pointer"
       >&plus;</button>
     </section>
 
-    <card-modal :showing="show_create_report" @close="show_create_report = false">
+    <card-modal :showing="showCreateReport" @close="showCreateReport = false">
       <minor-expense-form
-        :report="new_minor_expense"
+        :report="new_minorExpense"
         subtmit="Crear"
-        @close="show_create_report = false"
+        @close="showCreateReport = false"
         @submit="create($event)"
       >
         <template v-slot:header>
@@ -47,11 +47,11 @@
       </minor-expense-form>
     </card-modal>
 
-    <card-modal :showing="show_edit_report" @close="show_edit_report = false">
+    <card-modal :showing="showEditReport" @close="showEditReport = false">
       <minor-expense-form
-        :report="minor_expense"
+        :report="minorExpense"
         :submit="'Editar'"
-        @close="show_edit_report = false"
+        @close="showEditReport = false"
         @submit="edit($event)"
       >
         <template v-slot:header>
@@ -62,9 +62,9 @@
 
     <card-modal :showing="show_report_detail" @close="show_report_detail = false">
       <reports-details
-        :report="minor_expense"
-        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
-        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
+        :report="minorExpense"
+        @approve="changeMinorExpenseStatus({status:'aprobado', minorExpense_id:$event.id})"
+        @decline="changeMinorExpenseStatus({status:'declinado', minorExpense_id:$event.id})"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Gastos Menores</h1>
@@ -101,7 +101,7 @@ export default {
   },
   data() {
     return {
-      minor_expenses: {
+      minorExpenses: {
         results: [],
         count: 0
       },
@@ -116,10 +116,10 @@ export default {
           .format("YYYY-MM-DD")
       },
       currentPage: 1,
-      minor_expense: new MinorExpense(),
-      new_minor_expense: new MinorExpense(),
-      show_create_report: false,
-      show_edit_report: false,
+      minorExpense: new MinorExpense(),
+      new_minorExpense: new MinorExpense(),
+      showCreateReport: false,
+      showEditReport: false,
       show_report_detail: false,
       user: this.$store.getters["auth/getLoggedUser"]
     };
@@ -141,12 +141,12 @@ export default {
     },
     async fetchMinorExpensesByUser() {
       try {
-        let user = await this.$store.dispatch(
+        const user = await this.$store.dispatch(
           "reports/fetchMinorExpensesByUser",
           this.filters
         );
 
-        this.minor_expenses = this.$store.getters["reports/getMinorExpenses"];
+        this.minorExpenses = this.$store.getters["reports/getMinorExpenses"];
       } catch (error) {
         this.fireErrorAlert();
       }
@@ -160,34 +160,34 @@ export default {
           page: page
         });
 
-        const minor_expenses = await this.$store.getters[
+        const minorExpenses = await this.$store.getters[
           "reports/getMinorExpenses"
         ];
 
-        this.minor_expenses = minor_expenses;
+        this.minorExpenses = minorExpenses;
 
         this.hideLoading(this.loader);
       } catch (error) {
         this.fireErrorAlert();
       }
     },
-    async create(minor_expense) {
+    async create(minorExpense) {
       try {
         let loader = this.$loading.show({});
 
-        minor_expense.user = this.user.id;
-        minor_expense.invoice_date = new Date(minor_expense.invoice_date)
+        minorExpense.user = this.user.id;
+        minorExpense.invoiceDate = new Date(minorExpense.invoiceDate)
           .toISOString()
           .split("T")[0];
 
-        await this.$store.dispatch("reports/createMinorExpense", minor_expense);
+        await this.$store.dispatch("reports/createMinorExpense", minorExpense);
 
-        await this.fetchMinorExpensesByUser();
+        // await this.fetchMinorExpensesByUser();
 
         await this.hideLoading(loader);
 
-        this.show_create_report = false;
-        this.minor_expense = new MinorExpense();
+        this.showCreateReport = false;
+        this.minorExpense = new MinorExpense();
 
         this.fireAlert(
           "success",
@@ -198,22 +198,22 @@ export default {
         this.fireErrorAlert();
       }
     },
-    async edit(minor_expense) {
+    async edit(minorExpense) {
       try {
         let loader = this.$loading.show({});
 
-        minor_expense.user = this.user.id;
-        minor_expense.invoice_date = new Date(minor_expense.invoice_date)
+        minorExpense.user = this.user.id;
+        minorExpense.invoiceDate = new Date(minorExpense.invoiceDate)
           .toISOString()
           .split("T")[0];
 
-        await this.$store.dispatch("reports/editMinorExpense", minor_expense);
+        await this.$store.dispatch("reports/editMinorExpense", minorExpense);
 
         await this.fetchMinorExpensesByUser();
 
         await this.hideLoading(loader);
 
-        this.show_edit_report = false;
+        this.showEditReport = false;
         this.fireAlert(
           "success",
           "El reporte ha sido actualizado correctamente.",
@@ -223,7 +223,7 @@ export default {
         this.fireErrorAlert();
       }
     },
-    async deleteMinorExpense(minor_expense) {
+    async deleteMinorExpense(minorExpense) {
       const dialogResponse = await this.fireConfirmAlert();
 
       if (dialogResponse.value) {
@@ -232,7 +232,7 @@ export default {
 
           await this.$store.dispatch(
             "reports/deleteMinorExpense",
-            minor_expense
+            minorExpense
           );
 
           await this.fetchMinorExpensesByUser();
@@ -250,7 +250,7 @@ export default {
       }
     },
     async assingReport(report) {
-      this.minor_expense = report;
+      this.minorExpense = report;
     },
     async applyFilters(filters) {
       try {

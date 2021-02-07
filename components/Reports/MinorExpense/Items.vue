@@ -22,7 +22,7 @@
       ></avatar>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
-      <span>{{ minorExpense.invoice_date }}</span>
+      <span>{{ minorExpense.invoiceDate }}</span>
       <label>Fecha</label>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
