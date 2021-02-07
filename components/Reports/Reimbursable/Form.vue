@@ -24,24 +24,19 @@
           placeholder="Sunix Jacobo Majluta"
         ></xc-input>
 
-        <xc-input-select
+        <xc-input
           v-validate="'required'"
           :error="errors.first('Tipo Bienes y Servicios Comprados')"
-          v-model="reimbursable.bussiness_type"
+          v-model="reimbursable.businessType"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Tipo Bienes y Servicios Comprados"
         >
-          <option
-            v-for="(business_type, index) in business_types"
-            :key="index"
-            :value="business_type.id"
-          >{{business_type.name}}</option>
-        </xc-input-select>
+        </xc-input>
 
         <xc-input-date
           v-validate="'required'"
           :error="errors.first('Fecha de pago')"
-          v-model="reimbursable.invoice_date"
+          v-model="reimbursable.invoiceDate"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Fecha de pago"
         ></xc-input-date>
@@ -50,7 +45,7 @@
           v-validate="'required|numeric'"
           :error="errors.first('Subtotal')"
           @change="itbis(); tip();"
-          v-model="reimbursable.sub_total"
+          v-model="reimbursable.subTotal"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Subtotal"
           placeholder="RD$ 280.20"
@@ -87,26 +82,23 @@
         <xc-input-select
           v-validate="'required'"
           :error="errors.first('Forma de pago')"
-          v-model="reimbursable.payment_method"
+          v-model="reimbursable.paymentMethod"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="Forma de pago"
         >
-          <option
-            v-for="(payment_method, index) in payment_methods"
-            :key="index"
-            :value="payment_method.id"
-          >{{payment_method.name}}</option>
+        <option selected value="Efectivo">Efectivo</option>
+          <option value="Credito">Credito</option>
         </xc-input-select>
 
         <div class="flex mt-8">
           <div class="flex flex-col">
             <label>ITBIS</label>
-            <input v-model="reimbursable.has_itbis" type="checkbox">
+            <input v-model="reimbursable.hasItbis" type="checkbox">
           </div>
           <span class="text-sm -ml-1 pt-3 gray-350">RD${{itbis}}</span>
           <div class="flex flex-col ml-8">
             <label for="cbox2">Propina</label>
-            <input v-model="reimbursable.has_tip" type="checkbox">
+            <input v-model="reimbursable.hasTip" type="checkbox">
           </div>
           <span class="text-sm -ml-2 pt-3 gray-350">RD${{tip}}</span>
         </div>
@@ -154,10 +146,10 @@ export default {
   data() {
     return {
       reimbursable: new Reimbursable(),
-      business_types: [],
-      payment_methods: [],
-      is_rnc_valid: false,
-      is_ncf_valid: false
+      businessTypes: [],
+      paymentMethods: [],
+      isRncValid: false,
+      isNcfValid: false
     };
   },
   created() {
@@ -177,7 +169,7 @@ export default {
   computed: {
     total() {
       let total =
-        parseInt(this.reimbursable.sub_total) +
+        parseInt(this.reimbursable.subTotal) +
         parseInt(this.reimbursable.itbis) +
         parseInt(this.reimbursable.tip);
 
@@ -185,8 +177,8 @@ export default {
       return total.toFixed(2) ? total.toFixed(2) : 0;
     },
     itbis() {
-      if (this.reimbursable.has_itbis) {
-        this.reimbursable.itbis = parseInt(this.reimbursable.sub_total) * 0.18;
+      if (this.reimbursable.hasItbis) {
+        this.reimbursable.itbis = parseInt(this.reimbursable.subTotal) * 0.18;
       } else {
         this.reimbursable.itbis = 0;
       }
@@ -196,8 +188,8 @@ export default {
         : 0;
     },
     tip() {
-      if (this.reimbursable.has_tip) {
-        this.reimbursable.tip = parseInt(this.reimbursable.sub_total) * 0.1;
+      if (this.reimbursable.hasTip) {
+        this.reimbursable.tip = parseInt(this.reimbursable.subTotal) * 0.1;
       } else {
         this.reimbursable.tip = 0;
       }
@@ -209,40 +201,43 @@ export default {
   methods: {
     async fetchBusinessTypes() {
       await this.$store.dispatch("businessTypes/fetch");
-      const business_types = await this.$store.getters["businessTypes/get"];
-      this.business_types = business_types;
+      const businessTypes = await this.$store.getters["businessTypes/get"];
+      this.businessTypes = businessTypes;
     },
     async fetchPaymentMethods() {
       await this.$store.dispatch("paymentMethods/fetch");
-      const payment_methods = await this.$store.getters["paymentMethods/get"];
-      this.payment_methods = payment_methods;
+      const paymentMethods = await this.$store.getters["paymentMethods/get"];
+      this.paymentMethods = paymentMethods;
     },
 
     async submitEvent() {
-      const validated = await this.$validator.validateAll();
+      const user =  await this.$store.getters["auth/getLoggedUser"];
+      this.reimbursable.userId = user.id;
+      this.$emit("submit", this.reimbursable);
+      // const validated = await this.$validator.validateAll();
 
-      if (validated && this.is_rnc_valid && this.is_ncf_valid) {
-        this.$emit("submit", this.reimbursable);
-      } else {
-        this.fireAlert("warning", "Complete los campos requeridos", "top");
-      }
+      // if (validated && this.isRncValid && this.isNcfValid) {
+      //   this.$emit("submit", this.reimbursable);
+      // } else {
+      //   this.fireAlert("warning", "Complete los campos requeridos", "top");
+      // }
     }
   },
   watch: {
     reimbursable: {
-      handler: async function(new_data) {
+      handler: async function(newData) {
         try {
-          let rnc = new_data.rnc;
-          let ncf = new_data.ncf;
+          let rnc = newData.rnc;
+          let ncf = newData.ncf;
 
-          if (rnc.length === 9 && !this.is_rnc_valid) {
-            this.is_rnc_valid = await this.$store.dispatch(
+          if (rnc.length === 9 && !this.isRncValid) {
+            this.isRncValid = await this.$store.dispatch(
               "reports/ValidateRNC",
               rnc
             );
           }
           if (ncf.length === 11 && rnc.length === 9) {
-            this.is_ncf_valid = await this.$store.dispatch(
+            this.isNcfValid = await this.$store.dispatch(
               "reports/ValidateNCF",
               {
                 ncf,
