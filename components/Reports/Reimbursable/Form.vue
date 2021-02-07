@@ -163,8 +163,6 @@ export default {
     );
 
     this.reimbursable = Object.assign(this.report);
-    this.fetchBusinessTypes();
-    this.fetchPaymentMethods();
   },
   computed: {
     total() {

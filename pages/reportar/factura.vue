@@ -4,13 +4,13 @@
 
     <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
-    <no-results :items="reimbursables.results"></no-results>
+    <no-results :items="reimbursables"></no-results>
 
     <reports-table
-      :reports="reimbursables.results"
+      :reports="reimbursables"
       type="reimbursables"
       :edit="true"
-      @itemDetails="show_report_detail = true; new_reimbursable = $event;"
+      @itemDetails="show_report_detail = true; reimbursable = $event;"
       @itemEdit="show_report_edit = true; reimbursable = $event;"
       @itemDelete="deleteReimbursable($event)"
     ></reports-table>
@@ -93,8 +93,8 @@ export default {
   data() {
     return {
       filters: {
-        user_id: this.$store.getters["auth/getLoggedUser"].id,
-        status: "pendiente",
+        userId: this.$store.getters["auth/getLoggedUser"].id,
+        status: "Pendiente",
         start: dayjs()
           .startOf("month")
           .format("YYYY-MM-DD"),

@@ -13,7 +13,7 @@
       </div>
     </div>
     <div
-      v-if="user.rol == 'Administrator'"
+      v-if="user.isAdmin"
       class="flex justify-between items-center leading-none mt-12"
     >
       <button
@@ -30,6 +30,12 @@ export default {
     report: {
       required: true
     }
+  },
+  created() {
+      delete this.report.id;
+      delete this.report.hasItbis;
+      delete this.report.hasTip;
+      delete this.report.type;
   },
   data() {
     return {
