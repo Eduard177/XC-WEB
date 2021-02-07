@@ -71,7 +71,7 @@ export default {
       },
       show_modal: false,
       filters: {
-        status: "pendiente",
+        status: "Pendiente",
         start: dayjs()
           .startOf("month")
           .format("YYYY-MM-DD"),

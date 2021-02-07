@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       filters: {
-        status: "pendiente",
+        status: "Pendiente",
         start: dayjs()
           .startOf("month")
           .format("YYYY-MM-DD"),
