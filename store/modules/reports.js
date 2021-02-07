@@ -127,13 +127,14 @@ export default {
     async fetchReimbursablesByUser({ commit }, filters) {
       try {
         let queryString = queryStingParamsParser({
-          user_id: filters.user_id,
+          userId: filters.userId,
           start: filters.start,
-          end: filters.end
+          end: filters.end,
+          status: filters.status
         });
 
         const response = await this.$axios.get(
-          "/reimbursable/?search= " + filters.status + queryString,
+          "reports/refundable/?" + queryString,
           headers
         );
 

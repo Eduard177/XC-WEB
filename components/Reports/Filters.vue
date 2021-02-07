@@ -50,15 +50,15 @@
     </div>
 
     <select v-model="filters.status" class="w-40 tablet:ml-6 h-8 bg-white outline-none">
-      <option value="aprobado">Aprobados</option>
-      <option value="pendiente">Pendientes</option>
-      <option value="declinado">Declinados</option>
+      <option value="Aprobado">Aprobados</option>
+      <option value="Pendiente">Pendientes</option>
+      <option value="Declinado">Declinados</option>
     </select>
   </div>
 </template>
 <script>
 import dayjs from "dayjs";
-import { queryStingParamsParser } from "../../utils/Helpers";
+import { queryStingParamsParser } from "@/utils/Helpers";
 import Alert from "../../mixins/mixin-alert.js";
 
 export default {
@@ -76,7 +76,7 @@ export default {
         end: dayjs()
           .endOf("month")
           .format("YYYY-MM-DD"),
-        status: "pendiente"
+        status: "Pendiente"
       }
     };
   },
@@ -97,7 +97,7 @@ export default {
   methods: {
     GenerateExcel() {
       try {
-        if (this.user.rol === "Administrator") {
+        if (this.user.isAdmin) {
           let querystring = queryStingParamsParser({
             start: this.filters.start,
             end: this.filters.end
@@ -108,7 +108,8 @@ export default {
           );
         } else {
           let querystring = queryStingParamsParser({
-            user_id: this.user.id,
+            status: this.status,
+            UserId: this.user.id,
             start: this.filters.start,
             end: this.filters.end
           });
