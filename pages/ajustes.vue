@@ -34,7 +34,7 @@ export default {
         this.loader = this.$loading.show({});
 
         await this.$store.dispatch("users/editUser", user);
-        await this.$store.dispatch("auth/fetchUser");
+        // await this.$store.dispatch("auth/fetchUser");
 
         this.edit_user_modal = false;
         this.hideLoading(this.loader);

@@ -30,8 +30,8 @@ export default {
   actions: {
     async fetchUsers({ commit }) {
       try {
-        const response = await this.$axios.get("/users/");
-        commit("setUsers", response.data.results);
+        const response = await this.$axios.get("/user/");
+        commit("setUsers", response.data);
       } catch (error) {
         throw error;
       }
@@ -39,19 +39,18 @@ export default {
     async editUser({ dispatch, commit }, user) {
       try {
         const response = await this.$axios.patch(
-          "users/" + user.id + "/",
+          "user/update/" + user.id ,
           {
-            admission_date: user.admission_date,
+            admissionDate: user.admissionDate,
             fullName: user.fullName,
             email: user.email,
             office: user.office,
-            company_code: user.company_code,
-            is_admin: user.is_admin,
+            companyCode: user.companyCode,
+            isAdmin: user.isAdmin,
             position: user.position,
             role: user.role,
             cellphone: user.cellphone,
-          },
-          headers
+          }
         );
 
         commit("setUser", response.data);

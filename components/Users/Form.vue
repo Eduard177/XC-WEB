@@ -2,12 +2,12 @@
   <div class="flex flex-col py-8">
     <image-upload
       :imageProp="
-        result_user.image_url
-          ? api_url + result_user.image_url
-          : result_user.image_url
+        result_user.imageUrl
+          ? api_url + result_user.imageUrl
+          : result_user.imageUrl
       "
       @input="
-        result_user.image_url = $event;
+        result_user.imageUrl = $event;
         $emit('updateImage', result_user);
       "
     ></image-upload>
@@ -18,7 +18,7 @@
           v-validate="'required'"
           data-vv-as="Fecha de ingreso"
           :error="errors.first('Fecha de ingreso')"
-          v-model="result_user.admission_date"
+          v-model="result_user.admissionDate"
           class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"
           label="Fecha de ingreso"
         ></xc-input-date>
