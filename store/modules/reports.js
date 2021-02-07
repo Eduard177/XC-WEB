@@ -144,7 +144,7 @@ export default {
     },
     async createReimbursable({}, reimbursable) {
       try {
-        await this.$axios.post("/reimbursable/", reimbursable, headers);
+        await this.$axios.post("reports/refundable/", reimbursable, headers);
       } catch (error) {
         throw error;
       }

@@ -2,18 +2,18 @@ export default class Reimbursable {
   constructor() {
     this.rnc = '';
     this.ncf = '';
-    this.invoice_date = '';
+    this.invoiceDate = '';
     this.details = '';
-    this.bussiness_type = '';
+    this.businessType = '';
     this.provider = '';
-    this.payment_method = '';
+    this.paymentMethod = '';
     this.tip = "0";
     this.itbis = "0";
-    this.sub_total = "0";
+    this.subTotal = "0";
     this.total = 0;
-    this.user = null;
+    this.userId = null;
     this.type = '';
-    this.has_tip = false;
-    this.has_itbis = false;
+    this.hasTip = false;
+    this.hasItbis = false;
   }
 }

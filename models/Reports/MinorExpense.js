@@ -1,6 +1,6 @@
 export default class MinorExpense {
   constructor() {
-    this.invoice_date = '';
+    this.invoiceDate = '';
     this.description = '';
     this.total = '';
     this.comment = '';

@@ -6,7 +6,7 @@
       <xc-input-date
         v-validate="'required'"
         :error="errors.first('Fecha del consumo')"
-        v-model="minor_expense.invoice_date"
+        v-model="minor_expense.invoiceDate"
         class="tablet:w-1/5 flex-col-reverse"
         label="Fecha del consumo"
       ></xc-input-date>

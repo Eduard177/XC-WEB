@@ -6,7 +6,7 @@
       <img class="rounded-full object-cover" src="~/assets/images/olopez.png" alt="foto de perfil">
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/3 tablet:w-auto">
-      <span>{{reimbursable.invoice_date}}</span>
+      <span>{{reimbursable.invoiceDate}}</span>
       <label>Fecha</label>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
