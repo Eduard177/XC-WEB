@@ -1,6 +1,6 @@
 <template>
   <table class="w-full mt-4 border-collapse">
-    <tbody v-if="type == 'minor_expense'">
+    <tbody v-if="type == 'minorExpense'">
       <minor-expense-item
         v-for="(minorExpense, index) in reports"
         :key="index"

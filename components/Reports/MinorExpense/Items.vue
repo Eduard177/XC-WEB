@@ -7,9 +7,9 @@
       class="flex justify-center items-center tablet:w-1/12 bg-hueso rounded-full"
     >
       <img
-        v-if="minorExpense.image_url"
+        v-if="minorExpense.imageUrl"
         class="rounded-full object-cover"
-        :src="api_url + minorExpense.image_url"
+        :src="apiUrl + minorExpense.imageUrl"
         alt="foto de perfil"
       />
       <avatar
@@ -18,7 +18,7 @@
         color="grey"
         backgroundColor="ccc"
         v-else
-        :username="minorExpense.description"
+        username="Xd"
       ></avatar>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      api_url: process.env.API_URL,
+      apiUrl: process.env.API_URL,
     };
   },
   props: {
@@ -73,7 +73,6 @@ export default {
     },
     edit: {
       required: true,
-
       type: Boolean,
     },
   },

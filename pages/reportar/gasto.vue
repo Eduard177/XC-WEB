@@ -5,10 +5,10 @@
 
       <reports-filter @onFiltersChange="applyFilters($event)" @toExcel="ExportExcel($event)"></reports-filter>
 
-      <no-results :items="minorExpenses.results"></no-results>
+      <no-results :items="minorExpenses"></no-results>
 
       <reports-table
-        :reports="minorExpenses.results"
+        :reports="minorExpenses"
         :type="'minorExpense'"
         :edit="true"
         @itemDetails="minorExpense =  $event; show_report_detail = true"
@@ -36,7 +36,7 @@
 
     <card-modal :showing="showCreateReport" @close="showCreateReport = false">
       <minor-expense-form
-        :report="new_minorExpense"
+        :report="newMinorExpense"
         subtmit="Crear"
         @close="showCreateReport = false"
         @submit="create($event)"
@@ -107,7 +107,7 @@ export default {
       },
       filters: {
         user_id: this.$store.getters["auth/getLoggedUser"].id,
-        status: "pendiente",
+        status: "Pendiente",
         start: dayjs()
           .startOf("month")
           .format("YYYY-MM-DD"),
@@ -117,7 +117,7 @@ export default {
       },
       currentPage: 1,
       minorExpense: new MinorExpense(),
-      new_minorExpense: new MinorExpense(),
+      newMinorExpense: new MinorExpense(),
       showCreateReport: false,
       showEditReport: false,
       show_report_detail: false,
@@ -141,12 +141,16 @@ export default {
     },
     async fetchMinorExpensesByUser() {
       try {
-        const user = await this.$store.dispatch(
+          await this.$store.dispatch(
           "reports/fetchMinorExpensesByUser",
           this.filters
         );
 
-        this.minorExpenses = this.$store.getters["reports/getMinorExpenses"];
+        const minorExpense = await this.$store.getters[
+          "reports/getMinorExpenses"
+        ];
+
+        this.minorExpenses = minorExpense
       } catch (error) {
         this.fireErrorAlert();
       }
@@ -182,7 +186,7 @@ export default {
 
         await this.$store.dispatch("reports/createMinorExpense", minorExpense);
 
-        // await this.fetchMinorExpensesByUser();
+        await this.fetchMinorExpensesByUser();
 
         await this.hideLoading(loader);
 

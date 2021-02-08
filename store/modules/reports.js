@@ -40,13 +40,14 @@ export default {
     async fetchMinorExpensesByUser({ commit }, filters) {
       try {
         let queryString = queryStingParamsParser({
-          user_id: filters.user_id,
+          userId: filters.user_id,
           start: filters.start,
-          end: filters.end
+          end: filters.end,
+          status: filters.status
         });
 
         const response = await this.$axios.get(
-          "/minor/?search=" + filters.status + queryString
+          "reports/minor/?" + queryString, headers
         );
 
         commit("setMinorExpenses", response.data);
@@ -105,7 +106,7 @@ export default {
       });
 
       const response = await this.$axios.get(
-        "/minorexpenses/?search=" + filters.status + queryString
+        "/reports/minor/?search=" + filters.status + queryString
       );
 
       await commit("setMinorExpenses", response.data);
@@ -113,7 +114,7 @@ export default {
     async setMinorExpenseStatus({}, params) {
       try {
         await this.$axios.patch(
-          "/minorexpenses/" + params.minorExpense_id + "/",
+          "/reports/minor/" + params.minorExpense_id + "/",
           {
             status: params.status
           },
@@ -226,10 +227,10 @@ export default {
         return false;
       }
     },
-    async ReportsCount({ commit }, user_id) {
+    async ReportsCount({ commit }, userId) {
       try {
         // const response = await this.$axios.get(
-        //   "report/count/?user_id=" + user_id
+        //   "report/count/?userId=" + userId
         // );
         await commit("setReportCount", 0);
       } catch (error) {

@@ -85,7 +85,7 @@ export default {
     }
   },
   created() {
-    this.minorExpense = this.report;
+    this.minorExpense = Object.assign(this.report);
   },
   data() {
     return {
