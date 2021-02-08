@@ -43,6 +43,7 @@ export default {
           userId: filters.user_id,
           start: filters.start,
           end: filters.end,
+          status: filters.status
         });
 
         const response = await this.$axios.get(
