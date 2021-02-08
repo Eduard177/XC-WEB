@@ -26,6 +26,7 @@
     "vuex-persist": "^2.0.1"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.14.12",
     "nodemon": "^1.18.9",
     "tailwindcss": "^1.0.0"
   }

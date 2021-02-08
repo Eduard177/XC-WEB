@@ -29,11 +29,10 @@
       {{ user.fullName }}
     </h3>
     <p class="text-xs font-light">{{ user.email }}</p>
+    <p class="mt-2 text-xs font-light">{{ user.position }}</p>
+    <p class="mt-2 text-xs font-light">{{ user.office }}</p>
 
-    <div class="mt-2 text-xs font-light">
-      <span>{{ user.position }}</span> ||
-      <span>{{ user.office }}</span>
-    </div>
+
     <p class="mt-2 text-sm text-orange-500 font-light">{{ user.cellphone }}</p>
   </div>
 </template>
@@ -49,9 +48,9 @@ export default {
       api_url: process.env.API_URL,
       card: {
         green:
-          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 tablet:ml-6 bg-gradient-green-40% rounded-br-xl cursor-pointer",
+          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 tablet:ml-6 bg-gradient-green-40%  cursor-pointer",
         orange:
-          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 tablet:ml-6 bg-gradient-orange-40% rounded-br-xl cursor-pointer",
+          "flex flex-col justify-center pb-2 pt-16 items-center shadow-lg h-full w-full sm:w-1/2 tablet:w-1/3 tablet:w-1/4 mt-6 tablet:ml-6 bg-gradient-orange-40%  cursor-pointer",
       },
     };
   },

@@ -110,21 +110,15 @@ export default {
     async createUser(new_user) {
       try {
         this.loader = this.$loading.show({});
-
         await this.$store.dispatch("users/createUser", new_user);
         await this.fetchUsers();
-
-        let user = await this.$store.getters["users/getUser"];
-
-        await this.$store.commit("users/setUser", user);
-
         this.create_user_modal = false;
         this.hideLoading(this.loader);
         this.fireAlert("success", "El Usuario ha sido creado", "top");
       } catch (error) {
         this.hideLoading(this.loader);
 
-        if (error.response.status == 400) {
+        if (error.response.status === 400) {
           this.alert400Error(error);
         } else {
           this.fireErrorAlert();

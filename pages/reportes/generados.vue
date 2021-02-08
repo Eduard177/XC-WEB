@@ -5,10 +5,10 @@
 
       <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
-      <no-results :items="reimbursables.results"></no-results>
+      <no-results :items="reimbursables"></no-results>
 
       <reports-table
-        :reports="reimbursables.results"
+        :reports="reimbursables"
         :type="'reimbursables'"
         :edit="false"
         @itemDetails="reimbursable =  $event; show_modal = true"
@@ -28,8 +28,8 @@
     <card-modal :showing="show_modal" @close="show_modal = false">
       <report-details
         :report="reimbursable"
-        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
-        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
+        @approve="changeMinorExpenseStatus({status:'Aprobado', minor_expense_id:$event.id})"
+        @decline="changeMinorExpenseStatus({status:'Declinado', minor_expense_id:$event.id})"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Factura</h1>
@@ -71,7 +71,7 @@ export default {
       },
       show_modal: false,
       filters: {
-        status: "pendiente",
+        status: "Pendiente",
         start: dayjs()
           .startOf("month")
           .format("YYYY-MM-DD"),

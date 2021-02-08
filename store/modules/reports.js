@@ -185,10 +185,12 @@ export default {
       let queryString = queryStingParamsParser({
         start: filters.start,
         end: filters.end,
+        status: filters.status,
       });
 
       const response = await this.$axios.get(
-        "/reimbursable/?search=" + filters.status + queryString
+        "reports/refundable/?" + queryString,
+        headers
       );
 
       await commit("setReimbursables", response.data);
