@@ -18,7 +18,7 @@
         color="grey"
         backgroundColor="ccc"
         v-else
-        username="Xd"
+        :username="user.fullName"
       ></avatar>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
@@ -64,6 +64,7 @@ export default {
   data() {
     return {
       apiUrl: process.env.API_URL,
+      user: this.$store.getters["auth/getLoggedUser"]
     };
   },
   props: {
