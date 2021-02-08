@@ -41,11 +41,11 @@ export default {
         const response = await this.$axios.patch(
           "user/update/" + user.id ,
           {
-            admissionDate: user.admissionDate,
+            admissionDate: user.admission_date,
             fullName: user.fullName,
             email: user.email,
             office: user.office,
-            companyCode: user.companyCode,
+            companyCode: user.company_code,
             isAdmin: user.isAdmin,
             position: user.position,
             role: user.role,
@@ -61,18 +61,18 @@ export default {
     async createUser({ dispatch }, user) {
       try {
         await this.$axios.post(
-          "/users/",
+          "/auth/register",
           {
-            admission_date: user.admission_date,
+            admissionDate: user.admission_date,
             fullName: user.fullName,
             email: user.email,
             password: user.password,
             office: user.office,
-            company_code: user.company_code,
+            companyCode: user.company_code,
             position: user.position,
             role: user.role,
             cellphone: user.cellphone,
-            image_url: null,
+            imageUrl: "",
           },
           headers
         );
