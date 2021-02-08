@@ -3,8 +3,8 @@ import { queryStingParamsParser } from "../../utils/Helpers";
 
 const headers = {
   headers: {
-    Authorization: cookies.get("Authorization")
-  }
+    Authorization: cookies.get("Authorization"),
+  },
 };
 
 export default {
@@ -12,7 +12,7 @@ export default {
   state: {
     minorExpenses: [],
     reimbursables: [],
-    reportCount: {}
+    report_count: {},
   },
   getters: {
     getMinorExpenses(state) {
@@ -22,8 +22,8 @@ export default {
       return state.reimbursables;
     },
     getReportCount(state) {
-      return state.reportCount;
-    }
+      return state.report_count;
+    },
   },
   mutations: {
     setMinorExpenses(state, minorExpenses) {
@@ -33,8 +33,8 @@ export default {
       state.reimbursables = reimbursables;
     },
     setReportCount(state, count) {
-      state.reportCount = count;
-    }
+      state.report_count = count;
+    },
   },
   actions: {
     async fetchMinorExpensesByUser({ commit }, filters) {
@@ -43,7 +43,6 @@ export default {
           userId: filters.user_id,
           start: filters.start,
           end: filters.end,
-          status: filters.status
         });
 
         const response = await this.$axios.get(
@@ -59,8 +58,8 @@ export default {
       try {
         await this.$axios.post("reports/minor/", minorExpense, {
           headers: {
-            Authorization: cookies.get("Authorization")
-          }
+            Authorization: cookies.get("Authorization"),
+          },
         });
       } catch (error) {
         throw error;
@@ -81,8 +80,8 @@ export default {
       try {
         await this.$axios.delete("/minorexpenses/" + minorExpense.id + "/", {
           headers: {
-            Authorization: cookies.get("Authorization")
-          }
+            Authorization: cookies.get("Authorization"),
+          },
         });
       } catch (error) {
         throw error;
@@ -102,7 +101,7 @@ export default {
     async searchMinorExpenses({ commit }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
-        end: filters.end
+        end: filters.end,
       });
 
       const response = await this.$axios.get(
@@ -116,7 +115,7 @@ export default {
         await this.$axios.patch(
           "/reports/minor/" + params.minorExpense_id + "/",
           {
-            status: params.status
+            status: params.status,
           },
           headers
         );
@@ -131,7 +130,7 @@ export default {
           userId: filters.userId,
           start: filters.start,
           end: filters.end,
-          status: filters.status
+          status: filters.status,
         });
 
         const response = await this.$axios.get(
@@ -166,8 +165,8 @@ export default {
       try {
         await this.$axios.delete("/reimbursable/" + reimbursable.id + "/", {
           headers: {
-            Authorization: cookies.get("Authorization")
-          }
+            Authorization: cookies.get("Authorization"),
+          },
         });
       } catch (error) {
         throw error;
@@ -185,7 +184,7 @@ export default {
     async searchReimbursables({ commit }, filters) {
       let queryString = queryStingParamsParser({
         start: filters.start,
-        end: filters.end
+        end: filters.end,
       });
 
       const response = await this.$axios.get(
@@ -199,7 +198,7 @@ export default {
         await this.$axios.patch(
           "/reimbursable/" + params.minorExpense_id + "/",
           {
-            status: params.status
+            status: params.status,
           },
           headers
         );
@@ -219,7 +218,7 @@ export default {
       try {
         let queryString = queryStingParamsParser({
           rnc: filters.rnc,
-          ncf: filters.ncf
+          ncf: filters.ncf,
         });
         await this.$axios.get("validate/ncf/? " + queryString);
         return true;
@@ -227,15 +226,16 @@ export default {
         return false;
       }
     },
-    async ReportsCount({ commit }, userId) {
+
+    async ReportsCount({ commit }, user_id) {
       try {
-        // const response = await this.$axios.get(
-        //   "report/count/?userId=" + userId
-        // );
-        await commit("setReportCount", 0);
+        const response = await this.$axios.get(
+          "reports/count/?userId=" + user_id
+        );
+        await commit("setReportCount", response.data);
       } catch (error) {
         throw error;
       }
-    }
-  }
+    },
+  },
 };

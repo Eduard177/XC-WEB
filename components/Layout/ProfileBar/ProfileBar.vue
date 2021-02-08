@@ -8,9 +8,13 @@
           @click="logout()"
           class="hidden tablet:mt-4 tablet:block cursor-pointer"
           src="../../../assets/images/logout-button.svg"
-        >
+        />
         <nuxt-link to="/">
-          <img class="tablet:hidden w-1/2" src="../../../assets/images/logo.svg" alt>
+          <img
+            class="tablet:hidden w-1/2"
+            src="../../../assets/images/logo.svg"
+            alt
+          />
         </nuxt-link>
       </div>
       <div
@@ -33,7 +37,12 @@
           ></rect>
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="4.617" viewBox="0 0 25 4.617">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="4.617"
+          viewBox="0 0 25 4.617"
+        >
           <rect
             id="Rectangle_141"
             data-name="Rectangle 141"
@@ -43,7 +52,12 @@
           ></rect>
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="4.617" viewBox="0 0 25 4.617">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="4.617"
+          viewBox="0 0 25 4.617"
+        >
           <rect
             id="Rectangle_140"
             data-name="Rectangle 140"
@@ -54,31 +68,43 @@
         </svg>
       </div>
 
-      <UserProfileInfo :apiUrl="api_url" :user="user" v-if="$mq === 'lg' || $mq === 'md'"/>
+      <UserProfileInfo
+        :apiUrl="api_url"
+        :user="user"
+        v-if="$mq === 'lg' || $mq === 'md'"
+      />
     </div>
 
     <!-- reportes -->
     <div class="flex items-center hidden tablet:block">
       <div class="flex flex-col items-center">
-        <span class="text-3xl text-orange-400 font-bold">{{report_count.total}}</span>
+        <span class="text-3xl text-orange-400 font-bold">{{
+          report_count.total
+        }}</span>
         <p>Reportes</p>
       </div>
       <div class="flex flex-col items-center mt-8">
-        <span class="text-3xl text-teal-500 font-bold">{{report_count.aprobados}}</span>
+        <span class="text-3xl text-teal-500 font-bold">{{
+          report_count.approved
+        }}</span>
         <p>Aprobados</p>
       </div>
 
       <div class="flex flex-col items-center mt-8">
-        <span class="text-3xl text-green-700 font-bold">{{report_count.pendiente}}</span>
+        <span class="text-3xl text-green-700 font-bold">{{
+          report_count.pending
+        }}</span>
         <p>Pendientes</p>
       </div>
     </div>
 
     <!-- Informacion -->
-    <div class="hidden tablet:block mt-20 flex flex-col items-center text-center mb-6">
+    <div
+      class="hidden tablet:block mt-20 flex flex-col items-center text-center mb-6"
+    >
       <h1 class="text-3xl">Información</h1>
       <div class="text-md text-gray-800">
-        <span>{{user.position}} ||</span>
+        <span>{{ user.position }} ||</span>
         <span>XpertCode</span>
       </div>
       <p class="text-md text-gray-800">809-345-5678</p>
@@ -100,8 +126,8 @@ export default {
       report_count: {
         total: 0,
         aprobados: 0,
-        pendiente: 0
-      }
+        pendiente: 0,
+      },
     };
   },
   props: ["user"],
@@ -120,7 +146,7 @@ export default {
       } catch (error) {
         this.fireErrorAlert(this.loader);
       }
-    }
-  }
+    },
+  },
 };
 </script>
