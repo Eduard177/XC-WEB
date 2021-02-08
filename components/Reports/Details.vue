@@ -17,10 +17,10 @@
       class="flex justify-between items-center leading-none mt-12"
     >
       <button
-        @click="$emit('decline', report)"
+        @click="updateStatus('Declinado')"
         class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
       >Declinar</button>
-      <button @click="$emit('approve', report)" class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</button>
+      <button @click="updateStatus('Aprobado')" class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</button>
     </div>
   </div>
 </template>
@@ -32,7 +32,6 @@ export default {
     }
   },
   created() {
-      delete this.report.id;
       delete this.report.hasItbis;
       delete this.report.hasTip;
       delete this.report.type;
@@ -59,8 +58,17 @@ export default {
         witnesses: "Presentes"
       }
     };
+  },methods:{
+    async updateStatus(updateStatus){
+        try {
+        const reportId = this.$props.report.id
+        this.$emit("close");
+        await this.$store.dispatch("reports/UpdateStatusReport", {reportId, updateStatus}); 
+      } catch (error) {
+        throw error
+      } 
   }
-};
+}}
 </script>
 
 

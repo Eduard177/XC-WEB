@@ -238,5 +238,18 @@ export default {
         throw error;
       }
     },
+    async UpdateStatusReport({}, payload){
+      try {
+         await this.$axios.patch(
+          "reports/refundable/" + payload.reportId,
+          {
+           status: payload.updateStatus
+          } 
+          
+        )
+      } catch (error) {
+        throw error
+      }
+    }
   },
 };
