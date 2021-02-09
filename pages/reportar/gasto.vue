@@ -62,10 +62,8 @@
 
     <card-modal :showing="show_report_detail" @close="show_report_detail = false">
       <reports-details
-        @close="show_report_detail = false"
         :report="minorExpense"
-        @approve="changeMinorExpenseStatus({status:'aprobado', minorExpense_id:$event.id})"
-        @decline="changeMinorExpenseStatus({status:'declinado', minorExpense_id:$event.id})"
+        @close="closeDetailsModal"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Gastos Menores</h1>

@@ -5,7 +5,6 @@
       <div
         v-for="(property, key) in report"
         :key="key"
-        v-if="key !='user' || key !='image_url'"
         class="flex flex-col my-3 pr-6 w-full tablet:w-1/2"
       >
         <span class="border-solid">{{property}}</span>
@@ -17,10 +16,16 @@
       class="flex justify-between items-center leading-none mt-12"
     >
       <button
+        v-if="report.status =='Pendiente'"
         @click="updateStatus('Declinado')"
         class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
       >Declinar</button>
-      <button @click="updateStatus('Aprobado')" class="btn bg-grad-green/orange w-1/3 h-9">Aprobar</button>
+    
+      <button 
+      v-if="report.status =='Pendiente'"
+      @click="updateStatus('Aprobado')"
+      class="btn bg-grad-green/orange w-1/3 h-9"
+      >Aprobar</button>
     </div>
   </div>
 </template>
@@ -32,13 +37,18 @@ export default {
     }
   },
   created() {
+      this.reportId = this.report.id;
+      this.reportType = this.report.type;
+      delete this.report.id;
+      delete this.report.type;
       delete this.report.hasItbis;
       delete this.report.hasTip;
-      delete this.report.type;
   },
   data() {
     return {
       user: this.$store.getters["auth/getLoggedUser"],
+      reportId: null,
+      reportType: null,
       options: {
         rnc: "RNC",
         ncf: "NCF",
@@ -60,13 +70,13 @@ export default {
     };
   },methods:{
     async updateStatus(updateStatus){
-        try {
-        const reportId = this.$props.report.id
-        this.$emit("close");
-        await this.$store.dispatch("reports/UpdateStatusReport", {reportId, updateStatus}); 
-      } catch (error) {
-        throw error
-      } 
+      const reportId = this.reportId;
+      if(this.reportType == undefined){
+        await this.$store.dispatch("reports/UpdateStatusReportMinorExpenses", {reportId, updateStatus}); 
+      }else{
+        await this.$store.dispatch("reports/UpdateStatusReportRefundable", {reportId, updateStatus}); 
+      }
+
   }
 }}
 </script>

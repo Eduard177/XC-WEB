@@ -101,12 +101,13 @@ export default {
     },
     async searchMinorExpenses({ commit }, filters) {
       let queryString = queryStingParamsParser({
+        status: filters.status,
         start: filters.start,
         end: filters.end,
       });
 
       const response = await this.$axios.get(
-        "/reports/minor/?search=" + filters.status + queryString
+        "/reports/minor/?" + queryString
       );
 
       await commit("setMinorExpenses", response.data);
@@ -240,10 +241,23 @@ export default {
         throw error;
       }
     },
-    async UpdateStatusReport({}, payload){
+    async UpdateStatusReportRefundable({}, payload){
       try {
          await this.$axios.patch(
           "reports/refundable/" + payload.reportId,
+          {
+           status: payload.updateStatus
+          } 
+          
+        )
+      } catch (error) {
+        throw error
+      }
+    },
+    async UpdateStatusReportMinorExpenses({}, payload){
+      try {
+         await this.$axios.patch(
+          "reports/minor/" + payload.reportId,
           {
            status: payload.updateStatus
           } 

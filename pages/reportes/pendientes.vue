@@ -5,11 +5,11 @@
 
       <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
-      <no-results :items="minor_expenses.results"></no-results>
+      <no-results :items="minor_expenses"></no-results>
 
       <reports-table
-        :reports="minor_expenses.results"
-        :type="'minor_expense'"
+        :reports="minor_expenses"
+        :type="'minorExpense'"
         :edit="false"
         @itemDetails="minor_expense =  $event; show_modal = true"
       ></reports-table>
