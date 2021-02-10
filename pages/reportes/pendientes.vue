@@ -29,8 +29,8 @@
     <card-modal :showing="show_modal" @close="show_modal = false">
       <report-details
         :report="minor_expense"
-        @approve="changeMinorExpenseStatus({status:'aprobado', minor_expense_id:$event.id})"
-        @decline="changeMinorExpenseStatus({status:'declinado', minor_expense_id:$event.id})"
+        @approve="changeMinorExpenseStatus({status:'Aprobado', reportId:$event})"
+        @decline="changeMinorExpenseStatus({status:'Declinado', reportId:$event})"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Gasto Menor</h1>
@@ -59,7 +59,7 @@ export default {
     NoResults,
     Pagination,
     ReportDetails,
-    ReportsFilter
+    ReportsFilter,
   },
   mixins: [Alert],
   data() {
@@ -117,16 +117,16 @@ export default {
         this.hideLoading(this.loader);
       }
     },
-    async changeMinorExpenseStatus(params) {
+    async changeMinorExpenseStatus($event) {
       try {
         this.loader = this.$loading.show({});
 
-        await this.$store.dispatch("reports/setMinorExpenseStatus", params);
+        await this.$store.dispatch("reports/UpdateStatusReportMinorExpenses", $event);
         await this.fetchMinorExpenses();
 
         this.fireAlert(
           "success",
-          "El reporte ha sido " + params.status + " correctamente.",
+          "El reporte ha sido " + $event.status + " correctamente.",
           "top"
         );
 

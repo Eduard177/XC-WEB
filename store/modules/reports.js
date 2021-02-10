@@ -246,7 +246,7 @@ export default {
          await this.$axios.patch(
           "reports/refundable/" + payload.reportId,
           {
-           status: payload.updateStatus
+           status: payload.status
           } 
           
         )
@@ -259,7 +259,7 @@ export default {
          await this.$axios.patch(
           "reports/minor/" + payload.reportId,
           {
-           status: payload.updateStatus
+           status: payload.status
           } 
           
         )

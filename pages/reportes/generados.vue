@@ -28,8 +28,8 @@
     <card-modal :showing="show_modal" @close="show_modal = false">
       <report-details
         :report="reimbursable"
-        @approve="changeMinorExpenseStatus({status:'Aprobado', minor_expense_id:$event.id})"
-        @decline="changeMinorExpenseStatus({status:'Declinado', minor_expense_id:$event.id})"
+        @approve="changeRefundableStatus({status:'Aprobado', reportId:$event})"
+        @decline="changeRefundableStatus({status:'Declinado', reportId:$event})"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Factura</h1>
@@ -121,16 +121,16 @@ export default {
         this.fireErrorAlert();
       }
     },
-    async changeMinorExpenseStatus(params) {
+    async changeRefundableStatus($event) {
       try {
         this.loader = this.$loading.show({});
 
-        await this.$store.dispatch("reports/setReimbursablesStatus", params);
+        await this.$store.dispatch("reports/UpdateStatusReportRefundable", $event);
         await this.fetchReimbursables();
 
         this.fireAlert(
           "success",
-          "El reporte ha sido " + params.status + " correctamente.",
+          "El reporte ha sido " + $event.status + " correctamente.",
           "top"
         );
 

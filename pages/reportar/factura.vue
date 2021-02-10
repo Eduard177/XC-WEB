@@ -8,7 +8,7 @@
 
     <reports-table
       :reports="reimbursables"
-      type="reimbursables"
+      :type="'reimbursables'"
       :edit="true"
       @itemDetails="show_report_detail = true; reimbursable = $event;"
       @itemEdit="show_report_edit = true; reimbursable = $event;"
@@ -33,7 +33,11 @@
     </div>
 
     <card-modal :showing="show_report_detail" @close="show_report_detail = false">
-      <reports-details :report="reimbursable">
+      <reports-details 
+      :report="reimbursable"
+      @approve="changeReimbursableStatus({status:'Aprobado', reportId:$event})"
+      @decline="changeReimbursableStatus({status:'Declinado', reportId:$event})"
+      > 
         <template v-slot:header>
           <h1 class="text-2xl">Detalles Factura Reembolsable</h1>
         </template>
@@ -246,7 +250,27 @@ export default {
         this.fireErrorAlert();
         this.hideLoading(this.loader);
       }
+    },
+    async changeReimbursableStatus($event) {
+      try {
+        this.loader = this.$loading.show({});
+        await this.$store.dispatch("reports/UpdateStatusReportRefundable", $event);
+        await this.fetchReimbursablesByUser();
+
+        this.fireAlert(
+          "success",
+          "El reporte ha sido " + $event.status + " correctamente.",
+          "top"
+        );
+
+        this.show_report_detail = false;
+
+        this.hideLoading(this.loader);
+      } catch (error) {
+        this.fireErrorAlert();
+        this.hideLoading(this.loader);
+      }
     }
-  }
+  },
 };
 </script>

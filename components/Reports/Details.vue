@@ -15,30 +15,31 @@
       v-if="user.isAdmin"
       class="flex justify-between items-center leading-none mt-12"
     >
-      <button
+     <button
         v-if="report.status =='Pendiente'"
-        @click="updateStatus('Declinado')"
+        @click="$emit('decline', reportId)"
         class="btn bg-grad-gold/orange w-1/3 h-9 cursor-pointer"
-      >Declinar</button>
-    
-      <button 
-      v-if="report.status =='Pendiente'"
-      @click="updateStatus('Aprobado')"
-      class="btn bg-grad-green/orange w-1/3 h-9"
-      >Aprobar</button>
+      >Declinar
+      </button>
+      <button
+       v-if="report.status =='Pendiente'"
+       @click="$emit('approve', reportId)" 
+       class="btn bg-grad-green/orange w-1/3 h-9"
+       >Aprobar
+       </button>
     </div>
   </div>
 </template>
 <script>
+
 export default {
   props: {
     report: {
       required: true
-    }
+    },
   },
   created() {
       this.reportId = this.report.id;
-      this.reportType = this.report.type;
       delete this.report.id;
       delete this.report.type;
       delete this.report.hasItbis;
@@ -48,7 +49,6 @@ export default {
     return {
       user: this.$store.getters["auth/getLoggedUser"],
       reportId: null,
-      reportType: null,
       options: {
         rnc: "RNC",
         ncf: "NCF",
@@ -68,17 +68,8 @@ export default {
         witnesses: "Presentes"
       }
     };
-  },methods:{
-    async updateStatus(updateStatus){
-      const reportId = this.reportId;
-      if(this.reportType == undefined){
-        await this.$store.dispatch("reports/UpdateStatusReportMinorExpenses", {reportId, updateStatus}); 
-      }else{
-        await this.$store.dispatch("reports/UpdateStatusReportRefundable", {reportId, updateStatus}); 
-      }
-
-  }
-}}
+  },
+}
 </script>
 
 
