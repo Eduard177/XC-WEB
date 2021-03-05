@@ -112,20 +112,6 @@ export default {
 
       await commit("setMinorExpenses", response.data);
     },
-    async setMinorExpenseStatus({}, params) {
-      try {
-        await this.$axios.patch(
-          "/reports/minor/" + params.minorExpense_id + "/",
-          {
-            status: params.status,
-          },
-          headers
-        );
-      } catch (error) {
-        throw error;
-      }
-    },
-
     async fetchReimbursablesByUser({ commit }, filters) {
       try {
         let queryString = queryStingParamsParser({
@@ -197,34 +183,21 @@ export default {
 
       await commit("setReimbursables", response.data);
     },
-    async setReimbursablesStatus({}, params) {
-      try {
-        await this.$axios.patch(
-          "/reimbursable/" + params.minorExpense_id + "/",
-          {
-            status: params.status,
-          },
-          headers
-        );
-      } catch (error) {
-        throw error;
-      }
-    },
     async ValidateRNC({}, rnc) {
       try {
-        await this.$axios.get("validate/rnc/?rnc=" + rnc);
+        await this.$axios.post("http://localhost:2000/api/rnc", {rnc});
         return true;
       } catch (error) {
         return false;
       }
     },
-    async ValidateNCF({}, filters) {
+    async ValidateNCF({}, payload) {
       try {
-        let queryString = queryStingParamsParser({
-          rnc: filters.rnc,
-          ncf: filters.ncf,
-        });
-        await this.$axios.get("validate/ncf/? " + queryString);
+        let ncfPayload = {
+          rnc: payload.rnc,
+          ncf: payload.ncf,
+        };
+        await this.$axios.post("http://localhost:2000/api/ncf", ncfPayload);
         return true;
       } catch (error) {
         return false;

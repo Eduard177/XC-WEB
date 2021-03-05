@@ -55,7 +55,7 @@
         <xc-input
           v-validate="'required|numeric|min:9|max:9'"
           :error="errors.first('RNC')"
-          v-model="reimbursable.rnc"
+          v-model="rnc"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="RNC"
           placeholder="131813755"
@@ -73,7 +73,7 @@
         <xc-input
           v-validate="'required|min:11|max:11|ncf'"
           :error="errors.first('NCF')"
-          v-model="reimbursable.ncf"
+          v-model="ncf"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="NCF"
           placeholder="B010009098"
@@ -149,7 +149,9 @@ export default {
       businessTypes: [],
       paymentMethods: [],
       isRncValid: false,
-      isNcfValid: false
+      isNcfValid: false,
+      rnc: '',
+      ncf: '',
     };
   },
   created() {
@@ -209,23 +211,21 @@ export default {
     },
 
     async submitEvent() {
-      const user =  await this.$store.getters["auth/getLoggedUser"];
-      this.reimbursable.userId = user.id;
-      this.$emit("submit", this.reimbursable);
-      // const validated = await this.$validator.validateAll();
-
-      // if (validated && this.isRncValid && this.isNcfValid) {
-      // } else {
-      //   this.fireAlert("warning", "Complete los campos requeridos", "top");
-      // }
-    }
-  },
-  watch: {
-    reimbursable: {
-      handler: async function(newData) {
-        try {
-          let rnc = newData.rnc;
-          let ncf = newData.ncf;
+      const validated = await this.$validator.validateAll();
+      await this.rncNfcValid();
+      if (validated && this.isRncValid && this.isNcfValid) {
+        const user =  await this.$store.getters["auth/getLoggedUser"];
+        this.reimbursable.userId = user.id;
+        this.$emit("submit", this.reimbursable);
+      } else {
+        this.fireAlert("warning", "Complete los campos requeridos", "top");
+      }
+    },
+    async rncNfcValid(){
+      try {
+        let rnc = this.rnc;
+        let ncf = this.ncf;
+        let loader = this.$loading.show({});
 
           if (rnc.length === 9 && !this.isRncValid) {
             this.isRncValid = await this.$store.dispatch(
@@ -237,15 +237,17 @@ export default {
             this.isNcfValid = await this.$store.dispatch(
               "reports/ValidateNCF",
               {
-                ncf,
-                rnc
+                rnc,
+                ncf
               }
             );
           }
-        } catch (error) {}
-      },
-      deep: true
+          await this.hideLoading(loader);
+      } 
+      catch(error){
+        throw error
+      };
     }
-  }
+  },
 };
 </script>
