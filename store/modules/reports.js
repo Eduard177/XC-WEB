@@ -69,7 +69,7 @@ export default {
     async editMinorExpense({}, minorExpense) {
       try {
         await this.$axios.put(
-          "/minorexpenses/" + minorExpense.id + "/",
+          "reports/minor/" + minorExpense.id + "/",
           minorExpense,
           headers
         );
@@ -79,7 +79,7 @@ export default {
     },
     async deleteMinorExpense({}, minorExpense) {
       try {
-        await this.$axios.delete("/minorexpenses/" + minorExpense.id + "/", {
+        await this.$axios.delete("reports/minor/" + minorExpense.id + "/", {
           headers: {
             Authorization: cookies.get("Authorization"),
           },
@@ -92,7 +92,7 @@ export default {
       try {
         const queryString = queryStingParamsParser(params);
         const response = await this.$axios.get(
-          "/minorexpenses/?" + queryString
+          "reports/minor/?" + queryString
         );
         commit("setMinorExpenses", response.data);
       } catch (error) {
@@ -151,7 +151,7 @@ export default {
     },
     async deleteReimbursable({}, reimbursable) {
       try {
-        await this.$axios.delete("/reimbursable/" + reimbursable.id + "/", {
+        await this.$axios.delete("reports/refundable/" + reimbursable.id + "/", {
           headers: {
             Authorization: cookies.get("Authorization"),
           },
@@ -163,7 +163,7 @@ export default {
     async paginateReimbursables({ commit }, params) {
       try {
         const queryString = queryStingParamsParser(params);
-        const response = await this.$axios.get("/reimbursable/?" + queryString);
+        const response = await this.$axios.get("reports/refundable/?" + queryString);
         commit("setReimbursables", response.data);
       } catch (error) {
         throw error;
