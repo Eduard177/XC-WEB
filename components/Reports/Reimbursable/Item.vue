@@ -2,8 +2,24 @@
   <tr
     class="flex flex-col justify-center items-center p-4 w-full tablet:flex-row tablet:justify-around tablet:py-2 rounded-lg"
   >
-    <td class="flex justify-center items-center tablet:w-1/12 bg-hueso rounded-full">
-      <img class="rounded-full object-cover" src="~/assets/images/olopez.png" alt="foto de perfil">
+      <td
+      v-if="$mq != 'sm'"
+      class="flex justify-center items-center tablet:w-1/12 bg-hueso rounded-full"
+    >
+      <img
+        v-if="reimbursable.imageUrl"
+        class="rounded-full object-cover"
+        :src="apiUrl + reimbursable.imageUrl"
+        alt="foto de perfil"
+      />
+      <avatar
+        :lighten="10"
+        :size="80"
+        color="grey"
+        backgroundColor="ccc"
+        v-else
+        :username="user.fullName"
+      ></avatar>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/3 tablet:w-auto">
       <span>{{reimbursable.invoiceDate}}</span>
@@ -37,10 +53,17 @@
 </template>
 <script>
 import Actions from "../Actions";
+import Avatar from "vue-avatar";
 
 export default {
+  data() {
+    return {
+      user: this.$store.getters["auth/getLoggedUser"]
+    }
+  },
   components: {
-    Actions
+    Actions,
+    Avatar
   },
   props: {
     edit: {
