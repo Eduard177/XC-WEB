@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col py-8">
-    <image-upload
+    <!-- <image-upload
       :imageProp="
         result_user.imageUrl
           ? api_url + result_user.imageUrl
@@ -10,7 +10,7 @@
         result_user.imageUrl = $event;
         $emit('updateImage', result_user);
       "
-    ></image-upload>
+    ></image-upload> -->
 
     <div class="flex flex-col items-center tablet:flex-row mt-8">
       <div class="flex flex-wrap">
