@@ -239,6 +239,15 @@ export default {
       } catch (error) {
         throw error
       }
+    },
+    async GenerateExcel({},payload){
+      try{
+        await this.$axios.post(
+          "reports/excelfile/?" + payload.query , payload.user
+        );
+      }catch(error){
+        throw error
+      }
     }
   },
 };

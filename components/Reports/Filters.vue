@@ -97,26 +97,24 @@ export default {
   methods: {
     GenerateExcel() {
       try {
-        if (this.user.isAdmin) {
+        let user = this.user
+        if (user.isAdmin) {
           let querystring = queryStingParamsParser({
+            status: this.filters.status,
             start: this.filters.start,
             end: this.filters.end
           });
-          window.open(
-            process.env.API_URL + "/generate/?" + querystring,
-            "_blank"
-          );
+            this.$store.dispatch("reports/GenerateExcel",{query: querystring , user})
+    
         } else {
           let querystring = queryStingParamsParser({
-            status: this.status,
+            status: this.filters.status,
             UserId: this.user.id,
             start: this.filters.start,
             end: this.filters.end
           });
-          window.open(
-            process.env.API_URL + "/generate/?" + querystring,
-            "_blank"
-          );
+            this.$store.dispatch("reports/GenerateExcel", {query: querystring , user})
+
         }
       } catch (error) {
         this.fireErrorAlert();
