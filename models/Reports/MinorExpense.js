@@ -6,6 +6,8 @@ export default class MinorExpense {
     this.comment = '';
     this.witnesses = '';
     this.status = 'Pendiente';
-    this.userId = null;
+    this.user = {
+      fullName:''
+    };
   }
 }

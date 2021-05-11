@@ -6,19 +6,18 @@
       v-if="$mq != 'sm'"
       class="flex justify-center items-center tablet:w-1/12 bg-hueso rounded-full"
     >
-      <img
+      <!-- <img
         v-if="minorExpense.imageUrl"
         class="rounded-full object-cover"
         :src="apiUrl + minorExpense.imageUrl"
         alt="foto de perfil"
-      />
-      <avatar
+      /> -->
+      <avatar v-if="minorExpense.user"
         :lighten="10"
         :size="80"
         color="grey"
         backgroundColor="ccc"
-        v-else
-        :username="user.fullName"
+        :username="minorExpense.user.fullName"
       ></avatar>
     </td>
     <td class="flex flex-col mt-2 tablet:px-3 w-1/2 tablet:w-auto">
@@ -70,11 +69,9 @@ export default {
   props: {
     minorExpense: {
       required: true,
-      type: Object,
     },
     edit: {
       required: true,
-      type: Boolean,
     },
   },
 };

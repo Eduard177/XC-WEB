@@ -115,7 +115,6 @@
 <script>
 import Alert from "../../../mixins/mixin-alert.js";
 import UserProfileInfo from "./UserProfileInfo";
-import User from "../../../models/User.js";
 
 export default {
   components: { UserProfileInfo },

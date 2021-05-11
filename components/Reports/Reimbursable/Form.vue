@@ -55,7 +55,7 @@
         <xc-input
           v-validate="'required|numeric|min:9|max:9'"
           :error="errors.first('RNC')"
-          v-model="rnc"
+          v-model="reimbursable.rnc"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="RNC"
           placeholder="131813755"
@@ -73,7 +73,7 @@
         <xc-input
           v-validate="'required|min:11|max:11|ncf'"
           :error="errors.first('NCF')"
-          v-model="ncf"
+          v-model="reimbursable.ncf"
           class="flex-col-reverse w-full mt-6 pr-6 mobile:w-1/2"
           label="NCF"
           placeholder="B010009098"
@@ -152,6 +152,7 @@ export default {
       isNcfValid: false,
       rnc: '',
       ncf: '',
+      user: this.$store.getters["auth/getLoggedUser"]
     };
   },
   created() {
@@ -163,8 +164,8 @@ export default {
       },
       { immediate: false }
     );
-
     this.reimbursable = Object.assign(this.report);
+    this.reimbursable.user = this.user.id;
   },
   computed: {
     total() {
@@ -214,17 +215,19 @@ export default {
       const validated = await this.$validator.validateAll();
       await this.rncNfcValid();
       if (validated && this.isRncValid && this.isNcfValid) {
-        const user =  await this.$store.getters["auth/getLoggedUser"];
-        this.reimbursable.userId = user.id;
+        await this.$store.getters["auth/getLoggedUser"];
         this.$emit("submit", this.reimbursable);
-      } else {
+      }else if(!this.isRncValid && !this.isNcfValid){
+       this.fireAlert("error", "Comprobantes invalidos", "top"); 
+      } 
+      else {
         this.fireAlert("warning", "Complete los campos requeridos", "top");
       }
     },
     async rncNfcValid(){
       try {
-        let rnc = this.rnc;
-        let ncf = this.ncf;
+        let rnc = this.reimbursable.rnc;
+        let ncf = this.reimbursable.ncf;
         let loader = this.$loading.show({});
 
           if (rnc.length === 9 && !this.isRncValid) {

@@ -75,10 +75,7 @@ export default {
       },
       currentPage: 1,
       minor_expense: new MinorExpense(),
-      minor_expenses: {
-        count: 0,
-        results: []
-      },
+      minor_expenses: {},
       show_modal: false
     };
   },

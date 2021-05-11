@@ -65,10 +65,7 @@ export default {
     return {
       currentPage: 1,
       reimbursable: {},
-      reimbursables: {
-        count: 0,
-        results: []
-      },
+      reimbursables: {},
       show_modal: false,
       filters: {
         status: "Pendiente",

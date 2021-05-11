@@ -44,6 +44,7 @@ export default {
       delete this.report.type;
       delete this.report.hasItbis;
       delete this.report.hasTip;
+      delete this.report.user;
   },
   data() {
     return {

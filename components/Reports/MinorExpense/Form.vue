@@ -89,7 +89,8 @@ export default {
   },
   data() {
     return {
-      minorExpense: new MinorExpense()
+      minorExpense: new MinorExpense(),
+      user: this.$store.getters["auth/getLoggedUser"]
     };
   },
   methods: {
@@ -98,7 +99,7 @@ export default {
 
       if (validated) {
         const user =  await this.$store.getters["auth/getLoggedUser"];
-        this.minorExpense.userId = user.id;
+        this.minorExpense.user = user.id;
         this.$emit("submit", this.minorExpense);
 
       } else {

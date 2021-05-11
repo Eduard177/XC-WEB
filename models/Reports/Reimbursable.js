@@ -11,9 +11,11 @@ export default class Reimbursable {
     this.itbis = "0";
     this.subTotal = "0";
     this.total = 0;
-    this.userId = null;
     this.type = '';
     this.hasTip = false;
     this.hasItbis = false;
+    this.user = {
+      fullName:''
+    };
   }
 }

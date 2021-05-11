@@ -33,8 +33,7 @@ export default {
   components: { MinorExpenseItem, ReimbursableItem },
   props: {
     reports: {
-      required: true,
-      type: Array
+      required: true
     },
     type: {
       required: true,
