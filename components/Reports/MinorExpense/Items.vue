@@ -60,12 +60,6 @@ export default {
     Avatar,
     Actions,
   },
-  data() {
-    return {
-      apiUrl: process.env.API_URL,
-      user: this.$store.getters["auth/getLoggedUser"]
-    };
-  },
   props: {
     minorExpense: {
       required: true,

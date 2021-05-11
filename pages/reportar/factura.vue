@@ -8,10 +8,10 @@
 
     <reports-table
       :reports="reimbursables"
-      :type="'reimbursables'"
+      :type="'reimbursable'"
       :edit="true"
-      @itemDetails="show_report_detail = true; reimbursable = $event;"
-      @itemEdit="show_report_edit = true; reimbursable = $event;"
+      @itemDetails="reimbursable = $event; show_report_detail = true;"
+      @itemEdit="reimbursable = $event; showEditReport = true;"
       @itemDelete="deleteReimbursable($event)"
     ></reports-table>
 
@@ -48,6 +48,7 @@
       <reimbursable-form
         @submit="createReimbursable($event)"
         :report="new_reimbursable"
+        submit="Crear"
         @close="show_create_report = false"
       >
         <template v-slot:header>
@@ -56,11 +57,12 @@
       </reimbursable-form>
     </card-modal>
 
-    <card-modal :showing="show_report_edit" @close="show_report_edit = false">
+    <card-modal :showing="showEditReport" @close="showEditReport = false">
       <reimbursable-form
+        :report="reimbursables"
+        @close="showEditReport = false"
+        :submit="'Editar'"
         @submit="editReimbursable($event)"
-        :report="reimbursable"
-        @close="show_report_edit = false"
       >
         <template v-slot:header>
           <h1 class="text-2xl">Editar Factura</h1>
@@ -82,6 +84,7 @@ import Pagination from "../../components/Pagination";
 import NoResults from "../../components/NoResults";
 
 export default {
+  name: "reimbursable",
   middleware: "authenticated",
   layout: "main",
   mixins: [Alert],
@@ -115,7 +118,7 @@ export default {
       new_reimbursable: new Reimbursable(),
       show_report_detail: false,
       show_create_report: false,
-      show_report_edit: false,
+      showEditReport: false,
       user: this.$store.getters["auth/getLoggedUser"]
     };
   },
@@ -190,16 +193,20 @@ export default {
     },
     async editReimbursable(reimbursable) {
       try {
-        this.loader = this.$loading.show({});
+        let loader = this.$loading.show({});
+        reimbursable.user = this.user.id
+        reimbursable.invoiceDate = new Date(reimbursable.invoiceDate)
+          .toISOString()
+          .split("T")[0];
 
         await this.$store.dispatch("reports/editReimbursable", reimbursable);
 
         await this.fetchReimbursablesByUser();
 
-        this.show_report_edit = false;
+        await this.hideLoading(loader);
 
-        await this.hideLoading(this.loader);
 
+        this.showEditReport = false;
         this.fireAlert(
           "success",
           "El reporte ha sido actualizado correctamente.",
@@ -207,7 +214,7 @@ export default {
         );
       } catch (error) {
         this.loader.hide();
-        this.show_report_edit = false;
+        this.showEditReport = false;
         this.fireErrorAlert();
       }
     },

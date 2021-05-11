@@ -12,7 +12,7 @@
         @itemDelete="$emit('itemDelete', $event)"
       ></minor-expense-item>
     </tbody>
-    <tbody v-if="type == 'reimbursables'">
+    <tbody v-if="type == 'reimbursable'">
       <reimbursable-item
         v-for="(reimbursable, index) in reports"
         :key="index"

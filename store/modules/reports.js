@@ -141,7 +141,7 @@ export default {
     async editReimbursable({}, reimbursable) {
       try {
         await this.$axios.put(
-          "/reimbursable/" + reimbursable.id + "/",
+          "reports/refundable/" + reimbursable.id + "/",
           reimbursable,
           headers
         );

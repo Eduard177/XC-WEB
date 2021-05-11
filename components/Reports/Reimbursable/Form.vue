@@ -219,8 +219,7 @@ export default {
         this.$emit("submit", this.reimbursable);
       }else if(!this.isRncValid && !this.isNcfValid){
        this.fireAlert("error", "Comprobantes invalidos", "top"); 
-      } 
-      else {
+      }else {
         this.fireAlert("warning", "Complete los campos requeridos", "top");
       }
     },

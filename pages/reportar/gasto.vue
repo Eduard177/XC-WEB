@@ -37,7 +37,7 @@
     <card-modal :showing="showCreateReport" @close="showCreateReport = false">
       <minor-expense-form
         :report="newMinorExpense"
-        subtmit="Crear"
+        submit="Crear"
         @close="showCreateReport = false"
         @submit="create($event)"
       >
