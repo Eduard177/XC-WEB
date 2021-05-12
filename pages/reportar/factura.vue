@@ -135,8 +135,8 @@ export default {
         this.loader = this.$loading.show({});
 
         await this.$store.dispatch("reports/paginateReimbursables", {
-          page: page,
-          user_id: this.user.id
+          userId: this.user.id,
+          page: page
         });
 
         const reimbursables = await this.$store.getters[
@@ -248,7 +248,7 @@ export default {
       try {
         this.loader = this.$loading.show({});
 
-        filters.user_id = this.user.id;
+        filters.userId = this.user.id;
         this.filters = filters;
         await this.fetchReimbursablesByUser();
 
