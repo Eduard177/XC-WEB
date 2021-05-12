@@ -9,7 +9,7 @@
 
       <reports-table
         :reports="reimbursables"
-        :type="'reimbursables'"
+        :type="'reimbursable'"
         :edit="false"
         @itemDetails="reimbursable =  $event; show_modal = true"
       ></reports-table>
@@ -104,7 +104,6 @@ export default {
 
         await this.$store.dispatch("reports/paginateReimbursables", {
           page: page,
-          user_id: this.user.id
         });
 
         const reimbursables = await this.$store.getters[
@@ -116,6 +115,7 @@ export default {
         await this.hideLoading(this.loader);
       } catch (error) {
         this.fireErrorAlert();
+        this.hideLoading(this.loader);
       }
     },
     async changeRefundableStatus($event) {
