@@ -246,8 +246,25 @@ export default {
           "reports/excelfile/?" + payload.query , payload.user
         );
       }catch(error){
+        console.error(error);
         throw error
       }
-    }
+    },
+    async ExportExcel({}, payload){
+      try{
+        const resp = await this.$axios.post(
+          "reports/download", payload.user
+        )
+          const url = URL.createObjectURL(new Blob([resp.data],{type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+          const link = document.createElement("a");
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();      
+      }catch(error){
+        console.error(error);
+        throw error
+      }
+    },
+
   },
 };

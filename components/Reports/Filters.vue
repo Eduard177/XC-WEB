@@ -95,7 +95,7 @@ export default {
     }
   },
   methods: {
-    GenerateExcel() {
+    async GenerateExcel() {
       try {
         let user = this.user
         if (user.isAdmin) {
@@ -104,7 +104,10 @@ export default {
             start: this.filters.start,
             end: this.filters.end
           });
-            this.$store.dispatch("reports/GenerateExcel",{query: querystring , user})
+            this.loader = this.$loading.show({});
+            await this.$store.dispatch("reports/GenerateExcel",{query: querystring , user})
+            await this.hideLoading(this.loader);
+            await this.ExportExcel(user);
     
         } else {
           let querystring = queryStingParamsParser({
@@ -113,13 +116,23 @@ export default {
             start: this.filters.start,
             end: this.filters.end
           });
-            this.$store.dispatch("reports/GenerateExcel", {query: querystring , user})
-
+            this.loader = this.$loading.show({});
+            await this.$store.dispatch("reports/GenerateExcel", {query: querystring , user})
+            await this.ExportExcel(user);
+            await this.hideLoading(this.loader);
         }
       } catch (error) {
         this.fireErrorAlert();
       }
-    }
+    },
+    async ExportExcel(user){
+      try{
+         await this.$store.dispatch("reports/ExportExcel",{user})
+      }catch(error){
+        throw error
+      }
+    },
+
   }
 };
 </script>
