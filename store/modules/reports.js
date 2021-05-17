@@ -68,10 +68,9 @@ export default {
     },
     async editMinorExpense({}, minorExpense) {
       try {
-        await this.$axios.put(
+        await this.$axios.patch(
           "reports/minor/" + minorExpense.id + "/",
-          minorExpense,
-          headers
+          minorExpense
         );
       } catch (error) {
         throw error;
@@ -140,10 +139,9 @@ export default {
     },
     async editReimbursable({}, reimbursable) {
       try {
-        await this.$axios.put(
+        await this.$axios.patch(
           "reports/refundable/" + reimbursable.id + "/",
-          reimbursable,
-          headers
+          reimbursable
         );
       } catch (error) {
         throw error;

@@ -3,7 +3,7 @@
     <section>
       <h1 class="text-xl">Mis Gastos Menores</h1>
 
-      <reports-filter @onFiltersChange="applyFilters($event)" @toExcel="ExportExcel($event)"></reports-filter>
+      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
       <no-results :items="minorExpenses"></no-results>
 
@@ -132,13 +132,6 @@ export default {
     this.hideLoading(loader);
   },
   methods: {
-    async ExportExcel(filters) {
-      try {
-        await this.$store.dispatch("reports/GenerateExcel", filters);
-      } catch (error) {
-        this.fireErrorAlert();
-      }
-    },
     async fetchMinorExpensesByUser() {
       try {
           await this.$store.dispatch(
@@ -146,11 +139,9 @@ export default {
           this.filters
         );
 
-        const minorExpense = await this.$store.getters[
+        this.minorExpenses = await this.$store.getters[
           "reports/getMinorExpenses"
         ];
-
-        this.minorExpenses = minorExpense
       } catch (error) {
         this.fireErrorAlert();
       }
@@ -187,7 +178,6 @@ export default {
         await this.$store.dispatch("reports/createMinorExpense", minorExpense);
 
         await this.fetchMinorExpensesByUser();
-
         await this.hideLoading(loader);
 
         this.showCreateReport = false;
@@ -205,12 +195,11 @@ export default {
     async edit(minorExpense) {
       try {
         let loader = this.$loading.show({});
-
-        minorExpense.user = this.user.id;
+        
         minorExpense.invoiceDate = new Date(minorExpense.invoiceDate)
           .toISOString()
           .split("T")[0];
-
+        delete minorExpense.user
         await this.$store.dispatch("reports/editMinorExpense", minorExpense);
 
         await this.fetchMinorExpensesByUser();
@@ -224,6 +213,8 @@ export default {
           "top"
         );
       } catch (error) {
+        this.loader.hide();
+        this.showEditReport = false;
         this.fireErrorAlert();
       }
     },

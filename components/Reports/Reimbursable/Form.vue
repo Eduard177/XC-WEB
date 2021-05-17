@@ -112,7 +112,7 @@
 
         <div class="flex items-center justify-around w-full">
           <button @click="$emit('close')" class="btn bg-grad-gold/orange w-1/3 mt-12">Cancelar</button>
-          <button @click="submitEvent()" class="btn bg-grad-green/orange w-1/3 mt-12 h-12">Reportar</button>
+          <button @click="submitEvent()" class="btn bg-grad-green/orange w-1/3 mt-12 h-12">{{submit}}</button>
         </div>
       </div>
     </section>
@@ -165,7 +165,6 @@ export default {
       { immediate: false }
     );
     this.reimbursable = Object.assign(this.report);
-    this.reimbursable.user = this.user.id;
   },
   computed: {
     total() {

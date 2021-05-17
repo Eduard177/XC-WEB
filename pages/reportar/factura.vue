@@ -48,7 +48,7 @@
       <reimbursable-form
         @submit="createReimbursable($event)"
         :report="new_reimbursable"
-        submit="Crear"
+        :submit="'Crear'"
         @close="show_create_report = false"
       >
         <template v-slot:header>
@@ -59,7 +59,7 @@
 
     <card-modal :showing="showEditReport" @close="showEditReport = false">
       <reimbursable-form
-        :report="reimbursables"
+        :report="reimbursable"
         @close="showEditReport = false"
         :submit="'Editar'"
         @submit="editReimbursable($event)"
@@ -110,10 +110,7 @@ export default {
           .format("YYYY-MM-DD")
       },
       currentPage: 1,
-      reimbursables: {
-        results: [],
-        count: 0
-      },
+      reimbursables: {},
       reimbursable: new Reimbursable(),
       new_reimbursable: new Reimbursable(),
       show_report_detail: false,
@@ -171,6 +168,9 @@ export default {
         this.loader = this.$loading.show({});
 
         reimbursable.user = this.user.id;
+        reimbursable.invoiceDate = new Date(minorExpense.invoiceDate)
+          .toISOString()
+          .split("T")[0];
 
         await this.$store.dispatch("reports/createReimbursable", reimbursable);
 
@@ -194,11 +194,11 @@ export default {
     async editReimbursable(reimbursable) {
       try {
         let loader = this.$loading.show({});
-        reimbursable.user = this.user.id
+        
         reimbursable.invoiceDate = new Date(reimbursable.invoiceDate)
           .toISOString()
           .split("T")[0];
-
+        delete reimbursable.user
         await this.$store.dispatch("reports/editReimbursable", reimbursable);
 
         await this.fetchReimbursablesByUser();
