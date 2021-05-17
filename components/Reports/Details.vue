@@ -55,7 +55,7 @@ export default {
         ncf: "NCF",
         invoiceDate: "Fecha",
         details: "Detalles",
-        bussinessType: "Tipo de comercio",
+        businessType: "Tipo de comercio",
         provider: "Proveedor",
         paymentMethod: "Metodo de pago",
         tip: "Propina",
