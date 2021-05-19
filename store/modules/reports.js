@@ -215,7 +215,7 @@ export default {
     async UpdateStatusReportRefundable({}, payload){
       try {
          await this.$axios.patch(
-          "reports/refundable/" + payload.reportId,
+          "reports/refundable/status/" + payload.reportId,
           {
            status: payload.status
           } 
@@ -228,7 +228,7 @@ export default {
     async UpdateStatusReportMinorExpenses({}, payload){
       try {
          await this.$axios.patch(
-          "reports/minor/" + payload.reportId,
+          "reports/minor/status/" + payload.reportId,
           {
            status: payload.status
           } 
