@@ -7,7 +7,14 @@
 
       <no-results :items="minorExpenses"></no-results>
 
-      <reports-table
+      <reports-table v-if="filters.status == 'Aprobado'"
+        :reports="minorExpenses"
+        :type="'minorExpense'"
+        :edit="false"
+        @itemDetails="minorExpense =  $event; show_report_detail = true"
+      ></reports-table>
+
+      <reports-table v-else
         :reports="minorExpenses"
         :type="'minorExpense'"
         :edit="true"

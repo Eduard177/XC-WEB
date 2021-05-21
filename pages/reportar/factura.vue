@@ -5,8 +5,15 @@
     <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
 
     <no-results :items="reimbursables"></no-results>
+    
+    <reports-table v-if="filters.status == 'Aprobado'"
+      :reports="reimbursables"
+      :type="'reimbursable'"
+      :edit="false"
+      @itemDetails="reimbursable = $event; show_report_detail = true;"
+    ></reports-table>
 
-    <reports-table
+    <reports-table v-else
       :reports="reimbursables"
       :type="'reimbursable'"
       :edit="true"
