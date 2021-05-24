@@ -3,7 +3,7 @@
     <section>
       <h2 class="text-xl">Gastos Menores Generales</h2>
 
-      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
+      <reports-filter :type="'admin'" @onFiltersChange="applyFilters($event)"></reports-filter>
 
       <no-results :items="minor_expenses"></no-results>
 

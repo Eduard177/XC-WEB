@@ -238,6 +238,16 @@ export default {
         throw error
       }
     },
+    async GenerateExcelAdmin({},payload){
+      try{
+        await this.$axios.post(
+          "reports/excelfile/admin/?" + payload.query , payload.user
+        );
+      }catch(error){
+        console.error(error);
+        throw error
+      }
+    },
     async GenerateExcel({},payload){
       try{
         await this.$axios.post(

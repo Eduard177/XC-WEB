@@ -2,7 +2,7 @@
   <div>
     <h1 class="text-xl">Mis Facturas</h1>
 
-    <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
+    <reports-filter :type="'No Admin'" @onFiltersChange="applyFilters($event)"></reports-filter>
 
     <no-results :items="reimbursables"></no-results>
     

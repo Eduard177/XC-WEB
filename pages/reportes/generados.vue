@@ -3,7 +3,7 @@
     <section>
       <h2 class="text-xl">Facturas Generales</h2>
 
-      <reports-filter @onFiltersChange="applyFilters($event)"></reports-filter>
+      <reports-filter :type="'admin'" @onFiltersChange="applyFilters($event)" ></reports-filter>
 
       <no-results :items="reimbursables"></no-results>
 
