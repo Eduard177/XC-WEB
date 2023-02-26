@@ -177,7 +177,7 @@ export default {
       try {
         let loader = this.$loading.show({});
 
-        minorExpense.user = this.user.id;
+        minorExpense.userId = this.user.id;
         minorExpense.invoiceDate = new Date(minorExpense.invoiceDate)
           .toISOString()
           .split("T")[0];
