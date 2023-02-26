@@ -174,8 +174,8 @@ export default {
       try {
         this.loader = this.$loading.show({});
 
-        reimbursable.user = this.user.id;
-        reimbursable.invoiceDate = new Date(minorExpense.invoiceDate)
+        reimbursable.userId = this.user.id;
+        reimbursable.invoiceDate = new Date(reimbursable.invoiceDate)
           .toISOString()
           .split("T")[0];
 

@@ -72,8 +72,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: "http://localhost:7000/api/",
-    browserBaseURL: "http://localhost:7000/api/"
+    baseURL: " http://10.0.0.190:8000/api",
+    browserBaseURL: " http://10.0.0.190:8000/api"
   },
 
   /*
@@ -89,5 +89,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  server: {
+    host: "0.0.0.0",
+    port: 9000
   }
 };

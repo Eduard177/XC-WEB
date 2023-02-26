@@ -132,6 +132,7 @@ export default {
     },
     async createReimbursable({}, reimbursable) {
       try {
+        debugger
         await this.$axios.post("reports/refundable/", reimbursable, headers);
       } catch (error) {
         throw error;
@@ -183,7 +184,7 @@ export default {
     },
     async ValidateRNC({}, rnc) {
       try {
-        await this.$axios.post("http://localhost:2000/api/rnc", {rnc});
+        await this.$axios.post("http://10.0.0.231:2000/api/rnc", {rnc});
         return true;
       } catch (error) {
         return false;
@@ -195,7 +196,7 @@ export default {
           rnc: payload.rnc,
           ncf: payload.ncf,
         };
-        await this.$axios.post("http://localhost:2000/api/ncf", ncfPayload);
+        await this.$axios.post("http://10.0.0.231:2000/api/ncf", ncfPayload);
         return true;
       } catch (error) {
         return false;

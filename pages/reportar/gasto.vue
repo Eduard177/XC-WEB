@@ -158,7 +158,7 @@ export default {
         this.loader = this.$loading.show({});
 
         await this.$store.dispatch("reports/paginateMinorExpenses", {
-          user_id: this.user.id,
+          userId: this.user.id,
           page: page
         });
 
