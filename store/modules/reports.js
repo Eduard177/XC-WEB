@@ -241,8 +241,8 @@ export default {
     },
     async GenerateExcelAdmin({},payload){
       try{
-        await this.$axios.post(
-          "reports/excelfile/admin/?" + payload.query , payload.user
+        await this.$axios.get(
+          "/excel/generate/?" + payload.query 
         );
       }catch(error){
         console.error(error);
@@ -251,8 +251,8 @@ export default {
     },
     async GenerateExcel({},payload){
       try{
-        await this.$axios.post(
-          "reports/excelfile/?" + payload.query , payload.user
+        await this.$axios.get(
+          "/excel/generate/?" + payload.query
         );
       }catch(error){
         console.error(error);
@@ -261,8 +261,8 @@ export default {
     },
     async ExportExcel({}, payload){
       try{
-        const resp = await this.$axios.post(
-          "reports/download", payload.user
+        const resp = await this.$axios.get(
+          "excel/download?" + payload.query
         )
           const url = URL.createObjectURL(new Blob([resp.data],{type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
           const link = document.createElement("a");

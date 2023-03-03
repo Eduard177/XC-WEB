@@ -135,13 +135,14 @@ export default {
         let user = this.user;
         if (user.isAdmin) {
           let querystring = queryStingParamsParser({
+            userId: user.id,
             status: this.filters.status,
             start: this.filters.start,
             end: this.filters.end
           });
             this.loader = this.$loading.show({});
-            await this.$store.dispatch("reports/GenerateExcelAdmin",{query: querystring , user})
-            await this.ExportExcel(user);
+            await this.$store.dispatch("reports/GenerateExcelAdmin",{query: querystring})
+            await this.ExportExcel(user, querystring);
             await this.hideLoading(this.loader);
         }
       } catch (error) {
@@ -150,25 +151,24 @@ export default {
     },
     async GenerateExcel() {
       try {
-          let user = this.user
           let querystring = queryStingParamsParser({
             status: this.filters.status,
-            UserId: this.user.id,
+            userId: this.user.id,
             start: this.filters.start,
             end: this.filters.end
           });
             this.loader = this.$loading.show({});
-            await this.$store.dispatch("reports/GenerateExcel", {query: querystring , user})
-            await this.ExportExcel(user);
+            await this.$store.dispatch("reports/GenerateExcel", {query: querystring})
+            await this.ExportExcel(querystring);
             await this.hideLoading(this.loader);
       } catch (error) {
         this.fireErrorAlert();
       }
     },
     
-    async ExportExcel(user){
+    async ExportExcel(querystring){
       try{
-         await this.$store.dispatch("reports/ExportExcel",{user})
+         await this.$store.dispatch("reports/ExportExcel",{query: querystring})
       }catch(error){
         throw error
       }
