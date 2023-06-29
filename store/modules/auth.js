@@ -21,6 +21,7 @@ export default {
   mutations: {
     setUser(state, userData) {
       state.user = userData;
+      state.user.isAdmin = state.user.role === 'Administrator';
       state.is_login = true;
     },
     logout(state) {

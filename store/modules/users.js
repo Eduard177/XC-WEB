@@ -45,7 +45,7 @@ export default {
             fullName: user.fullName,
             email: user.email,
             office: user.office,
-            companyCode: user.company_code,
+            companyCode: user.companyCode,
             isAdmin: user.isAdmin,
             position: user.position,
             role: user.role,
@@ -63,12 +63,11 @@ export default {
         await this.$axios.post(
           "/auth/register",
           {
-            admissionDate: user.admission_date,
             fullName: user.fullName,
             email: user.email,
             password: user.password,
             office: user.office,
-            companyCode: user.company_code,
+            companyCode: user.companyCode,
             position: user.position,
             role: user.role,
             cellphone: user.cellphone,

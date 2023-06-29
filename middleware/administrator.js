@@ -5,7 +5,7 @@ export default function({ store, redirect }) {
   }
 
   const user = store.getters['auth/getLoggedUser'];
-  if (!user.isAdmin) {
+  if (user.role !== 'Administrator') {
     return redirect('/unauthorized');
   }
 }

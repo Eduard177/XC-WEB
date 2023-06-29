@@ -1,7 +1,7 @@
 export default class User {
   constructor() {
     this.fullName = "";
-    this.company_code = "";
+    this.companyCode = "";
     this.office = "";
     this.email = "";
   }

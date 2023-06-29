@@ -21,7 +21,7 @@
     "dayjs": "^1.8.15",
     "js-cookie": "^2.2.0",
     "nuxt": "^2.14.12",
-    "nuxt-mq": "^2.0.0",
+    "nuxt-mq": "^3.0.0",
     "nuxt-validate": "^1.0.1",
     "vue-avatar": "^2.1.7",
     "vue-loading-overlay": "^3.2.0",

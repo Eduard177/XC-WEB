@@ -8,6 +8,7 @@
       class="bg-transparent border-solid border-b border-black outline-none"
       :placeholder="placeholder"
       :type="type"
+      min="0"
     >
 
     <div class="flex justify-between">

@@ -14,14 +14,14 @@
 
     <div class="flex flex-col items-center tablet:flex-row mt-8">
       <div class="flex flex-wrap">
-        <xc-input-date
-          v-validate="'required'"
-          data-vv-as="Fecha de ingreso"
-          :error="errors.first('Fecha de ingreso')"
-          v-model="result_user.admissionDate"
-          class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"
-          label="Fecha de ingreso"
-        ></xc-input-date>
+<!--        <xc-input-date-->
+<!--          v-validate="'required'"-->
+<!--          data-vv-as="Fecha de ingreso"-->
+<!--          :error="errors.first('Fecha de ingreso')"-->
+<!--          v-model="result_user.admissionDate"-->
+<!--          class="w-full tablet:w-1/2 tablet:w-1/2 my-3 pr-6"-->
+<!--          label="Fecha de ingreso"-->
+<!--        ></xc-input-date>-->
 
         <xc-input-select
           v-validate="'required'"
