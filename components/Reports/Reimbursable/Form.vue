@@ -42,7 +42,7 @@
         ></xc-input-date>
 
         <xc-input
-          v-validate="'required|numeric'"
+          v-validate="'required|decimal:2'"
           :error="errors.first('Subtotal')"
           @change="itbis(); tip();"
           v-model="reimbursable.subTotal"
@@ -125,7 +125,7 @@ import XcInputDate from "../../../components/Forms/Date";
 import XcInputSelect from "../../../components/Forms/Select";
 import Reimbursable from "../../../models/Reports/Reimbursable";
 
-import { Validator } from "vee-validate";
+import {Validator} from "vee-validate";
 
 export default {
   name: "reimbursable-form",
@@ -160,7 +160,7 @@ export default {
       "ncf",
       {
         getMessage: field => "El " + field + " debe iniciar con B01",
-        validate: async value => value.slice(0, 3) == "B01"
+        validate: async value => value.slice(0, 3) === "B01"
       },
       { immediate: false }
     );
@@ -201,13 +201,11 @@ export default {
   methods: {
     async fetchBusinessTypes() {
       await this.$store.dispatch("businessTypes/fetch");
-      const businessTypes = await this.$store.getters["businessTypes/get"];
-      this.businessTypes = businessTypes;
+      this.businessTypes = await this.$store.getters["businessTypes/get"];
     },
     async fetchPaymentMethods() {
       await this.$store.dispatch("paymentMethods/fetch");
-      const paymentMethods = await this.$store.getters["paymentMethods/get"];
-      this.paymentMethods = paymentMethods;
+      this.paymentMethods = await this.$store.getters["paymentMethods/get"];
     },
 
     async submitEvent() {
@@ -230,8 +228,9 @@ export default {
 
           if (rnc.length === 9 && !this.isRncValid) {
             this.isRncValid = await this.$store.dispatch(
-              "reports/ValidateRNC",
-              rnc
+              "reports/ValidateRNC", {
+                  rnc
+                }
             );
           }
           if (ncf.length === 11 && rnc.length === 9) {
@@ -247,7 +246,7 @@ export default {
       } 
       catch(error){
         throw error
-      };
+      }
     }
   },
 };
