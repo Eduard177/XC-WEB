@@ -40,7 +40,7 @@
         ></xc-input>
 
         <xc-input
-          v-validate="'required|numeric'"
+          v-validate="'required|decimal:2'"
           :error="errors.first('Monto')"
           v-model="minorExpense.total"
           class="flex-col-reverse w-full mt-8 table:mt-4 tablet:w-1/2 tablet:pr-8"
