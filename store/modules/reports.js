@@ -1,5 +1,5 @@
 import cookies from "js-cookie";
-import { queryStingParamsParser } from "../../utils/Helpers";
+import { queryStingParamsParser } from "@/utils/Helpers";
 
 const headers = {
   headers: {
@@ -242,7 +242,7 @@ export default {
     async GenerateExcelAdmin({},payload){
       try{
         await this.$axios.get(
-          "/excel/generate/?" + payload.query 
+          "/excel/generate/?" + payload.query
         );
       }catch(error){
         console.error(error);
@@ -262,13 +262,17 @@ export default {
     async ExportExcel({}, payload){
       try{
         const resp = await this.$axios.get(
-          "excel/download?" + payload.query
+          "excel/download?" + payload.query,
+            {responseType: 'blob'}
         )
-          const url = URL.createObjectURL(new Blob([resp.data],{type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+          const url = URL.createObjectURL(new Blob([resp.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
           const link = document.createElement("a");
           link.href = url;
+          link.setAttribute('download', `Reporte-606-${Date.now()}.xlsx`);
           document.body.appendChild(link);
-          link.click();      
+          link.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
       }catch(error){
         console.error(error);
         throw error
