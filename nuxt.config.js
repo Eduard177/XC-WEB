@@ -72,8 +72,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: " http://localhost:7001/api",
-    browserBaseURL: " http://localhost:7001/api"
+    baseURL: "https://xc-api-52uy.onrender.com/api",
+    browserBaseURL: "https://xc-api-52uy.onrender.com/api"
   },
 
   /*

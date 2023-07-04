@@ -186,7 +186,7 @@ export default {
         let rncPayload = {
           rnc: payload.rnc
         }
-        await this.$axios.get("http://localhost:2001/api/rnc", {params: rncPayload});
+        await this.$axios.get("https://tax-recipt-validator.onrender.com/api/rnc", {params: rncPayload});
         return true;
       } catch (error) {
         return false;
@@ -198,7 +198,7 @@ export default {
           rnc: payload.rnc,
           ncf: payload.ncf,
         };
-        await this.$axios.get("http://localhost:2001/api/ncf", {params: ncfPayload});
+        await this.$axios.get("https://tax-recipt-validator.onrender.com/api/ncf", {params: ncfPayload});
         return true;
       } catch (error) {
         return false;
