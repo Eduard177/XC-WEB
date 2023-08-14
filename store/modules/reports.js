@@ -43,11 +43,12 @@ export default {
           userId: filters.user_id,
           start: filters.start,
           end: filters.end,
-          status: filters.status
+          status: filters.status,
         });
 
         const response = await this.$axios.get(
-          "reports/minor/?" + queryString, headers
+          "reports/minor/?" + queryString,
+          headers
         );
 
         commit("setMinorExpenses", response.data);
@@ -90,9 +91,7 @@ export default {
     async paginateMinorExpenses({ commit }, params) {
       try {
         const queryString = queryStingParamsParser(params);
-        const response = await this.$axios.get(
-          "reports/minor/?" + queryString
-        );
+        const response = await this.$axios.get("reports/minor/?" + queryString);
         commit("setMinorExpenses", response.data);
       } catch (error) {
         throw error;
@@ -105,9 +104,7 @@ export default {
         end: filters.end,
       });
 
-      const response = await this.$axios.get(
-        "/reports/minor/?" + queryString
-      );
+      const response = await this.$axios.get("/reports/minor/?" + queryString);
 
       await commit("setMinorExpenses", response.data);
     },
@@ -132,7 +129,6 @@ export default {
     },
     async createReimbursable({}, reimbursable) {
       try {
-        debugger
         await this.$axios.post("reports/refundable/", reimbursable, headers);
       } catch (error) {
         throw error;
@@ -150,11 +146,14 @@ export default {
     },
     async deleteReimbursable({}, reimbursable) {
       try {
-        await this.$axios.delete("reports/refundable/" + reimbursable.id + "/", {
-          headers: {
-            Authorization: cookies.get("Authorization"),
-          },
-        });
+        await this.$axios.delete(
+          "reports/refundable/" + reimbursable.id + "/",
+          {
+            headers: {
+              Authorization: cookies.get("Authorization"),
+            },
+          }
+        );
       } catch (error) {
         throw error;
       }
@@ -162,7 +161,9 @@ export default {
     async paginateReimbursables({ commit }, params) {
       try {
         const queryString = queryStingParamsParser(params);
-        const response = await this.$axios.get("reports/refundable/?" + queryString);
+        const response = await this.$axios.get(
+          "reports/refundable/?" + queryString
+        );
         commit("setReimbursables", response.data);
       } catch (error) {
         throw error;
@@ -184,7 +185,9 @@ export default {
     },
     async ValidateRNC({}, rnc) {
       try {
-        await this.$axios.post("http://10.0.0.231:2000/api/rnc", {rnc});
+        await this.$axios.get(
+          `https://tax-recipt-validator.onrender.com/api/rnc?rnc=${rnc}`
+        );
         return true;
       } catch (error) {
         return false;
@@ -192,11 +195,13 @@ export default {
     },
     async ValidateNCF({}, payload) {
       try {
-        let ncfPayload = {
+        let ncfPayload = queryStingParamsParser({
           rnc: payload.rnc,
           ncf: payload.ncf,
-        };
-        await this.$axios.post("http://10.0.0.231:2000/api/ncf", ncfPayload);
+        });
+        await this.$axios.get(
+          "https://tax-recipt-validator.onrender.com/api/ncf?" + ncfPayload
+        );
         return true;
       } catch (error) {
         return false;
@@ -213,71 +218,64 @@ export default {
         throw error;
       }
     },
-    async UpdateStatusReportRefundable({}, payload){
+    async UpdateStatusReportRefundable({}, payload) {
       try {
-         await this.$axios.patch(
+        await this.$axios.patch(
           "reports/refundable/status/" + payload.reportId,
           {
-           status: payload.status
-          } 
-          
-        )
+            status: payload.status,
+          }
+        );
       } catch (error) {
-        throw error
+        throw error;
       }
     },
-    async UpdateStatusReportMinorExpenses({}, payload){
+    async UpdateStatusReportMinorExpenses({}, payload) {
       try {
-         await this.$axios.patch(
-          "reports/minor/status/" + payload.reportId,
-          {
-           status: payload.status
-          } 
-          
-        )
+        await this.$axios.patch("reports/minor/status/" + payload.reportId, {
+          status: payload.status,
+        });
       } catch (error) {
-        throw error
+        throw error;
       }
     },
-    async GenerateExcelAdmin({},payload){
-      try{
-        await this.$axios.get(
-          "/excel/generate/?" + payload.query
+    async GenerateExcelAdmin({}, payload) {
+      try {
+        await this.$axios.get("/excel/generate/?" + payload.query);
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    async GenerateExcel({}, payload) {
+      try {
+        await this.$axios.get("/excel/generate/?" + payload.query);
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    async ExportExcel({}, payload) {
+      try {
+        const resp = await this.$axios.get("excel/download?" + payload.query, {
+          responseType: "blob",
+        });
+        const url = URL.createObjectURL(
+          new Blob([resp.data], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          })
         );
-      }catch(error){
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `Reporte-606-${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      } catch (error) {
         console.error(error);
-        throw error
+        throw error;
       }
     },
-    async GenerateExcel({},payload){
-      try{
-        await this.$axios.get(
-          "/excel/generate/?" + payload.query
-        );
-      }catch(error){
-        console.error(error);
-        throw error
-      }
-    },
-    async ExportExcel({}, payload){
-      try{
-        const resp = await this.$axios.get(
-          "excel/download?" + payload.query,
-            {responseType: 'blob'}
-        )
-          const url = URL.createObjectURL(new Blob([resp.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute('download', `Reporte-606-${Date.now()}.xlsx`);
-          document.body.appendChild(link);
-          link.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(link);
-      }catch(error){
-        console.error(error);
-        throw error
-      }
-    },
-
   },
 };
