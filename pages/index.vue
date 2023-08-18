@@ -13,7 +13,7 @@
         </figure>
 
         <figure
-          v-if="report_count.total == report_count.approved"
+          v-if="report_count.total === report_count.approved"
           class="flex flex-col justify-center items-center shadow-xl h-56 w-full bg-grad-green/blue rounded-br-xl mt-8 tablet:mt-0 tablet:w-2/5 tablet:ml-16"
         >
           <svg width="75.838" height="75.838" viewBox="0 0 75.838 75.838">
@@ -67,7 +67,7 @@ export default {
   async created() {
     this.loader = this.$loading.show({});
 
-    this.fetchReportsCounts();
+    await this.fetchReportsCounts();
 
     this.hideLoading(this.loader);
   },
