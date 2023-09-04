@@ -2,7 +2,7 @@
   "name": "xc-reports",
   "version": "1.0.0",
   "engines": {
-    "node": "^14"
+    "node": "14.21.3"
   },
   "description": "Sistema de reportes de gastos",
   "author": "Oscar Lopez",
